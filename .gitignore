@@ -2,6 +2,7 @@
 *.iml
 .gradle
 /local.properties
+/secrets.properties
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
@@ -77,6 +78,7 @@ obj/
 *.iml
 *.iws
 /out/
+.idea
 .idea/caches/
 .idea/libraries/
 .idea/shelf/
