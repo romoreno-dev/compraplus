@@ -1,0 +1,70 @@
+[versions]
+agp = "8.7.1"
+kotlin = "1.9.24"
+coreKtx = "1.10.1"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
+material = "1.10.0"
+activity = "1.8.0"
+constraintlayout = "2.1.4"
+daggerVersion = "2.52"
+retrofitVersion = "2.11.0"
+loggingHttpVersion = "4.12.0"
+navigationVersion = "2.7.1"
+roomVersion = "2.6.1"
+googleMapsVersion = "19.0.0"
+googleMapsLocationVersion = "21.3.0"
+mapsSecretsVersion = "2.0.1"
+glideVersion = "4.16.0"
+splashVersion = "1.0.1"
+swipeRefreshLayoutVersion = "1.1.0"
+runnerJUnitVersion = "3.4.2"
+mockkVersion = "1.12.3"
+firebaseBomVersion = "33.1.1"
+googleServicesVersion = "4.4.2"
+
+[libraries]
+# Buscarlas en Maven Central Repository (https://central.sonatype.com/)
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerVersion" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "daggerVersion" }
+retrofit2-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
+retrofit2-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingHttpVersion" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationVersion" }
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationVersion" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
+google-maps= { group = "com.google.android.gms", name = "play-services-maps", version.ref = "googleMapsVersion" }
+google-location= { group = "com.google.android.gms", name = "play-services-location", version.ref = "googleMapsLocationVersion" }
+maps-secrets = { group = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", name = "secrets-gradle-plugin", version.ref = "mapsSecretsVersion" }
+bumptech-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashVersion" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swipeRefreshLayoutVersion" }
+runner-junit = { group = "io.kotlintest", name = "kotlintest-runner-junit5", version.ref = "runnerJUnitVersion" }
+io-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockkVersion" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBomVersion"}
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+firebase-realtime = { group = "com.google.firebase", name = "firebase-database-ktx" }
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "kotlin-kapt" }
+hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "daggerVersion" }
+navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigationVersion"}
+secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin" , version.ref = "mapsSecretsVersion" }
+google-service = { id = "com.google.gms.google-services", version.ref = "googleServicesVersion" }
