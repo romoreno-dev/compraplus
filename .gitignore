@@ -115,3 +115,6 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
+
+## .gitignore
+google-services.json

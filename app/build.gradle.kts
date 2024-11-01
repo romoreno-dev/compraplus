@@ -5,7 +5,8 @@ plugins {
     alias(libs.plugins.hilt.plugin)
     alias(libs.plugins.navigation.safeargs)
     alias(libs.plugins.secrets.plugin)
-//    alias(libs.plugins.google.service)
+    alias(libs.plugins.google.service)
+    alias(libs.plugins.crashlytics)
 }
 
 android {
@@ -98,6 +99,8 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.realtime)
+    implementation ("com.google.android.gms:play-services-auth:20.5.0")
+    implementation ("com.google.android.gms:play-services-auth-api-phone")
 
     // Unit Tests
     testImplementation(libs.junit)

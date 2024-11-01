@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias (libs.plugins.hilt.plugin) apply false
     alias(libs.plugins.secrets.plugin) apply false
+    alias(libs.plugins.google.service) apply false
+    alias(libs.plugins.crashlytics) apply false
 }
 
 buildscript {
