@@ -1,4 +1,4 @@
-package com.romoreno.compraplus.data.client.response
+package com.romoreno.compraplus.data.network.pojo.response
 
 import com.google.gson.annotations.SerializedName
 
