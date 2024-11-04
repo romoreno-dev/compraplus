@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_graph"
+    app:startDestination="@id/groceryListFragment">
+
+    <fragment
+        android:id="@+id/groceryListFragment"
+        android:name="com.romoreno.compraplus.ui.main.grocery_list.GroceryListFragment"
+        android:label="fragment_grocery_list"
+        tools:layout="@layout/fragment_grocery_list" />
+    <fragment
+        android:id="@+id/productComparatorFragment"
+        android:name="com.romoreno.compraplus.ui.main.product_comparator.ProductComparatorFragment"
+        android:label="fragment_product_comparator"
+        tools:layout="@layout/fragment_product_comparator" />
+    <fragment
+        android:id="@+id/supermarketLocatorFragment"
+        android:name="com.romoreno.compraplus.ui.main.supermarket_locator.SupermarketLocatorFragment"
+        android:label="fragment_supermarket_locator"
+        tools:layout="@layout/fragment_supermarket_locator" />
+</navigation>
