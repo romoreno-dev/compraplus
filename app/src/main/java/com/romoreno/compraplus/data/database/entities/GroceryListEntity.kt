@@ -4,19 +4,17 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import java.sql.Timestamp
-import java.time.LocalDateTime
 
 @Entity(tableName = "grocery_list",
     foreignKeys = [ForeignKey(
-        entity = User::class,
+        entity = UserEntity::class,
         parentColumns = ["id"],
         childColumns = ["user_id"],
         onDelete = ForeignKey.CASCADE)])
-data class GroceryList(
+data class GroceryListEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,
-    @ColumnInfo(name = "user_id") val userId: Int,
+    @ColumnInfo(name = "user_id") val userId: String,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "date") val date: String
 )

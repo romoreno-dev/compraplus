@@ -2,17 +2,21 @@ package com.romoreno.compraplus.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Transaction
+import com.romoreno.compraplus.data.database.dto.GroceryListWithProductLines
 import com.romoreno.compraplus.data.database.dao.base.BaseDao
-import com.romoreno.compraplus.data.database.entities.GroceryList
-import com.romoreno.compraplus.data.database.entities.relations.GroceryListWithProductLines
+import com.romoreno.compraplus.data.database.entities.GroceryListEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface GroceryListDao: BaseDao<GroceryList> {
+interface GroceryListDao: BaseDao<GroceryListEntity> {
 
-    @Query("SELECT * FROM grocery_list WHERE user_id = :userId")
-    suspend fun getGroceryListsFromUser(userId: Int): GroceryList
+    @Query("SELECT * FROM grocery_list WHERE user_id = :userUid")
+    @Transaction
+    suspend fun getGroceryListsFromUser(userUid: String): List<GroceryListEntity>
+    //todo ¿Flow?
 
-    @Query("SELECT * FROM grocery_list WHERE id = :groceryListId")
-    suspend fun getGroceryListWithProductLines(groceryListId: Int): GroceryListWithProductLines
-
+    @Query("SELECT * FROM grocery_list WHERE id = :id")
+    @Transaction
+    fun getGroceryListWithDetails(id: Int): Flow<GroceryListWithProductLines>
 }

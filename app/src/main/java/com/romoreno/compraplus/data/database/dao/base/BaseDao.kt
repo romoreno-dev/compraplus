@@ -10,6 +10,9 @@ interface BaseDao<T> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: T)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(list: List<T>)
+
     @Update
     suspend fun update(entity: T)
 

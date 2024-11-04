@@ -8,19 +8,19 @@ import androidx.room.ForeignKey
     tableName = "product_line",
     primaryKeys = ["grocery_list_id", "product_id"],
     foreignKeys = [ForeignKey(
-        entity = GroceryList::class,
+        entity = GroceryListEntity::class,
         parentColumns = ["id"],
         childColumns = ["grocery_list_id"],
         onDelete = ForeignKey.CASCADE
     ),
         ForeignKey(
-            entity = Product::class,
+            entity = ProductEntity::class,
             parentColumns = ["id"],
             childColumns = ["product_id"],
             onDelete = ForeignKey.CASCADE
         )]
 )
-data class ProductLine(
+data class ProductLineEntity(
     @ColumnInfo(name = "grocery_list_id") val groceryListId: Int,
     @ColumnInfo(name = "product_id") val productId: Int,
     @ColumnInfo(name = "quantity") val quantity: Int,

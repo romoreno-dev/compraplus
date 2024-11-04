@@ -1,15 +1,17 @@
 package com.romoreno.compraplus.data.database.dao
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.romoreno.compraplus.data.database.dao.base.BaseDao
-import com.romoreno.compraplus.data.database.entities.User
+import com.romoreno.compraplus.data.database.entities.UserEntity
 
 @Dao
-interface UserDao: BaseDao<User> {
+interface UserDao: BaseDao<UserEntity> {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(quotes: User)
+    @Query("SELECT * FROM user WHERE id = :userUid")
+    suspend fun getUserByUid(userUid: String): UserEntity?
+
+    @Query("SELECT * FROM user")
+    suspend fun getAllUsers(): List<UserEntity>
 
 }
