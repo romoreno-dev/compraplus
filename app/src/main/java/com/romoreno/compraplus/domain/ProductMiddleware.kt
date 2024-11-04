@@ -1,12 +1,13 @@
 package com.romoreno.compraplus.domain
 
+import com.romoreno.compraplus.data.network.repository.NetworkRepository
 import com.romoreno.compraplus.domain.model.Product
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
-class ProductMiddleware @Inject constructor(private val repositories: Map<String, @JvmSuppressWildcards Repository>) {
+class ProductMiddleware @Inject constructor(private val repositories: Map<String, @JvmSuppressWildcards NetworkRepository>) {
 
 //    suspend fun getProducts(productKeyword: String): List<Product> {
 //
