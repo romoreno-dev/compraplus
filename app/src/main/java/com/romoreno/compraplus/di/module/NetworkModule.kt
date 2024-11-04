@@ -1,14 +1,14 @@
-package com.romoreno.compraplus.data.network.module
+package com.romoreno.compraplus.di.module
 
-import com.romoreno.compraplus.data.network.DiaRepository
-import com.romoreno.compraplus.data.network.EroskiRepository
-import com.romoreno.compraplus.data.network.MercadonaRepository
+import com.romoreno.compraplus.data.network.repository.DiaRepository
+import com.romoreno.compraplus.data.network.repository.EroskiRepository
+import com.romoreno.compraplus.data.network.repository.MercadonaRepository
 import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.data.network.interceptor.EroskiScrapperInterceptor
 import com.romoreno.compraplus.data.network.service.DiaApiService
 import com.romoreno.compraplus.data.network.service.EroskiApiService
 import com.romoreno.compraplus.data.network.service.MercadonaApiService
-import com.romoreno.compraplus.domain.Repository
+import com.romoreno.compraplus.data.network.repository.NetworkRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,11 +18,35 @@ import dagger.multibindings.StringKey
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+object NetworkModule {
 
+    // ----------------------------- RETROFIT ----------------------------------------------------
+    // -------------------------------------------------------------------------------------------
+    @Provides
+    @Singleton
+    fun provideRetrofitBuilder(): Retrofit.Builder {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        return OkHttpClient
+            .Builder()
+            .addInterceptor(interceptor)
+            .build()
+    }
+
+    // ----------------------------- API SERVICE -------------------------------------------------
+    // -------------------------------------------------------------------------------------------
     @Provides
     fun provideEroskiApiService(builder: Retrofit.Builder,
                                 eroskiScrapperInterceptor: EroskiScrapperInterceptor
@@ -63,24 +87,27 @@ object RepositoryModule {
             .create(MercadonaApiService::class.java)
     }
 
+    // ----------------------------- NETWORK REPOSITORY ------------------------------------------
+    // -------------------------------------------------------------------------------------------
     @Provides
     @IntoMap
     @StringKey(Supermarket.EROSKI)
-    fun provideEroskiRepository(eroskiApiService: EroskiApiService): Repository {
+    fun provideEroskiRepository(eroskiApiService: EroskiApiService): NetworkRepository {
         return EroskiRepository(eroskiApiService)
     }
 
     @Provides
     @IntoMap
     @StringKey(Supermarket.DIA)
-    fun provideDiaRepository(diaApiService: DiaApiService): Repository {
+    fun provideDiaRepository(diaApiService: DiaApiService): NetworkRepository {
         return DiaRepository(diaApiService)
     }
 
     @Provides
     @IntoMap
     @StringKey(Supermarket.MERCADONA)
-    fun provideMercadonaRepository(mercadonaApiService: MercadonaApiService): Repository {
+    fun provideMercadonaRepository(mercadonaApiService: MercadonaApiService): NetworkRepository {
         return MercadonaRepository(mercadonaApiService)
     }
+
 }
