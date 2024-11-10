@@ -1,11 +1,17 @@
 package com.romoreno.compraplus.domain.model
 
-data class GroceryList(
+import com.romoreno.compraplus.data.database.entities.GroceryListEntity
+import java.util.Date
+
+data class GroceryListModel(
     val id: Int,
     val name: String,
-    val date: String
-//    val products: List<ProductLine>
+    val date: Date
 )
+
+fun GroceryListEntity.toGroceryListModel(): GroceryListModel {
+    return GroceryListModel(id, name, Date(date))
+}
 
 //data class ProductLine(
 //    val quantity: Int ,

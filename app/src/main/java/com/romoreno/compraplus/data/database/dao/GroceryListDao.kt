@@ -13,8 +13,7 @@ interface GroceryListDao: BaseDao<GroceryListEntity> {
 
     @Query("SELECT * FROM grocery_list WHERE user_id = :userUid")
     @Transaction
-    suspend fun getGroceryListsFromUser(userUid: String): List<GroceryListEntity>
-    //todo ¿Flow?
+    fun getGroceryListsFromUser(userUid: Int): Flow<List<GroceryListEntity>>
 
     @Query("SELECT * FROM grocery_list WHERE id = :id")
     @Transaction

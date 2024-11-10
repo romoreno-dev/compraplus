@@ -45,8 +45,15 @@ object DatabaseModule {
     private suspend fun populateDatabase(db: SupportSQLiteDatabase) {
         // Aquí puedes usar SQL para insertar datos predefinidos
         val insertUser = "INSERT INTO user (id, name) VALUES ('1', 'user1')"
-        val insertGroceryList1 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (1, '1', 'Lista 1', '2023-11-02')"
-        val insertGroceryList2 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (2, '1', 'Lista 1', '2023-11-02')"
+        val insertGroceryList1 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (1, '1', 'Compras cena Halloween', 1730293790000)"
+        val insertGroceryList2 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (2, '1', 'Compras almuerzo sábado', 1731071390000)"
+        val insertGroceryList3 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (3, '1', 'Compras almuerzo domingo', 1731071390000)"
+        val insertGroceryList4 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (4, '1', 'Compras almuerzo lunes', 1731071390000)"
+        val insertGroceryList5 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (5, '1', 'Compras almuerzo martes', 1731071390000)"
+        val insertGroceryList6 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (6, '1', 'Compras almuerzo miércoles', 1731071390000)"
+        val insertGroceryList7 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (7, '1', 'Compras almuerzo jueves', 1731071390000)"
+        val insertGroceryList8 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (8, '1', 'Compras almuerzo viernes', 1731071390000)"
+        val insertGroceryList9 = "INSERT INTO grocery_list (id, user_id, name, date) VALUES (9, '1', 'Compras cumpleaños', 1731071390000)"
         val insertSupermarket = "INSERT INTO supermarket (id, name) VALUES (1, 'Dia')"
         val insertProduct1 = "INSERT INTO product (id, name, supermarket_id, image, brand) VALUES (1, 'Producto 1', 1, 'url_imagen', 'Marca A')"
         val insertProduct2 = "INSERT INTO product  (id, name, supermarket_id, image, brand) VALUES (2, 'Producto 2', 1, 'url_imagen', 'Marca A')"
@@ -58,6 +65,13 @@ object DatabaseModule {
         db.execSQL(insertUser)
         db.execSQL(insertGroceryList1)
         db.execSQL(insertGroceryList2)
+        db.execSQL(insertGroceryList3)
+        db.execSQL(insertGroceryList4)
+        db.execSQL(insertGroceryList5)
+        db.execSQL(insertGroceryList6)
+        db.execSQL(insertGroceryList7)
+        db.execSQL(insertGroceryList8)
+        db.execSQL(insertGroceryList9)
         db.execSQL(insertSupermarket)
         db.execSQL(insertProduct1)
         db.execSQL(insertProduct2)
