@@ -3,6 +3,7 @@ package com.romoreno.compraplus.data.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 
 @Entity(
     tableName = "product_line",
@@ -18,8 +19,8 @@ import androidx.room.ForeignKey
             parentColumns = ["id"],
             childColumns = ["product_id"],
             onDelete = ForeignKey.CASCADE
-        )]
-)
+        )],
+    indices = [Index(value = ["product_id"])])
 data class ProductLineEntity(
     @ColumnInfo(name = "grocery_list_id") val groceryListId: Int,
     @ColumnInfo(name = "product_id") val productId: Int,
