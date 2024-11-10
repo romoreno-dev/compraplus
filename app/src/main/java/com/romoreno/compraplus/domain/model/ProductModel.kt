@@ -3,7 +3,7 @@ package com.romoreno.compraplus.domain.model
 import com.romoreno.compraplus.data.network.config.Supermarket
 import java.math.BigDecimal
 
-data class Product (
+data class ProductModel (
     val name: String,
     val prices: Prices,
     val image: String,

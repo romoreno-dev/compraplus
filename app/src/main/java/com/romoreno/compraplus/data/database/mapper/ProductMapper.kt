@@ -2,10 +2,6 @@ package com.romoreno.compraplus.data.database.mapper
 
 import com.google.firebase.auth.FirebaseUser
 import com.romoreno.compraplus.data.database.entities.UserEntity
-import com.romoreno.compraplus.data.network.config.Supermarket
-import com.romoreno.compraplus.domain.model.GroceryList
-import com.romoreno.compraplus.domain.model.Prices
-import com.romoreno.compraplus.domain.model.Product
 
 object ProductMapper {
 

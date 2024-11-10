@@ -1,7 +1,9 @@
 package com.romoreno.compraplus.domain
 
 import com.romoreno.compraplus.data.network.repository.NetworkRepository
-import com.romoreno.compraplus.domain.model.Product
+import com.romoreno.compraplus.domain.model.ProductModel
+import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
+import com.romoreno.compraplus.ui.main.product_comparator.pojo.toProduct
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -25,7 +27,7 @@ class ProductMiddleware @Inject constructor(private val repositories: Map<String
 
     suspend fun getProducts(productKeyword: String): List<Product> {
         return coroutineScope {
-            val productsDeferred = mutableListOf<Deferred<List<Product>>>()
+            val productsDeferred = mutableListOf<Deferred<List<ProductModel>>>()
 
             for ((supermarket, repository) in repositories) {
                 val supermakerProducts = async {
@@ -36,8 +38,11 @@ class ProductMiddleware @Inject constructor(private val repositories: Map<String
             }
 
             val products = productsDeferred.map { it.await() }.flatten()
-            products.sortedBy { it.prices.price }
+            products
+                .sortedBy { it.prices.price }
+                .map { it.toProduct() }
         }
     }
+    //TODO Logear con Timber y demas el error a crashlititcs...
 
 }
