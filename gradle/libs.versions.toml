@@ -22,7 +22,8 @@ glideVersion = "4.16.0"
 splashVersion = "1.0.1"
 swipeRefreshLayoutVersion = "1.1.0"
 runnerJUnitVersion = "3.4.2"
-mockkVersion = "1.12.3"
+mockkVersion = "1.13.4"
+coroutinesTestVersion = "1.7.0"
 firebaseBomVersion = "33.1.1"
 googleServicesVersion = "4.4.2"
 crashlyticsVersion = "3.0.2"
@@ -56,6 +57,8 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swipeRefreshLayoutVersion" }
 runner-junit = { group = "io.kotlintest", name = "kotlintest-runner-junit5", version.ref = "runnerJUnitVersion" }
 io-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockkVersion" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTestVersion" }
+
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBomVersion"}
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }

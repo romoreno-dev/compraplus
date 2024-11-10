@@ -108,6 +108,8 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.runner.junit)
     testImplementation(libs.io.mockk)
+    testImplementation(libs.coroutines.test)
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
 
     // Android Tests
     androidTestImplementation(libs.androidx.junit)
