@@ -16,6 +16,7 @@ navigationVersion = "2.7.1"
 roomVersion = "2.6.1"
 googleMapsVersion = "19.0.0"
 googleMapsLocationVersion = "21.3.0"
+googleMapsPlacesVersion = "4.0.0"
 mapsSecretsVersion = "2.0.1"
 glideVersion = "4.16.0"
 splashVersion = "1.0.1"
@@ -48,6 +49,7 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVers
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
 google-maps= { group = "com.google.android.gms", name = "play-services-maps", version.ref = "googleMapsVersion" }
 google-location= { group = "com.google.android.gms", name = "play-services-location", version.ref = "googleMapsLocationVersion" }
+google-places = { group = "com.google.android.libraries.places", name = "places", version.ref = "googleMapsPlacesVersion"}
 maps-secrets = { group = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", name = "secrets-gradle-plugin", version.ref = "mapsSecretsVersion" }
 bumptech-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashVersion" }

@@ -42,6 +42,7 @@ android {
     buildFeatures {
         // Habilitar ViewBinding
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -83,6 +84,7 @@ dependencies {
     // Google Maps
     implementation(libs.google.maps)
     implementation(libs.google.location)
+    implementation(libs.google.places)
 
     // Glide
     implementation(libs.bumptech.glide)

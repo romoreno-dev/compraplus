@@ -1,14 +1,17 @@
 package com.romoreno.compraplus.di.module
 
+import com.romoreno.compraplus.data.network.config.Google
 import com.romoreno.compraplus.data.network.repository.DiaRepository
 import com.romoreno.compraplus.data.network.repository.EroskiRepository
 import com.romoreno.compraplus.data.network.repository.MercadonaRepository
 import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.data.network.interceptor.EroskiScrapperInterceptor
+import com.romoreno.compraplus.data.network.repository.GooglePlacesRepository
 import com.romoreno.compraplus.data.network.service.DiaApiService
 import com.romoreno.compraplus.data.network.service.EroskiApiService
 import com.romoreno.compraplus.data.network.service.MercadonaApiService
 import com.romoreno.compraplus.data.network.repository.NetworkRepository
+import com.romoreno.compraplus.data.network.service.GooglePlacesApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,7 +48,24 @@ object NetworkModule {
             .build()
     }
 
-    // ----------------------------- API SERVICE -------------------------------------------------
+    // ----------------------------- GOOGLE API SERVICE ------------------------------------------
+    // -------------------------------------------------------------------------------------------
+    @Provides
+    fun provideGooglePlacesApiService(builder: Retrofit.Builder, okHttpClient: OkHttpClient): GooglePlacesApiService {
+        return builder
+            .baseUrl(Google.BASE_URL)
+            .client(okHttpClient)
+            .build()
+            .create(GooglePlacesApiService::class.java)
+    }
+
+    @Provides
+    fun provideGooglePlacesRepository(googlePlacesApiService: GooglePlacesApiService): GooglePlacesRepository {
+        return GooglePlacesRepository(googlePlacesApiService)
+    }
+
+
+    // ----------------------------- SUPERMARKETS API SERVICE ------------------------------------
     // -------------------------------------------------------------------------------------------
     @Provides
     fun provideEroskiApiService(builder: Retrofit.Builder,

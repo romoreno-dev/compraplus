@@ -1,14 +1,29 @@
 package com.romoreno.compraplus.data.network.service
 
+import com.romoreno.compraplus.BuildConfig
+import com.romoreno.compraplus.data.network.config.Google
 import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.data.network.pojo.request.MercadonaRequest
 import com.romoreno.compraplus.data.network.pojo.response.DiaResponse
 import com.romoreno.compraplus.data.network.pojo.response.EroskiResponse
+import com.romoreno.compraplus.data.network.pojo.response.GooglePlacesResponse
 import com.romoreno.compraplus.data.network.pojo.response.MercadonaResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
+
+interface GooglePlacesApiService {
+
+    @GET(Google.PATH)
+    suspend fun findPlaces(@Query("location") location: String,
+                             @Query("radius") radius: Int,
+                             @Query("key") apiKey: String = BuildConfig.MAPS_API_KEY,
+                             @Query("keyword") query: String): GooglePlacesResponse
+
+    //query
+
+}
 
 interface DiaApiService {
     @GET(Supermarket.Dia.PATH)
