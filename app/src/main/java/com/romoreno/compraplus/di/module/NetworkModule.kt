@@ -1,16 +1,17 @@
 package com.romoreno.compraplus.di.module
 
 import com.romoreno.compraplus.data.network.config.Google
-import com.romoreno.compraplus.data.network.repository.DiaRepository
-import com.romoreno.compraplus.data.network.repository.EroskiRepository
-import com.romoreno.compraplus.data.network.repository.MercadonaRepository
+import com.romoreno.compraplus.data.network.repository.implementation.DiaRepository
+import com.romoreno.compraplus.data.network.repository.implementation.EroskiRepository
+import com.romoreno.compraplus.data.network.repository.implementation.MercadonaRepository
 import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.data.network.interceptor.EroskiScrapperInterceptor
-import com.romoreno.compraplus.data.network.repository.GooglePlacesRepository
 import com.romoreno.compraplus.data.network.service.DiaApiService
 import com.romoreno.compraplus.data.network.service.EroskiApiService
 import com.romoreno.compraplus.data.network.service.MercadonaApiService
 import com.romoreno.compraplus.data.network.repository.NetworkRepository
+import com.romoreno.compraplus.data.network.repository.PlaceRepository
+import com.romoreno.compraplus.data.network.repository.implementation.PlaceRepositoryImpl
 import com.romoreno.compraplus.data.network.service.GooglePlacesApiService
 import dagger.Module
 import dagger.Provides
@@ -48,7 +49,7 @@ object NetworkModule {
             .build()
     }
 
-    // ----------------------------- GOOGLE API SERVICE ------------------------------------------
+    // ----------------------------- PLACE SERVICE ------------------------------------------
     // -------------------------------------------------------------------------------------------
     @Provides
     fun provideGooglePlacesApiService(builder: Retrofit.Builder, okHttpClient: OkHttpClient): GooglePlacesApiService {
@@ -60,8 +61,8 @@ object NetworkModule {
     }
 
     @Provides
-    fun provideGooglePlacesRepository(googlePlacesApiService: GooglePlacesApiService): GooglePlacesRepository {
-        return GooglePlacesRepository(googlePlacesApiService)
+    fun providePlaceRepository(googlePlacesApiService: GooglePlacesApiService): PlaceRepository {
+        return PlaceRepositoryImpl(googlePlacesApiService)
     }
 
 
