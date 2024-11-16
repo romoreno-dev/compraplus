@@ -22,8 +22,12 @@ class ProductComparatorViewModel @Inject constructor(private val productMiddlewa
     val state: StateFlow<ProductComparatorState> = _state
 
     fun searchProduct(productKeyword: String) {
+        searchProduct(productKeyword, false)
+    }
+
+    fun searchProduct(productKeyword: String, withSwipe: Boolean) {
         viewModelScope.launch {
-            _state.value = ProductComparatorState.Loading
+            _state.value = if (withSwipe) { ProductComparatorState.Swipping } else  { ProductComparatorState.Loading }
             val products =
                 withContext(Dispatchers.IO) { productMiddleware.getProducts(productKeyword) }
             _state.value = ProductComparatorState.Success(products)

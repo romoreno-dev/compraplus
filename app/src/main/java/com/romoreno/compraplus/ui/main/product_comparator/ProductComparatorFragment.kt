@@ -47,6 +47,15 @@ class ProductComparatorFragment : Fragment() {
     }
 
     private fun initList() {
+
+        binding.swipeRefresh.setColorSchemeResources(R.color.md_theme_primary,
+            R.color.md_theme_secondary,
+            R.color.md_theme_tertiary)
+
+        binding.swipeRefresh.setOnRefreshListener {
+            productComparatorViewModel.searchProduct(binding.searchViewProduct.query.toString(), true)
+        }
+
         productComparatorAdapter = ProductComparatorAdapter(
             WhenItemRecyclerViewSelected({
                 shareProduct(it)
@@ -114,6 +123,7 @@ class ProductComparatorFragment : Fragment() {
                     when (it) {
                         is ProductComparatorState.Success -> successState(it)
                         ProductComparatorState.Loading -> loadingState()
+                        ProductComparatorState.Swipping -> swipeState()
                         ProductComparatorState.Error -> errorState()
                     }
                 }
@@ -121,13 +131,22 @@ class ProductComparatorFragment : Fragment() {
         }
     }
 
+    private fun swipeState() {
+        binding.swipeRefresh.isRefreshing = true
+        binding.swipeRefresh.isEnabled = false
+    }
+
     private fun loadingState() {
         binding.progressBar.isVisible = true
         binding.rvProduct.isVisible = false
+        binding.swipeRefresh.isEnabled = false
     }
 
     private fun successState(state: ProductComparatorState.Success) {
         binding.progressBar.isVisible = false
+        binding.swipeRefresh.isEnabled = true
+        binding.swipeRefresh.isRefreshing = false
+
         binding.rvProduct.isVisible = true
         productComparatorAdapter.updateList(state.products)
     }
