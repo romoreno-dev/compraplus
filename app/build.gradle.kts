@@ -103,6 +103,7 @@ dependencies {
     implementation(libs.firebase.realtime)
     implementation ("com.google.android.gms:play-services-auth:20.5.0")
     implementation ("com.google.android.gms:play-services-auth-api-phone")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     // Unit Tests
     testImplementation(libs.junit)

@@ -16,5 +16,10 @@
     <string name="share_message">Ey! En *%4$s*, *%1$s* está a *%2$s* (%3$s)!!!!!\n\nTe dejo el enlace de la foto para que veas cómo es: %5$s</string>
     <string name="share_title">Comparte %1$s</string>
     <string name="new_list">Nueva lista</string>
-
+    <string name="about">Acerca de</string>
+    <string name="about_message"><![CDATA[<b>CompraPlus</b> es una aplicación realizada como Proyecto Final del Grado Superior de Desarrollo de Aplicaciones Multiplataforma. <br> <br> Roberto Moreno Muñoz <br> ]]></string>
+    <string name="accept">Aceptar</string>
+    <string name="see_github">Ver Github</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="night_mode">Cambiar modo</string>
 </resources>
