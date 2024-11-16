@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.romoreno.compraplus.R
-import com.romoreno.compraplus.ui.main.product_comparator.utils.ProductComparatorDiffUtil
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.WhenItemRecyclerViewSelected
+import com.romoreno.compraplus.ui.main.product_comparator.utils.ProductComparatorDiffUtil
 
 class ProductComparatorAdapter (private val whenItemRecyclerViewSelected: WhenItemRecyclerViewSelected,
                                 private var list:List<Product> = emptyList()):

@@ -14,7 +14,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentGroceryListBinding
 import com.romoreno.compraplus.ui.main.grocery_list.adapter.GroceryListAdapter

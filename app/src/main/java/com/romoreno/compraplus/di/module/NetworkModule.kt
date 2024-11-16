@@ -1,18 +1,18 @@
 package com.romoreno.compraplus.di.module
 
 import com.romoreno.compraplus.data.network.config.Google
+import com.romoreno.compraplus.data.network.config.Supermarket
+import com.romoreno.compraplus.data.network.interceptor.EroskiScrapperInterceptor
+import com.romoreno.compraplus.data.network.repository.NetworkRepository
+import com.romoreno.compraplus.data.network.repository.PlaceRepository
 import com.romoreno.compraplus.data.network.repository.implementation.DiaRepository
 import com.romoreno.compraplus.data.network.repository.implementation.EroskiRepository
 import com.romoreno.compraplus.data.network.repository.implementation.MercadonaRepository
-import com.romoreno.compraplus.data.network.config.Supermarket
-import com.romoreno.compraplus.data.network.interceptor.EroskiScrapperInterceptor
+import com.romoreno.compraplus.data.network.repository.implementation.PlaceRepositoryImpl
 import com.romoreno.compraplus.data.network.service.DiaApiService
 import com.romoreno.compraplus.data.network.service.EroskiApiService
-import com.romoreno.compraplus.data.network.service.MercadonaApiService
-import com.romoreno.compraplus.data.network.repository.NetworkRepository
-import com.romoreno.compraplus.data.network.repository.PlaceRepository
-import com.romoreno.compraplus.data.network.repository.implementation.PlaceRepositoryImpl
 import com.romoreno.compraplus.data.network.service.GooglePlacesApiService
+import com.romoreno.compraplus.data.network.service.MercadonaApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

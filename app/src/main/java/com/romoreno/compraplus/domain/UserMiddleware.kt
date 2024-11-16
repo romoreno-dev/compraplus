@@ -2,7 +2,6 @@ package com.romoreno.compraplus.domain
 
 import android.util.Log
 import com.romoreno.compraplus.data.database.dao.GroceryListDao
-import com.romoreno.compraplus.data.database.dao.ProductDao
 import com.romoreno.compraplus.data.database.dao.UserDao
 import com.romoreno.compraplus.data.database.entities.UserEntity
 import javax.inject.Inject

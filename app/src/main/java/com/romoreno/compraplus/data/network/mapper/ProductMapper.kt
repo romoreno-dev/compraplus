@@ -1,11 +1,11 @@
 package com.romoreno.compraplus.data.network.mapper
 
+import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.data.network.pojo.response.DiaProduct
+import com.romoreno.compraplus.data.network.pojo.response.EroskiProduct
 import com.romoreno.compraplus.data.network.pojo.response.MercadonaProduct
 import com.romoreno.compraplus.domain.model.Prices
 import com.romoreno.compraplus.domain.model.ProductModel
-import com.romoreno.compraplus.data.network.config.Supermarket
-import com.romoreno.compraplus.data.network.pojo.response.EroskiProduct
 
 object ProductMapper {
 

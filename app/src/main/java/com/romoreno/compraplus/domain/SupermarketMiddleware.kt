@@ -1,6 +1,5 @@
 package com.romoreno.compraplus.domain
 
-import com.google.android.gms.maps.model.LatLng
 import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.data.network.repository.PlaceRepository
 import com.romoreno.compraplus.domain.model.SupermarketModel

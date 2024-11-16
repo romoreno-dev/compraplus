@@ -3,8 +3,8 @@ package com.romoreno.compraplus.data.database.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import com.romoreno.compraplus.data.database.dto.GroceryListWithProductLines
 import com.romoreno.compraplus.data.database.dao.base.BaseDao
+import com.romoreno.compraplus.data.database.dto.GroceryListWithProductLines
 import com.romoreno.compraplus.data.database.entities.GroceryListEntity
 import kotlinx.coroutines.flow.Flow
 

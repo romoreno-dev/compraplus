@@ -25,7 +25,7 @@ class PlaceRepositoryImpl @Inject constructor(private val googlePlacesApiService
             .onSuccess {
                 return it.results.filter {
                     it.name.equals(query, true) ||
-                            Supermarket.Dia.name.equals(query) ||
+                            (Supermarket.Dia.name.equals(query) && it.name.contains("dia", true)) ||
                             (Supermarket.Eroski.name.equals(query) && it.name.contains(
                                 "Eroski City",
                                 true))

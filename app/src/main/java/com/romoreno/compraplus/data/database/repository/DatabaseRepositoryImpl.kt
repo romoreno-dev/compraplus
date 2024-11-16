@@ -5,7 +5,6 @@ import com.romoreno.compraplus.data.database.dao.GroceryListDao
 import com.romoreno.compraplus.data.database.dao.ProductDao
 import com.romoreno.compraplus.data.database.dao.SupermarketDao
 import com.romoreno.compraplus.data.database.dao.UserDao
-import com.romoreno.compraplus.data.database.entities.GroceryListEntity
 import com.romoreno.compraplus.data.database.mapper.ProductMapper.toUser
 import com.romoreno.compraplus.domain.model.GroceryListModel
 import com.romoreno.compraplus.domain.model.ProductModel

@@ -2,7 +2,6 @@ package com.romoreno.compraplus.ui.main.product_comparator
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.maps.model.LatLng
 import com.romoreno.compraplus.domain.ProductMiddleware
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
