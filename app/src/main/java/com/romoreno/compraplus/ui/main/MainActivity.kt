@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.text.HtmlCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -16,12 +17,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.ActivityMainBinding
+import com.romoreno.compraplus.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -35,7 +39,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var datastorePreferences: DatastorePreferences
 
-    private var modeNightPropertyRead: Boolean = false
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     companion object {
         val URL_GITHUB = "https://github.com/romoreno-dev"
@@ -44,19 +49,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            val darkMode = datastorePreferences.getNightModePreference()
-            withContext(Dispatchers.Main) {
-                setDarkMode(darkMode)
-            }
-        }
+        val darkMode = runBlocking { datastorePreferences.getNightModePreference() }
+        setDarkMode(darkMode)
 
-        //initDarkPreference()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setViewCompat()
         initUI()
-
     }
 
     private fun initUI() {
@@ -114,8 +113,19 @@ class MainActivity : AppCompatActivity() {
                 true
             }
 
+            R.id.logout -> {
+                logout()
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun logout() {
+        auth.signOut()
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     private fun showAboutDialog() {

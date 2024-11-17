@@ -51,4 +51,12 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
     </style>
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/md_theme_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_compraplus_title</item>
+        <item name="windowSplashScreenAnimationDuration">400</item>
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+        <!-- Imagen con fondo 240-240dp y esto el splash crea circulo de 160dp de diametro //
+         Imagen sin fondo 288-288dp y hace circunferencia de 192dp de diametro -->
+    </style>
 </resources>

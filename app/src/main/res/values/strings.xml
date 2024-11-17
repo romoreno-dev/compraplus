@@ -22,4 +22,24 @@
     <string name="see_github">Ver Github</string>
     <string name="logout">Cerrar sesión</string>
     <string name="night_mode">Cambiar modo</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="signup">Regístrarte</string>
+    <string name="signup_message">¿Nuevo en CompraPlus? Regístrate gratis aquí</string>
+    <string name="login_message">¿Ya tienes cuenta en CompraPlus? Haz login aquí</string>
+    <string name="password_repeat">Repetir contraseña</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="required_field">Campo requerido</string>
+    <string name="wrong_user_password">Usuario y/o contraseña incorrectos</string>
+    <string name="passwords_are_not_equals">Las contraseñas no coinciden</string>
+    <string name="verification_email_sent">Debes verificar tu cuenta para completar el registro en CompraPlus. Se ha enviado un correo de verificación a %1$s</string>
+    <string name="auth_email_exception">El correo electrónico es incorrecto</string>
+    <string name="auth_invalid_credentials_exception">Credenciales inválidas</string>
+    <string name="auth_invalid_user_exception">El usuario no existe o se encuentra deshabilitado</string>
+    <string name="auth_user_collision_exception">Usuario ya existente</string>
+    <string name="auth_weak_password_exception">Debe elegir una contraseña fuerte</string>
+    <string name="auth_exception">Se ha producido un error</string>
+    <string name="auth_must_verify_email">Debes verificar tu correo electrónico para poder acceder a CompraPlus</string>
 </resources>
