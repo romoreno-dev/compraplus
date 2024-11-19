@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val splashScreen = installSplashScreen()
 
         val darkMode = runBlocking { datastorePreferences.getNightModePreference() }
         setDarkMode(darkMode)
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setViewCompat()
         initUI()
+        splashScreen.setKeepOnScreenCondition { false }
     }
 
     private fun initUI() {

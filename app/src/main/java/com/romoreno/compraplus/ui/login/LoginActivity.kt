@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val screenSplash = installSplashScreen()
+        val splashScreen = installSplashScreen()
 
         enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
         initUI()
 
-       screenSplash.setKeepOnScreenCondition { false }
+        splashScreen.setKeepOnScreenCondition { false }
         if (auth.currentUser != null) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
