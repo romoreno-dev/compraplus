@@ -42,4 +42,11 @@
     <string name="auth_weak_password_exception">Debe elegir una contraseña fuerte</string>
     <string name="auth_exception">Se ha producido un error</string>
     <string name="auth_must_verify_email">Debes verificar tu correo electrónico para poder acceder a CompraPlus</string>
+    <string name="share_grocery_list">Compartir lista</string>
+    <string name="remove_grocery_list">Eliminar lista</string>
+    <string name="remove_confirmation_message">¿Desea eliminar la lista?</string>
+    <string name="delete">Eliminar</string>
+    <string name="not_delete">No eliminar</string>
+    <string name="adquired">Comprado</string>
+    <string name="pending">Pendiente</string>
 </resources>

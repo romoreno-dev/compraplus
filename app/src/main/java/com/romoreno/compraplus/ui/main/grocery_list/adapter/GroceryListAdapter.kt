@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.domain.model.GroceryListModel
+import com.romoreno.compraplus.ui.main.grocery_list.pojo.WhenGroceryListItemSelected
 import com.romoreno.compraplus.ui.main.grocery_list.utils.GroceryListDiffUtil
 
-class GroceryListAdapter(private var list:List<GroceryListModel> = emptyList()) : RecyclerView.Adapter<GroceryListViewHolder>() {
+class GroceryListAdapter(private val whenGroceryListItemSelected: WhenGroceryListItemSelected,
+                         private var list:List<GroceryListModel> = emptyList()) :
+    RecyclerView.Adapter<GroceryListViewHolder>() {
 
     fun updateList(newList: List<GroceryListModel>) {
         val groceryListDiff = GroceryListDiffUtil(list, newList)
@@ -25,7 +28,7 @@ class GroceryListAdapter(private var list:List<GroceryListModel> = emptyList()) 
     }
 
     override fun onBindViewHolder(holder: GroceryListViewHolder, position: Int) {
-        holder.render(list[position])
+        holder.render(list[position], whenGroceryListItemSelected)
     }
 
     override fun getItemCount() = list.size

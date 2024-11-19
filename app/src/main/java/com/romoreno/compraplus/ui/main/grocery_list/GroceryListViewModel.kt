@@ -4,10 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.romoreno.compraplus.data.database.repository.DatabaseRepository
+import com.romoreno.compraplus.domain.model.GroceryListProductsModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,6 +29,16 @@ class GroceryListViewModel @Inject constructor(private val databaseRepository: D
                     _state.value = GroceryListState.Error
                 }
             }
+        }
+    }
+
+    suspend fun getGroceryListsWithProducts(idGroceryList: Int): GroceryListProductsModel? {
+            return databaseRepository.getGroceryListWithProducts(idGroceryList)
+    }
+
+    suspend fun removeGroceryList(idGroceryList: Int) {
+        withContext(Dispatchers.IO) {
+            databaseRepository.deleteGroceryList(idGroceryList)
         }
     }
 

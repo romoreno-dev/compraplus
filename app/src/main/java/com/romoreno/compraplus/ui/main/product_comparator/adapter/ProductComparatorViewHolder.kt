@@ -7,13 +7,13 @@ import com.romoreno.compraplus.R
 import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.databinding.ItemProductComparatorBinding
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
-import com.romoreno.compraplus.ui.main.product_comparator.pojo.WhenItemRecyclerViewSelected
+import com.romoreno.compraplus.ui.main.product_comparator.pojo.WhenProductItemSelected
 
 class ProductComparatorViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     private val binding = ItemProductComparatorBinding.bind(view)
 
-    fun render(product: Product, whenItemRecyclerViewSelected: WhenItemRecyclerViewSelected) {
+    fun render(product: Product, whenProductItemSelected: WhenProductItemSelected) {
         binding.tvProductTitle.text = product.name
         binding.tvProductPrice.text = product.prices.price
         binding.tvProductUnitPrice.text = product.prices.unitPrice
@@ -26,11 +26,11 @@ class ProductComparatorViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
 
         binding.productCardView.setOnClickListener {
-            whenItemRecyclerViewSelected.onCardViewSelected(product)
+            whenProductItemSelected.onCardViewSelected(product)
         }
 
         binding.imageViewProduct.setOnClickListener {
-            whenItemRecyclerViewSelected.onProductImageSelected(product)
+            whenProductItemSelected.onProductImageSelected(product)
         }
     }
 

@@ -1,9 +1,13 @@
 package com.romoreno.compraplus.ui.main.grocery_list
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -17,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentGroceryListBinding
 import com.romoreno.compraplus.ui.main.grocery_list.adapter.GroceryListAdapter
+import com.romoreno.compraplus.ui.main.grocery_list.pojo.WhenGroceryListItemSelected
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,7 +30,7 @@ class GroceryListFragment : Fragment() {
 
     private val groceryListViewModel: GroceryListViewModel by viewModels()
 
-    private lateinit var groceryListAdapter : GroceryListAdapter
+    private lateinit var groceryListAdapter: GroceryListAdapter
 
     private var _binding: FragmentGroceryListBinding? = null
     private val binding get() = _binding!!
@@ -36,6 +41,16 @@ class GroceryListFragment : Fragment() {
         groceryListViewModel.getGroceryLists(FirebaseAuth.getInstance().currentUser)
     }
 
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        requireActivity().menuInflater.inflate(R.menu.grocery_list_menu, menu)
+    }
+
+
     private fun initUI() {
         initList()
         initListeners()
@@ -43,11 +58,17 @@ class GroceryListFragment : Fragment() {
     }
 
     private fun initList() {
-        groceryListAdapter = GroceryListAdapter()
+        registerForContextMenu(binding.rvGroceryList)
+        groceryListAdapter = GroceryListAdapter(
+            WhenGroceryListItemSelected(
+                { id, view -> toGroceryListDetails(id, view)},
+                { id, view -> popupMenuOnGroceryListItem(id, view) }
+            )
+        )
         binding.rvGroceryList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = groceryListAdapter
-            addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     if (dy > 0 && binding.fabNewList.isExtended) {
                         binding.fabNewList.shrink()
@@ -92,6 +113,87 @@ class GroceryListFragment : Fragment() {
 
     private fun initListeners() {
         //todo Pendiente de implementar
+    }
+
+    private fun showRemoveAlertDialog(groceryListId: Int) {//TODO String...
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.remove_grocery_list))
+            .setMessage(getString(R.string.remove_confirmation_message))
+            .setPositiveButton(getString(R.string.delete)) { _, _ ->
+                deleteGroceryList(groceryListId)
+            }
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.not_delete)) { dialog, _ ->
+                dialog.dismiss()}
+            .show()
+    }
+
+    private fun toGroceryListDetails(idGroceryList: Int, view: View) {
+        //TODO ... Implementar
+        // fixme... Dedos gordos impide darle al menu y marcan este metodo por defecto (solucionar)
+        Toast.makeText(requireContext(), "Clickado en $idGroceryList", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun popupMenuOnGroceryListItem(idGroceryList: Int, view: View) {
+        val popupMenu = PopupMenu(requireContext(), view)
+        popupMenu.inflate(R.menu.grocery_list_menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.shareGroceryList -> {
+                    shareGroceryList(idGroceryList)
+                    true
+                }
+
+                R.id.removeGroceryList -> {
+                    showRemoveAlertDialog(idGroceryList)
+                    true
+                }
+
+                else -> false
+            }
+        }
+        popupMenu.show()
+    }
+
+    private fun deleteGroceryList(groceryListId: Int) {
+        lifecycleScope.launch {
+            groceryListViewModel.removeGroceryList(groceryListId)
+        }
+    }
+
+    private fun shareGroceryList(groceryListId: Int) {
+        lifecycleScope.launch {
+            var groceryListWithProducts =
+                groceryListViewModel.getGroceryListsWithProducts(groceryListId)
+
+            if (groceryListWithProducts != null) {
+
+                val message = StringBuilder("${groceryListWithProducts.name}\n")
+
+                groceryListWithProducts.products
+                    .forEach {
+                        message.append("- (${it.quantity}) ${it.name} ")
+                        if (it.adquired) {
+                            message.append(" ").append(getString(R.string.adquired)).append(" \n")
+                        } else {
+                            message.append(" ").append(getString(R.string.pending)).append(" \n")
+                        }
+                    }
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(
+                        Intent.EXTRA_TEXT, message.toString()
+                    )
+                    type = "text/plain"
+                }
+                val shareIntent =
+                    Intent.createChooser(
+                        intent,
+                        getString(R.string.share_title, groceryListWithProducts.name)
+                    )
+                startActivity(shareIntent)
+            }
+        }
     }
 
     override fun onCreateView(

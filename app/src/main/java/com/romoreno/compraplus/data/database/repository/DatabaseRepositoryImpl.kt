@@ -7,9 +7,12 @@ import com.romoreno.compraplus.data.database.dao.SupermarketDao
 import com.romoreno.compraplus.data.database.dao.UserDao
 import com.romoreno.compraplus.data.database.mapper.ProductMapper.toUser
 import com.romoreno.compraplus.domain.model.GroceryListModel
+import com.romoreno.compraplus.domain.model.GroceryListProductsModel
 import com.romoreno.compraplus.domain.model.ProductModel
 import com.romoreno.compraplus.domain.model.toGroceryListModel
+import com.romoreno.compraplus.domain.model.toGroceryListProductsModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -23,6 +26,7 @@ class DatabaseRepositoryImpl @Inject constructor(
 
     // todo Entran y salen de aqui OBJETOS DE NEGOCIO (¡¡NO ENTIDADES!!)
 
+    //todo Lo recupero de Firebase y lo inserto si no existe....
     suspend fun insertUserIfDoesntExist(user: FirebaseUser) {
         if (userDao.getUserByUid(user.uid) == null) {
             userDao.insert(user.toUser())
@@ -37,13 +41,20 @@ class DatabaseRepositoryImpl @Inject constructor(
             }
     }
 
+    override suspend fun getGroceryListWithProducts(groceryListId: Int): GroceryListProductsModel? {
+        return groceryListDao.getGroceryListWithDetails(groceryListId)
+            .firstOrNull()?.toGroceryListProductsModel()
+    }
+
     suspend fun insertProductIfDoesntExist(productModel: ProductModel) {
     }
 
     suspend fun insertGroceryList(groceryList: GroceryListModel) {
     }
 
-    suspend fun deleteGroceryList(groceryList: GroceryListModel) {
+    override suspend fun deleteGroceryList(groceryListId: Int) {
+
+        return groceryListDao.deleteGroceryListWithId(groceryListId)
     }
 
     suspend fun addProductToGroceryList() {

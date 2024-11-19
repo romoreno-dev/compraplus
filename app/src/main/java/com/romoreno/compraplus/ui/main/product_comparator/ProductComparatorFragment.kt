@@ -21,7 +21,7 @@ import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentProductComparatorBinding
 import com.romoreno.compraplus.ui.main.product_comparator.adapter.ProductComparatorAdapter
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
-import com.romoreno.compraplus.ui.main.product_comparator.pojo.WhenItemRecyclerViewSelected
+import com.romoreno.compraplus.ui.main.product_comparator.pojo.WhenProductItemSelected
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -57,7 +57,7 @@ class ProductComparatorFragment : Fragment() {
         }
 
         productComparatorAdapter = ProductComparatorAdapter(
-            WhenItemRecyclerViewSelected({
+            WhenProductItemSelected({
                 shareProduct(it)
             }, { showExtendedImage(it) })
         )

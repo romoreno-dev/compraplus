@@ -18,4 +18,9 @@ interface GroceryListDao: BaseDao<GroceryListEntity> {
     @Query("SELECT * FROM grocery_list WHERE id = :id")
     @Transaction
     fun getGroceryListWithDetails(id: Int): Flow<GroceryListWithProductLines>
+
+    @Query("DELETE FROM grocery_list WHERE id = :id")
+    @Transaction
+    fun deleteGroceryListWithId(id: Int)
+
 }

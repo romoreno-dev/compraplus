@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
-import com.romoreno.compraplus.ui.main.product_comparator.pojo.WhenItemRecyclerViewSelected
+import com.romoreno.compraplus.ui.main.product_comparator.pojo.WhenProductItemSelected
 import com.romoreno.compraplus.ui.main.product_comparator.utils.ProductComparatorDiffUtil
 
-class ProductComparatorAdapter (private val whenItemRecyclerViewSelected: WhenItemRecyclerViewSelected,
+class ProductComparatorAdapter (private val whenProductItemSelected: WhenProductItemSelected,
                                 private var list:List<Product> = emptyList()):
     RecyclerView.Adapter<ProductComparatorViewHolder>() {
 
@@ -27,7 +27,7 @@ class ProductComparatorAdapter (private val whenItemRecyclerViewSelected: WhenIt
     }
 
     override fun onBindViewHolder(holder: ProductComparatorViewHolder, position: Int) {
-        holder.render(list[position], whenItemRecyclerViewSelected)
+        holder.render(list[position], whenProductItemSelected)
     }
 
     override fun getItemCount() = list.size
