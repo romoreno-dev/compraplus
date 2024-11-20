@@ -27,7 +27,7 @@ class DatabaseRepositoryImpl @Inject constructor(
     // todo Entran y salen de aqui OBJETOS DE NEGOCIO (¡¡NO ENTIDADES!!)
 
     //todo Lo recupero de Firebase y lo inserto si no existe....
-    suspend fun insertUserIfDoesntExist(user: FirebaseUser) {
+    override suspend fun insertUserIfDoesntExist(user: FirebaseUser) {
         if (userDao.getUserByUid(user.uid) == null) {
             userDao.insert(user.toUser())
         }

@@ -13,4 +13,6 @@ interface DatabaseRepository {
 
     suspend fun deleteGroceryList(groceryListId: Int)
 
+    suspend fun insertUserIfDoesntExist(user: FirebaseUser);
+
 }

@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navArgument
 import com.google.firebase.auth.FirebaseAuth
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentLoginBinding
@@ -23,6 +23,8 @@ class LoginFragment : Fragment() {
 
     @Inject
     lateinit var utils: LoginUtils
+
+    private val loginViewModel: LoginViewModel by viewModels()
 
     val args: LoginFragmentArgs by navArgs()
 
@@ -48,8 +50,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.tvSignUp.setOnClickListener { findNavController()
-            .navigate(LoginFragmentDirections.actionLoginFragmentToSignupFragment()) }
+        binding.tvSignUp.setOnClickListener {
+            findNavController()
+                .navigate(LoginFragmentDirections.actionLoginFragmentToSignupFragment())
+        }
 
         binding.btLogin.setOnClickListener { login() }
     }
@@ -69,7 +73,8 @@ class LoginFragment : Fragment() {
 
     private fun login() {
         binding.tvInfoMessage.text = null
-        val completedFields = utils.validateCompletedFields(requireActivity(), binding.etEmail, binding.etPassword)
+        val completedFields =
+            utils.validateCompletedFields(requireActivity(), binding.etEmail, binding.etPassword)
 
         if (completedFields) {
             auth.signInWithEmailAndPassword(
@@ -81,8 +86,10 @@ class LoginFragment : Fragment() {
                     if (!auth.currentUser!!.isEmailVerified) {
                         auth.signOut()
                         val message = getString(R.string.auth_must_verify_email)
-                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentSelf(infoMessage = message))
+                        findNavController()
+                            .navigate(LoginFragmentDirections.actionLoginFragmentSelf(infoMessage = message))
                     } else {
+                        loginViewModel.insertUserIfDoesntExist(auth.currentUser!!)
                         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToMainActivity())
                     }
                 } else {
