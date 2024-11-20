@@ -61,7 +61,7 @@ class GroceryListFragment : Fragment() {
         registerForContextMenu(binding.rvGroceryList)
         groceryListAdapter = GroceryListAdapter(
             WhenGroceryListItemSelected(
-                { id, view -> toGroceryListDetails(id, view)},
+                { id, view -> toGroceryListDetails(id, view) },
                 { id, view -> popupMenuOnGroceryListItem(id, view) }
             )
         )
@@ -124,7 +124,8 @@ class GroceryListFragment : Fragment() {
             }
             .setCancelable(false)
             .setNegativeButton(getString(R.string.not_delete)) { dialog, _ ->
-                dialog.dismiss()}
+                dialog.dismiss()
+            }
             .show()
     }
 
@@ -170,14 +171,18 @@ class GroceryListFragment : Fragment() {
 
                 val message = StringBuilder("${groceryListWithProducts.name}\n")
 
-                groceryListWithProducts.products
-                    .forEach {
-                        message.append("- (${it.quantity}) ${it.name} ")
-                        if (it.adquired) {
-                            message.append(" ").append(getString(R.string.adquired)).append(" \n")
-                        } else {
-                            message.append(" ").append(getString(R.string.pending)).append(" \n")
-                        }
+                groceryListWithProducts.productsMap
+                    .forEach { (name, products) ->
+                        message.append("---- *$name* ----\n")
+                        products
+                            .forEach {
+                                message.append("- (${it.quantity}) _${it.name}_ ")
+                                if (it.adquired) {
+                                    message.append(" ☑ \n")
+                                } else {
+                                    message.append(" ☐ \n")
+                                }
+                            }
                     }
                 val intent = Intent().apply {
                     action = Intent.ACTION_SEND

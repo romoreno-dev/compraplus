@@ -22,7 +22,7 @@ class GroceryListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         binding.groceryListCardView.setOnClickListener { view -> whenGroceryListItemSelected
             .onCardViewSelected(groceryListModel.id, view) }
-        binding.ivMore.setOnClickListener { view ->
+        binding.ivMoreEvent.setOnClickListener { view ->
             whenGroceryListItemSelected.whenMoreOptionsSelected(groceryListModel.id, view)
         }
     }
