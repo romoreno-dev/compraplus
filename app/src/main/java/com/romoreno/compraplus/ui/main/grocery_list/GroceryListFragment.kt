@@ -99,8 +99,11 @@ class GroceryListFragment : Fragment() {
     }
 
     private fun successState(state: GroceryListState.Success) {
-        binding.rvGroceryList.isVisible = true
         groceryListAdapter.updateList(state.groceryListModels)
+        binding.rvGroceryList.apply {
+            isVisible = true
+            scrollToPosition(0)
+        }
     }
 
     private fun errorState() {
