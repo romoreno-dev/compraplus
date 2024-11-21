@@ -1,6 +1,5 @@
 package com.romoreno.compraplus.ui.main.grocery_list
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.ContextMenu
@@ -17,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentGroceryListBinding
@@ -115,8 +115,8 @@ class GroceryListFragment : Fragment() {
         //todo Pendiente de implementar
     }
 
-    private fun showRemoveAlertDialog(groceryListId: Int) {//TODO String...
-        AlertDialog.Builder(requireContext())
+    private fun showRemoveAlertDialog(groceryListId: Int) {
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.remove_grocery_list))
             .setMessage(getString(R.string.remove_confirmation_message))
             .setPositiveButton(getString(R.string.delete)) { _, _ ->
@@ -131,7 +131,6 @@ class GroceryListFragment : Fragment() {
 
     private fun toGroceryListDetails(idGroceryList: Int, view: View) {
         //TODO ... Implementar
-        // fixme... Dedos gordos impide darle al menu y marcan este metodo por defecto (solucionar)
         Toast.makeText(requireContext(), "Clickado en $idGroceryList", Toast.LENGTH_SHORT).show()
     }
 

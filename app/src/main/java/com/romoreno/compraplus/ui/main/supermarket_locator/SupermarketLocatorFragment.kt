@@ -2,7 +2,6 @@ package com.romoreno.compraplus.ui.main.supermarket_locator
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Intent
 import android.location.Location
 import android.net.Uri
@@ -27,6 +26,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentSupermarketLocatorBinding
 import com.romoreno.compraplus.ui.main.supermarket_locator.utils.SupermarketLocatorUtils
@@ -110,7 +110,7 @@ class SupermarketLocatorFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun showPermissionExplanationDialog() {
-        AlertDialog.Builder(requireContext())
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.location_permission_request_title))
             .setMessage(getString(R.string.location_permission_request_description))
             .setPositiveButton(getString(R.string.location_permission_request_action_grant)) { _, _ ->
@@ -123,7 +123,7 @@ class SupermarketLocatorFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun showSettingsDialog() {
-        AlertDialog.Builder(requireContext())
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.location_permission_request_title))
             .setMessage(getString(R.string.location_permission_request_not_rationale_description))
             .setPositiveButton(getString(R.string.location_permission_request_not_rationale_action_grant)) { _, _ ->
