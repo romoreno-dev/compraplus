@@ -5,6 +5,7 @@ import com.romoreno.compraplus.data.database.dao.GroceryListDao
 import com.romoreno.compraplus.data.database.dao.ProductDao
 import com.romoreno.compraplus.data.database.dao.SupermarketDao
 import com.romoreno.compraplus.data.database.dao.UserDao
+import com.romoreno.compraplus.data.database.entities.GroceryListEntity
 import com.romoreno.compraplus.data.database.mapper.ProductMapper.toUser
 import com.romoreno.compraplus.domain.model.GroceryListModel
 import com.romoreno.compraplus.domain.model.GroceryListProductsModel
@@ -25,8 +26,6 @@ class DatabaseRepositoryImpl @Inject constructor(
     DatabaseRepository {
 
     // todo Entran y salen de aqui OBJETOS DE NEGOCIO (¡¡NO ENTIDADES!!)
-
-    //todo Lo recupero de Firebase y lo inserto si no existe....
     override suspend fun insertUserIfDoesntExist(user: FirebaseUser) {
         if (userDao.getUserByUid(user.uid) == null) {
             userDao.insert(user.toUser())
@@ -34,8 +33,7 @@ class DatabaseRepositoryImpl @Inject constructor(
     }
 
     override fun getGroceryListsFromUser(firebaseUser: FirebaseUser?): Flow<List<GroceryListModel>> {
-        //TODO Arreglalo
-        return groceryListDao.getGroceryListsFromUser(1)
+        return groceryListDao.getGroceryListsFromUserId(firebaseUser?.uid!!)
             .map { list ->
                 list.map { groceryList -> groceryList.toGroceryListModel() }
             }
@@ -44,6 +42,12 @@ class DatabaseRepositoryImpl @Inject constructor(
     override suspend fun getGroceryListWithProducts(groceryListId: Int): GroceryListProductsModel? {
         return groceryListDao.getGroceryListWithDetails(groceryListId)
             .firstOrNull()?.toGroceryListProductsModel()
+    }
+
+    override suspend fun createGroceryList(name: String, date: Long, userFirebaseUser: FirebaseUser) {
+        val groceryListEntity = GroceryListEntity(name = name, date = date,
+            userId = userFirebaseUser.uid)
+        groceryListDao.insert(groceryListEntity)
     }
 
     suspend fun insertProductIfDoesntExist(productModel: ProductModel) {

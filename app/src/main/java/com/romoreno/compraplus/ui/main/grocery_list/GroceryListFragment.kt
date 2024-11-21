@@ -115,7 +115,12 @@ class GroceryListFragment : Fragment() {
     }
 
     private fun initListeners() {
-        //todo Pendiente de implementar
+        binding.fabNewList.setOnClickListener { showGroceryListCreationDialogFragment() }
+    }
+
+    private fun showGroceryListCreationDialogFragment() {
+        val groceryListCreationDialogFragment = GroceryListCreationDialogFragment()
+        groceryListCreationDialogFragment.show(childFragmentManager, "LIST_CREATION")
     }
 
     private fun showRemoveAlertDialog(groceryListId: Int) {

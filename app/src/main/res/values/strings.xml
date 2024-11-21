@@ -49,4 +49,8 @@
     <string name="not_delete">No eliminar</string>
     <string name="adquired">Comprado</string>
     <string name="pending">Pendiente</string>
+    <string name="grocery_list_name">Nombre de la lista</string>
+    <string name="shopping_date">Fecha de la compra</string>
+    <string name="create">Crear</string>
+    <string name="select_shopping_date">Selecciona fecha de la compra</string>
 </resources>

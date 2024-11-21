@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface GroceryListDao: BaseDao<GroceryListEntity> {
 
-    @Query("SELECT * FROM grocery_list WHERE user_id = :userUid")
+    @Query("SELECT * FROM grocery_list WHERE user_id = :userUid ORDER BY date desc")
     @Transaction
-    fun getGroceryListsFromUser(userUid: Int): Flow<List<GroceryListEntity>>
+    fun getGroceryListsFromUserId(userUid: String): Flow<List<GroceryListEntity>>
 
     @Query("SELECT * FROM grocery_list WHERE id = :id")
     @Transaction

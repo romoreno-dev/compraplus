@@ -15,4 +15,5 @@ interface DatabaseRepository {
 
     suspend fun insertUserIfDoesntExist(user: FirebaseUser);
 
+    suspend fun createGroceryList(name: String, date: Long, userFirebaseUser: FirebaseUser)
 }
