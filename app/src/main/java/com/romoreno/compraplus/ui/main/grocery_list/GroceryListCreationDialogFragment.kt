@@ -73,9 +73,9 @@ class GroceryListCreationDialogFragment: DialogFragment() {
                 utils.validateCompletedFields(requireActivity(), binding.etGroceryListName,
                     binding.etGroceryListDate)
 
-            val date = dateFormat.parse(binding.etGroceryListDate.editText?.text?.toString()!!)
             if (completedFields) {
                 lifecycleScope.launch {
+                    val date = dateFormat.parse(binding.etGroceryListDate.editText?.text?.toString()!!)
                     withContext(Dispatchers.IO) {databaseRepository.createGroceryList(
                         binding.etGroceryListName.editText?.text?.toString()!!,
                         date?.time!!,
