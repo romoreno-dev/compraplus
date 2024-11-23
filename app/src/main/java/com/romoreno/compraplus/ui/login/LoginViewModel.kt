@@ -13,9 +13,9 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val databaseRepository: DatabaseRepository) :
     ViewModel() {
 
-    fun insertUserIfDoesntExist(user: FirebaseUser) {
+    fun insertUserIfNotExist(user: FirebaseUser) {
         viewModelScope.launch(Dispatchers.IO) {
-            databaseRepository.insertUserIfDoesntExist(user)
+            databaseRepository.insertUserIfNotExist(user)
         }
     }
 

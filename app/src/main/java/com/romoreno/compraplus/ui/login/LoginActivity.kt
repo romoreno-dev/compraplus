@@ -7,13 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.romoreno.compraplus.R
+import com.romoreno.compraplus.data.database.repository.DatabaseRepository
 import com.romoreno.compraplus.databinding.ActivityLoginBinding
 import com.romoreno.compraplus.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -21,6 +24,9 @@ class LoginActivity : AppCompatActivity() {
 
     @Inject
     lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var databaseRepository: DatabaseRepository
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var navController: NavController
@@ -38,6 +44,9 @@ class LoginActivity : AppCompatActivity() {
 
         splashScreen.setKeepOnScreenCondition { false }
         if (auth.currentUser != null) {
+            lifecycleScope.launch {
+                databaseRepository.insertUserIfNotExist(auth.currentUser!!)
+            }
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }

@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.FirebaseAuth
 import com.romoreno.compraplus.R
+import com.romoreno.compraplus.data.database.repository.DatabaseRepository
 import com.romoreno.compraplus.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,7 +26,8 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var utils: LoginUtils
 
-    private val loginViewModel: LoginViewModel by viewModels()
+    @Inject
+    lateinit var databaseRepository: DatabaseRepository
 
     val args: LoginFragmentArgs by navArgs()
 
@@ -89,7 +92,9 @@ class LoginFragment : Fragment() {
                         findNavController()
                             .navigate(LoginFragmentDirections.actionLoginFragmentSelf(infoMessage = message))
                     } else {
-                        loginViewModel.insertUserIfDoesntExist(auth.currentUser!!)
+                        lifecycleScope.launch {
+                            databaseRepository.insertUserIfNotExist(auth.currentUser!!)
+                        }
                         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToMainActivity())
                     }
                 } else {
