@@ -53,4 +53,10 @@
     <string name="shopping_date">Fecha de la compra</string>
     <string name="create">Crear</string>
     <string name="select_shopping_date">Selecciona fecha de la compra</string>
+    <string name="schedule_reminder">Programar recordatorio</string>
+    <string name="reminder_me_grocery_list_on">Recordar comprar %1$s a las</string>
+    <string name="scheduled_reminder">Programado recordatorio</string>
+    <string name="scheduling_problem">Necesario el permiso de notificación</string>
+    <string name="notification_title">¡Tienes una compra pendiente!</string>
+    <string name="notification_body">Debes comprar la lista de %1$s</string>
 </resources>

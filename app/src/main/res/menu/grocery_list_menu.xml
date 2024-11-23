@@ -7,6 +7,10 @@
         android:title="@string/share_grocery_list"
         app:showAsAction="never" />
     <item
+        android:id="@+id/scheduleReminder"
+        android:title="@string/schedule_reminder"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/removeGroceryList"
         android:title="@string/remove_grocery_list"
         app:showAsAction="never" />
