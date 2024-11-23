@@ -15,19 +15,19 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 class DatastorePreferences @Inject constructor(@ApplicationContext val context: Context) {
 
     companion object {
-        val DARK_MODE = "key_dark_mode"
+        val DARK_MODE = "key_dark_mode_"
     }
 
 
-    suspend fun setNightModelPreference(nightMode: Boolean) {
+    suspend fun setNightModePreference(nightMode: Boolean, userId: String) {
         context.dataStore.edit { preferences ->
-            preferences[booleanPreferencesKey(DARK_MODE)] = nightMode
+            preferences[booleanPreferencesKey(DARK_MODE+userId)] = nightMode
         }
     }
 
-    suspend fun getNightModePreference(): Boolean {
+    suspend fun getNightModePreference(userId: String): Boolean {
         val preferences = context.dataStore.data.first()
-        return preferences[booleanPreferencesKey(DARK_MODE)] ?: true
+        return preferences[booleanPreferencesKey(DARK_MODE+userId)] ?: true
     }
 
 }

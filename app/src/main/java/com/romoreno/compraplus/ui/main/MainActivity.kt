@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
 
-        val darkMode = runBlocking { datastorePreferences.getNightModePreference() }
+        val darkMode = runBlocking { datastorePreferences.getNightModePreference(auth.currentUser!!.uid) }
         setDarkMode(darkMode)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -157,7 +157,7 @@ class MainActivity : AppCompatActivity() {
             !(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
         setDarkMode(wantsDarkMode)
         CoroutineScope(Dispatchers.IO).launch {
-            datastorePreferences.setNightModelPreference(wantsDarkMode)
+            datastorePreferences.setNightModePreference(wantsDarkMode, auth.currentUser!!.uid)
         }
     }
 
