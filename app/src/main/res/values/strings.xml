@@ -16,7 +16,7 @@
     <string name="share_title">Comparte %1$s</string>
     <string name="new_list">Nueva lista</string>
     <string name="about">Acerca de</string>
-    <string name="about_message"><![CDATA[<b>CompraPlus</b> es una aplicación realizada como Proyecto Final del Grado Superior de Desarrollo de Aplicaciones Multiplataforma. <br> <br> Roberto Moreno Muñoz <br> ]]></string>
+    <string name="about_message"><![CDATA[<b>CompraPlus</b> es una aplicación realizada como Proyecto Final del Grado Superior de Desarrollo de Aplicaciones Multiplataforma. <br> <br> Roberto Moreno Muñoz <br> <br> Versión: ]]></string>
     <string name="accept">Aceptar</string>
     <string name="see_github">Ver Github</string>
     <string name="logout">Cerrar sesión</string>
@@ -56,4 +56,5 @@
     <string name="scheduling_problem">Necesario el permiso de notificación</string>
     <string name="notification_title">¡Tienes una compra pendiente!</string>
     <string name="notification_body">Debes comprar la lista de %1$s</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

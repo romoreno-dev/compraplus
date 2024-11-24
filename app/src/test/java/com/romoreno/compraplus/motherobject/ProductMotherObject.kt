@@ -7,6 +7,7 @@ import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
 import java.math.BigDecimal
 
 object ProductMotherObject {
+    //TODO Unit Tests. Maximizar cobertura.
 
     val productsList = listOf(
         anyProduct(),

@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
+import com.romoreno.compraplus.BuildConfig
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.ActivityMainBinding
 import com.romoreno.compraplus.ui.login.LoginActivity
@@ -130,11 +131,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun showAboutDialog() {
 
+        val message = "${getString(R.string.about_message)} ${BuildConfig.VERSION_NAME}"
+
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.about))
             .setMessage(
                 HtmlCompat.fromHtml(
-                    getString(R.string.about_message),
+                    message,
                     HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH
                 )
             )
