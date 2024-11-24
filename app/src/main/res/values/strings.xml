@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">CompraPlus</string>
     <string name="grocery_list_menu">Mis listas</string>
     <string name="product_comparator_menu">Comparar precios</string>
     <string name="supermarket_locator_menu">Tiendas cercanas</string>
@@ -29,8 +28,6 @@
     <string name="signup_message">¿Nuevo en CompraPlus? Regístrate gratis aquí</string>
     <string name="login_message">¿Ya tienes cuenta en CompraPlus? Haz login aquí</string>
     <string name="password_repeat">Repetir contraseña</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="required_field">Campo requerido</string>
     <string name="wrong_user_password">Usuario y/o contraseña incorrectos</string>
     <string name="passwords_are_not_equals">Las contraseñas no coinciden</string>

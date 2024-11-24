@@ -43,6 +43,5 @@ class ProductMiddleware @Inject constructor(private val repositories: Map<String
                 .map { it.toProduct() }
         }
     }
-    //TODO Logear con Timber y demas el error a crashlititcs...
 
 }

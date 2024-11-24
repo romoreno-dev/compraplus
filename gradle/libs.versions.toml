@@ -27,6 +27,8 @@ coroutinesTestVersion = "1.7.0"
 firebaseBomVersion = "33.1.1"
 googleServicesVersion = "4.4.2"
 crashlyticsVersion = "3.0.2"
+datastorePreferencesVersion = "1.1.1"
+androidCoreTestingVersion = "2.1.0"
 
 [libraries]
 # Buscarlas en Maven Central Repository (https://central.sonatype.com/)
@@ -58,12 +60,13 @@ androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "s
 runner-junit = { group = "io.kotlintest", name = "kotlintest-runner-junit5", version.ref = "runnerJUnitVersion" }
 io-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockkVersion" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTestVersion" }
-
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBomVersion"}
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
 firebase-realtime = { group = "com.google.firebase", name = "firebase-database-ktx" }
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferencesVersion"}
+android-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "androidCoreTestingVersion"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -21,5 +21,3 @@ data class GroceryListEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "date") val date: Long
 )
-//fixme No admite Date ni Timestamp?
-

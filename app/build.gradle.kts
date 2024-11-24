@@ -18,18 +18,24 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0-SNAPSHOT"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = false
+            isDebuggable = false
+            resValue("string", "compraplus_name", "CompraPlus")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        getByName("debug") {
+            isDebuggable = true
+            resValue("string", "compraplus_name", "CompraPlus [SNAPSHOT]")
         }
     }
     compileOptions {
@@ -39,8 +45,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        // Habilitar ViewBinding
+    buildFeatures{
         viewBinding = true
         buildConfig = true
     }
@@ -62,7 +67,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    // DaggerHilt (Dependencia de DaggerHilt para Android y del compilador. Necesita el plugin de kapt y el de dagger (desactivando su ejecucion inmediata)
+    // DaggerHilt (Dependencia de DaggerHilt para Android y del compilador. Necesita el plugin de
+    // kapt y el de dagger (desactivando su ejecucion inmediata)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 
@@ -71,15 +77,17 @@ dependencies {
     implementation(libs.retrofit2.gson)
     implementation(libs.okhttp.logging)
 
-    // NavComponent (Con esto se añade la navegacion, el delegado de los viewModel para descargarse el control de su ciclo de vida, corrutinas, etc)
+    // NavComponent (Con esto se añade la navegacion, el delegado de los viewModel para descargarse
+    // el control de su ciclo de vida, corrutinas, etc)
     // Tambien plugin de safeargs para pasar datos entre vistas
     implementation(libs.navigation.ui)
     implementation(libs.navigation.fragment)
 
-    // Room
+    // Room y DataStore Preferences (tambien podriamos haber usado las SharedPreferences)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
+    implementation(libs.datastore.preferences)
 
     // Google Maps
     implementation(libs.google.maps)
@@ -101,16 +109,19 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.realtime)
-    implementation ("com.google.android.gms:play-services-auth:20.5.0")
-    implementation ("com.google.android.gms:play-services-auth-api-phone")
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    // (Acceso con Google para Android, finalmente no se usara)
+//    implementation ("com.google.android.gms:play-services-auth:20.5.0")
+    // (Validacion de cuenta mediante SMS, finalmente no se usara)
+//    implementation ("com.google.android.gms:play-services-auth-api-phone")
+    // (Libreria de logging, finalmente no se usara)
+//    implementation("com.jakewharton.timber:timber:5.0.1")
 
     // Unit Tests
     testImplementation(libs.junit)
     testImplementation(libs.runner.junit)
     testImplementation(libs.io.mockk)
     testImplementation(libs.coroutines.test)
-    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation(libs.android.core.testing)
 
     // Android Tests
     androidTestImplementation(libs.androidx.junit)
