@@ -187,11 +187,15 @@ class SupermarketLocatorFragment : Fragment(), OnMapReadyCallback {
         ).addOnSuccessListener { location ->
             location?.let {
                 lifecycleScope.launch {
-                    val supermarkets = supermarketLocatorViewModel
-                        .getNearbySupermarkets(location.latitude, location.longitude)
-                    withContext(Dispatchers.Main) {
-                        supermarkets.forEach {
-                            utils.addMarkerToMap(map, it, utils.getBitmap(it))
+                    // Cuando se cambia muy rapido de fragmento, esta corrutina se inicia
+                    // despues y revienta. Compruebo que el fragmento siga ahi
+                    if (isAdded) {
+                        val supermarkets = supermarketLocatorViewModel
+                            .getNearbySupermarkets(location.latitude, location.longitude)
+                        withContext(Dispatchers.Main) {
+                            supermarkets.forEach {
+                                utils.addMarkerToMap(map, it, utils.getBitmap(it))
+                            }
                         }
                     }
                 }
