@@ -1,4 +1,4 @@
-package com.romoreno.compraplus.ui.main.product_comparator.utils
+package com.romoreno.compraplus.ui.main.product_comparator.adapter.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product

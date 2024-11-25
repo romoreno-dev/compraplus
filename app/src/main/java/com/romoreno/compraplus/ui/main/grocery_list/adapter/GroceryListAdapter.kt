@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.domain.model.GroceryListModel
 import com.romoreno.compraplus.ui.main.grocery_list.pojo.WhenGroceryListItemSelected
-import com.romoreno.compraplus.ui.main.grocery_list.utils.GroceryListDiffUtil
+import com.romoreno.compraplus.ui.main.grocery_list.adapter.utils.GroceryListDiffUtil
 
 class GroceryListAdapter(private val whenGroceryListItemSelected: WhenGroceryListItemSelected,
                          private var list:List<GroceryListModel> = emptyList()) :

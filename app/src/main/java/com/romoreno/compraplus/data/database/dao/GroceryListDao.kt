@@ -23,4 +23,6 @@ interface GroceryListDao: BaseDao<GroceryListEntity> {
     @Transaction
     fun deleteGroceryListWithId(id: Int)
 
+
+
 }

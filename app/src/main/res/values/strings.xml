@@ -56,5 +56,6 @@
     <string name="scheduling_problem">Necesario el permiso de notificación</string>
     <string name="notification_title">¡Tienes una compra pendiente!</string>
     <string name="notification_body">Debes comprar la lista de %1$s</string>
+    <string name="add_product">Añadir producto</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

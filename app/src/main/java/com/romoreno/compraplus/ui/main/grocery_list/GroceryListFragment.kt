@@ -23,6 +23,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -82,7 +83,7 @@ class GroceryListFragment : Fragment() {
         registerForContextMenu(binding.rvGroceryList)
         groceryListAdapter = GroceryListAdapter(
             WhenGroceryListItemSelected(
-                { id, view -> toGroceryListDetails(id, view) },
+                { id -> toGroceryListDetails(id) },
                 { id, name, date, view -> popupMenuOnGroceryListItem(id, name, date, view) }
             )
         )
@@ -182,9 +183,9 @@ class GroceryListFragment : Fragment() {
             .show()
     }
 
-    private fun toGroceryListDetails(idGroceryList: Int, view: View) {
-        //TODO ... Implementar
-        Toast.makeText(requireContext(), "Clickado en $idGroceryList", Toast.LENGTH_SHORT).show()
+    private fun toGroceryListDetails(idGroceryList: Int) {
+        findNavController().navigate(GroceryListFragmentDirections
+            .actionGroceryListFragmentToGroceryListDetailActivity(idGroceryList))
     }
 
     private fun popupMenuOnGroceryListItem(

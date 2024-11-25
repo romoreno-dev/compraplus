@@ -4,6 +4,6 @@ import android.view.View
 import java.util.Date
 
 class WhenGroceryListItemSelected (
-    val onCardViewSelected:(Int, View) -> Unit,
+    val onCardViewSelected:(Int) -> Unit,
     val whenMoreOptionsSelected:(Int, String, Date, View) -> Unit
 )

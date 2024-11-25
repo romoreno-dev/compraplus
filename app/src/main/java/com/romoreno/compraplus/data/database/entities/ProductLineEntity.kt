@@ -25,5 +25,5 @@ data class ProductLineEntity(
     @ColumnInfo(name = "grocery_list_id") val groceryListId: Int,
     @ColumnInfo(name = "product_id") val productId: Int,
     @ColumnInfo(name = "quantity") val quantity: Int,
-    @ColumnInfo(name = "adquired") val adquired: Boolean
+    @ColumnInfo(name = "adquired") var adquired: Boolean
 )

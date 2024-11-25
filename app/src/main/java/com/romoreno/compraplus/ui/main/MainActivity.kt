@@ -76,8 +76,9 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.groceryListFragment -> binding.topAppBar
-                    .title = getString(R.string.grocery_list_menu)
+                R.id.groceryListFragment -> {
+                    binding.topAppBar.title = getString(R.string.grocery_list_menu)
+                }
 
                 R.id.productComparatorFragment -> binding.topAppBar
                     .title = getString(R.string.product_comparator_menu)

@@ -1,4 +1,4 @@
-package com.romoreno.compraplus.ui.main.grocery_list.utils
+package com.romoreno.compraplus.ui.main.grocery_list.adapter.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.romoreno.compraplus.domain.model.GroceryListModel

@@ -3,6 +3,7 @@ package com.romoreno.compraplus.data.database.repository
 import com.google.firebase.auth.FirebaseUser
 import com.romoreno.compraplus.data.database.dao.GroceryListDao
 import com.romoreno.compraplus.data.database.dao.ProductDao
+import com.romoreno.compraplus.data.database.dao.ProductLineDao
 import com.romoreno.compraplus.data.database.dao.SupermarketDao
 import com.romoreno.compraplus.data.database.dao.UserDao
 import com.romoreno.compraplus.data.database.entities.GroceryListEntity
@@ -21,6 +22,7 @@ class DatabaseRepositoryImpl @Inject constructor(
     private val groceryListDao: GroceryListDao,
     private val productDao: ProductDao,
     private val supermarketDao: SupermarketDao,
+    private val productLineDao: ProductLineDao,
     private val userDao: UserDao
 ) :
     DatabaseRepository {
@@ -37,6 +39,11 @@ class DatabaseRepositoryImpl @Inject constructor(
             .map { list ->
                 list.map { groceryList -> groceryList.toGroceryListModel() }
             }
+    }
+
+    override fun getGroceryListWithProductsFlow(groceryListId: Int): Flow<GroceryListProductsModel> {
+        return groceryListDao.getGroceryListWithDetails(groceryListId)
+            .map { it.toGroceryListProductsModel() }
     }
 
     override suspend fun getGroceryListWithProducts(groceryListId: Int): GroceryListProductsModel? {
@@ -59,6 +66,12 @@ class DatabaseRepositoryImpl @Inject constructor(
     override suspend fun deleteGroceryList(groceryListId: Int) {
 
         return groceryListDao.deleteGroceryListWithId(groceryListId)
+    }
+
+    override suspend fun markProductAsAdquired(groceryListId: Int, idProduct: Int, checked: Boolean) {
+        val productLine = productLineDao.getProductLine(groceryListId, idProduct)
+        productLine.adquired = checked
+        productLineDao.update(productLine)
     }
 
     suspend fun addProductToGroceryList() {

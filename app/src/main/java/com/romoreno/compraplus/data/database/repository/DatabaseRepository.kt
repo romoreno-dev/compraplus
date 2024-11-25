@@ -9,9 +9,13 @@ interface DatabaseRepository {
 
     fun getGroceryListsFromUser(firebaseUser: FirebaseUser?): Flow<List<GroceryListModel>>
 
+    fun getGroceryListWithProductsFlow(groceryListId: Int): Flow<GroceryListProductsModel>
+
     suspend fun getGroceryListWithProducts(groceryListId: Int): GroceryListProductsModel?
 
     suspend fun deleteGroceryList(groceryListId: Int)
+
+    suspend fun markProductAsAdquired(groceryListId: Int, idProduct: Int, checked: Boolean)
 
     suspend fun insertUserIfNotExist(user: FirebaseUser)
 

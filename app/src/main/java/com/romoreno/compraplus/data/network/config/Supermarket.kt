@@ -5,7 +5,16 @@ sealed class Supermarket(val name: String) {
         const val EROSKI = "eroski"
         const val DIA = "dia"
         const val MERCADONA = "mercadona"
-        val values = listOf(Eroski, Dia, Mercadona,)
+        val values = listOf(Eroski, Dia, Mercadona)
+
+        fun fromString(name: String?): Supermarket? {
+            return when (name) {
+                EROSKI -> Eroski
+                DIA -> Dia
+                MERCADONA -> Mercadona
+                else -> null
+            }
+        }
     }
 
     data object Eroski:Supermarket(EROSKI) {

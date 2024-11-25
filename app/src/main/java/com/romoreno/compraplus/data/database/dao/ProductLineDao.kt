@@ -9,7 +9,7 @@ import com.romoreno.compraplus.data.database.entities.ProductLineEntity
 @Dao
 interface ProductLineDao: BaseDao<ProductLineEntity> {
 
-    @Query("SELECT * FROM grocery_list")
-    suspend fun getProductLines(): List<GroceryListEntity>
+    @Query("SELECT * FROM product_line WHERE grocery_list_id = :groceryListId AND product_id = :idProduct")
+    suspend fun getProductLine(groceryListId: Int, idProduct: Int): ProductLineEntity
 
 }
