@@ -41,9 +41,17 @@ class GroceryListDetailViewModel @Inject constructor(private val databaseReposit
 
     fun markProductAsAdquired(productGroceryList: ProductGroceryList, checked: Boolean) {
         viewModelScope.launch {
-            _state.value = _state.value.copy(loading = true)  // TODO Lo de que sea un mapa es una jodienda...
+            _state.value = _state.value.copy(loading = true)
             databaseRepository.markProductAsAdquired(productGroceryList.groceryListId, productGroceryList.productId, checked)
-            _state.value = _state.value.copy(loading = false)  // TODO Lo de que sea un mapa es una jodienda...
+            _state.value = _state.value.copy(loading = false)
+        }
+    }
+
+    fun deleteProductInGroceryList(productGroceryList: ProductGroceryList) {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(loading = true)
+            databaseRepository.deleteProduct(productGroceryList.groceryListId, productGroceryList.productId)
+            _state.value = _state.value.copy(loading = false)
         }
     }
 

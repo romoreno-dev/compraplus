@@ -29,34 +29,47 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvProduct"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:gravity="center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tvQuantity"
             app:layout_constraintStart_toEndOf="@id/imageViewSupermarket"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Leche Desnatada Día Láctea Brik 1L. Desnatada pasteurizada y enriquecida con vitaminas A y D, en formato brik de 1 litro. Ideal para el consumo diario, con un bajo contenido en grasa que la convierte en una opción ligera y saludable. " />
+            tools:text="Café con leche descafeinado light sin lactosa Hacendado" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvProduct"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/cb_adquired"
+            app:layout_constraintEnd_toStartOf="@id/imageViewDelete"
             tools:text="3" />
+
+        <ImageView
+            android:id="@+id/imageViewDelete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:padding="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvQuantity"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cb_adquired"
+            tools:src="@drawable/ic_delete" />
 
         <CheckBox
             android:id="@+id/cb_adquired"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/tvQuantity"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintStart_toEndOf="@id/imageViewDelete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.ActivityGroceryListDetailBinding
 import com.romoreno.compraplus.domain.model.ProductGroceryList
@@ -61,9 +62,9 @@ class GroceryListDetailActivity : AppCompatActivity() {
         //      )
         //  )
 
-        productGroceryListAdapter = ProductGroceryListAdapter(WhenProductGroceryListItemSelected {
-            product, checked -> markAsAdquired(product, checked)
-        })
+        productGroceryListAdapter = ProductGroceryListAdapter(WhenProductGroceryListItemSelected(
+            {product, checked -> markAsAdquired(product, checked)},
+            {product -> showRemoveAlertDialog(product)}))
         binding.rvProductGroceryList.layoutManager = LinearLayoutManager(this)
         binding.rvProductGroceryList.adapter = productGroceryListAdapter
     }
@@ -122,8 +123,24 @@ class GroceryListDetailActivity : AppCompatActivity() {
         // TODO Implementar
     }
 
-    private fun deleteProduct() {
-        // TODO Implementar
+    private fun showRemoveAlertDialog(productGroceryList: ProductGroceryList) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.remove_product))
+            .setMessage(getString(R.string.remove_confirmation_product_message))
+            .setPositiveButton(getString(R.string.delete)) { _, _ ->
+                deleteProduct(productGroceryList)
+            }
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.not_delete)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun deleteProduct(productGroceryList: ProductGroceryList) {
+        lifecycleScope.launch {
+            groceryListDetailViewModel.deleteProductInGroceryList(productGroceryList)
+        }
     }
 
     private fun markAsAdquired(productGroceryList: ProductGroceryList, checked: Boolean) {

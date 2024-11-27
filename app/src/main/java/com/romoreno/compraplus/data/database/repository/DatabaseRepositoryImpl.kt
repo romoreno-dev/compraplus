@@ -68,6 +68,10 @@ class DatabaseRepositoryImpl @Inject constructor(
         return groceryListDao.deleteGroceryListWithId(groceryListId)
     }
 
+    override suspend fun deleteProduct(groceryListId: Int, idProduct: Int) {
+        return productLineDao.deleteProductLine(groceryListId, idProduct)
+    }
+
     override suspend fun markProductAsAdquired(groceryListId: Int, idProduct: Int, checked: Boolean) {
         val productLine = productLineDao.getProductLine(groceryListId, idProduct)
         productLine.adquired = checked

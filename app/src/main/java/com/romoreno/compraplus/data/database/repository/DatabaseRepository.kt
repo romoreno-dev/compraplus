@@ -17,6 +17,8 @@ interface DatabaseRepository {
 
     suspend fun markProductAsAdquired(groceryListId: Int, idProduct: Int, checked: Boolean)
 
+    suspend fun deleteProduct(groceryListId: Int, idProduct: Int)
+
     suspend fun insertUserIfNotExist(user: FirebaseUser)
 
     suspend fun createGroceryList(name: String, date: Long, userFirebaseUser: FirebaseUser)
