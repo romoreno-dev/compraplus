@@ -1,5 +1,7 @@
 package com.romoreno.compraplus.domain
 
+import com.romoreno.compraplus.data.database.entities.ProductLineEntity
+import com.romoreno.compraplus.data.database.repository.DatabaseRepository
 import com.romoreno.compraplus.data.network.repository.NetworkRepository
 import com.romoreno.compraplus.domain.model.ProductModel
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
@@ -9,21 +11,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
-class ProductMiddleware @Inject constructor(private val repositories: Map<String, @JvmSuppressWildcards NetworkRepository>) {
-
-//    suspend fun getProducts(productKeyword: String): List<Product> {
-//
-//        val products: MutableList<Product> = mutableListOf()
-//
-////        for ((supermarket, repository) in repositories) {
-////            products.addAll(repository.getProducts(productKeyword))
-////        }
-//
-//         products.addAll(repositories["eroski"]!!.getProducts(productKeyword))
-//
-//
-//        return products.sortedBy { it.prices.price }
-//    }
+class ProductMiddleware @Inject constructor(private val repositories: Map<String, @JvmSuppressWildcards NetworkRepository>,
+    private val databaseRepository: DatabaseRepository) {
 
     suspend fun getProducts(productKeyword: String): List<Product> {
         return coroutineScope {
@@ -42,6 +31,14 @@ class ProductMiddleware @Inject constructor(private val repositories: Map<String
                 .sortedBy { it.prices.price }
                 .map { it.toProduct() }
         }
+    }
+
+    suspend fun insertProductLine(groceryListId: Int, quantity: Int, product: Product) {
+        val idProductEntity = databaseRepository.insertProductIfNotExist(product)
+        databaseRepository.insertProductLine(ProductLineEntity(groceryListId = groceryListId,
+            quantity = quantity,
+            productId = idProductEntity,
+            adquired = false))
     }
 
 }

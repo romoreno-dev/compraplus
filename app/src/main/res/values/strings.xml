@@ -59,5 +59,10 @@
     <string name="notification_title">¡Tienes una compra pendiente!</string>
     <string name="notification_body">Debes comprar la lista de %1$s</string>
     <string name="add_product">Añadir producto</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="quantity">Cantidad</string>
+    <string name="manual_product">Producto manual</string>
+    <string name="supermarket_product">Producto supermercado</string>
+    <string name="product">Producto</string>
+    <string name="supermarket">Supermercado</string>
+    <string name="new_product">Nuevo producto</string>
 </resources>

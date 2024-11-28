@@ -6,6 +6,7 @@ sealed class Supermarket(val name: String) {
         const val DIA = "dia"
         const val MERCADONA = "mercadona"
         val values = listOf(Eroski, Dia, Mercadona)
+        val valuesNames = listOf(EROSKI, DIA, MERCADONA)
 
         fun fromString(name: String?): Supermarket? {
             return when (name) {

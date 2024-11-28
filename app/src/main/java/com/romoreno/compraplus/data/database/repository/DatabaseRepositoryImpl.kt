@@ -7,12 +7,15 @@ import com.romoreno.compraplus.data.database.dao.ProductLineDao
 import com.romoreno.compraplus.data.database.dao.SupermarketDao
 import com.romoreno.compraplus.data.database.dao.UserDao
 import com.romoreno.compraplus.data.database.entities.GroceryListEntity
+import com.romoreno.compraplus.data.database.entities.ProductLineEntity
 import com.romoreno.compraplus.data.database.mapper.ProductMapper.toUser
 import com.romoreno.compraplus.domain.model.GroceryListModel
 import com.romoreno.compraplus.domain.model.GroceryListProductsModel
 import com.romoreno.compraplus.domain.model.ProductModel
 import com.romoreno.compraplus.domain.model.toGroceryListModel
 import com.romoreno.compraplus.domain.model.toGroceryListProductsModel
+import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
+import com.romoreno.compraplus.ui.main.product_comparator.pojo.toProductEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -57,10 +60,18 @@ class DatabaseRepositoryImpl @Inject constructor(
         groceryListDao.insert(groceryListEntity)
     }
 
-    suspend fun insertProductIfDoesntExist(productModel: ProductModel) {
+    override suspend fun insertProductIfNotExist(product: Product): Int {
+        var productEntity = productDao.getProduct(product.name, product.supermarket.name)
+        if (productEntity == null) {
+            val supermarketId = supermarketDao.getIdFromName(product.supermarket.name)
+            return productDao.insert(product.toProductEntity(supermarketId)).toInt()
+        } else {
+            return productEntity.id
+        }
     }
 
-    suspend fun insertGroceryList(groceryList: GroceryListModel) {
+    override suspend fun insertProductLine(productLine: ProductLineEntity) {
+        productLineDao.insert(productLine)
     }
 
     override suspend fun deleteGroceryList(groceryListId: Int) {
@@ -76,18 +87,6 @@ class DatabaseRepositoryImpl @Inject constructor(
         val productLine = productLineDao.getProductLine(groceryListId, idProduct)
         productLine.adquired = checked
         productLineDao.update(productLine)
-    }
-
-    suspend fun addProductToGroceryList() {
-    }
-
-    suspend fun insertSupermarket() {
-    }
-
-    suspend fun deleteSupermarket() {
-    }
-
-    suspend fun changeStateProductLine() {
     }
 
 }

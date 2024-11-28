@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.romoreno.compraplus.databinding.FragmentProductAdderDialogBinding
+import com.romoreno.compraplus.databinding.DialogProductAdderBinding
 
 class ProductAdderDialogFragment : Fragment() {
 
-    private var _binding: FragmentProductAdderDialogBinding? = null
+    private var _binding: DialogProductAdderBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        _binding = FragmentProductAdderDialogBinding.inflate(inflater, container, false)
+        _binding = DialogProductAdderBinding.inflate(inflater, container, false)
         return binding.root
     }
 

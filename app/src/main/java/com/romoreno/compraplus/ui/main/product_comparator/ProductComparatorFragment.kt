@@ -1,16 +1,19 @@
 package com.romoreno.compraplus.ui.main.product_comparator
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentProductComparatorBinding
+import com.romoreno.compraplus.ui.main.grocery_list.OnProductSelectedCallback
 import com.romoreno.compraplus.ui.main.product_comparator.adapter.ProductComparatorAdapter
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.WhenProductItemSelected
@@ -26,21 +30,53 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProductComparatorFragment : Fragment() {
+class ProductComparatorFragment : DialogFragment() {
 
     private val productComparatorViewModel: ProductComparatorViewModel by viewModels()
 
     private lateinit var productComparatorAdapter: ProductComparatorAdapter
 
+    private var isDialogMode: Boolean = false
+    private var onProductSelectedCallback: OnProductSelectedCallback? = null
+
     private var _binding: FragmentProductComparatorBinding? = null
     private val binding get() = _binding!!
 
+    companion object {
+        val DIALOG_MODE = "DIALOG_MODE"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            isDialogMode = it.getBoolean(DIALOG_MODE, false)
+        }
         initUI()
     }
 
     private fun initUI() {
+
+        if (isDialogMode) {
+            dialog?.window?.apply {
+                setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.dialog_rounded
+                    )
+                )
+                setLayout(
+                    (resources.displayMetrics.widthPixels * 0.75).toInt(),
+                    (resources.displayMetrics.heightPixels * 0.75).toInt()
+                )
+            }
+            dialog?.window?.decorView?.setPadding(24, 24, 24, 24)
+
+            binding.etQuantity.apply {
+                visibility = View.VISIBLE
+                editText?.setText("1")
+            }
+        }
+
         initList()
         initListeners()
         initUIState()
@@ -48,19 +84,34 @@ class ProductComparatorFragment : Fragment() {
 
     private fun initList() {
 
-        binding.swipeRefresh.setColorSchemeResources(R.color.md_theme_primary,
+        binding.swipeRefresh.setColorSchemeResources(
+            R.color.md_theme_primary,
             R.color.md_theme_secondary,
-            R.color.md_theme_tertiary)
+            R.color.md_theme_tertiary
+        )
 
         binding.swipeRefresh.setOnRefreshListener {
-            productComparatorViewModel.searchProduct(binding.searchViewProduct.query.toString(), true)
+            productComparatorViewModel.searchProduct(
+                binding.searchViewProduct.query.toString(),
+                true
+            )
         }
 
-        productComparatorAdapter = ProductComparatorAdapter(
-            WhenProductItemSelected({
-                shareProduct(it)
-            }, { showExtendedImage(it) })
-        )
+        if (isDialogMode) {
+            productComparatorAdapter = ProductComparatorAdapter(
+                WhenProductItemSelected(
+                    onCardViewSelected = { addProductToGroceryList(it) },
+                    onProductImageSelected = { showExtendedImage(it) },
+                )
+            )
+        } else {
+            productComparatorAdapter = ProductComparatorAdapter(
+                WhenProductItemSelected(onCardViewSelected = { shareProduct(it) },
+                    onProductImageSelected = { showExtendedImage(it) })
+            )
+        }
+
+
         binding.rvProduct.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = productComparatorAdapter
@@ -77,6 +128,20 @@ class ProductComparatorFragment : Fragment() {
             .into(extendedImageView)
 
         dialog.show()
+    }
+
+    private fun addProductToGroceryList(product: Product) {
+        onProductSelectedCallback
+            ?.onProductSelected(tryParseContentToInt(binding.etQuantity.editText), product)
+        dismiss()
+    }
+
+    private fun tryParseContentToInt(editText: EditText?): Int {
+        try {
+            return editText?.text.toString().toInt()
+        } catch (e: NumberFormatException) {
+            return 1
+        }
     }
 
     private fun shareProduct(product: Product) {
@@ -171,4 +236,10 @@ class ProductComparatorFragment : Fragment() {
         _binding = null
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnProductSelectedCallback) {
+            onProductSelectedCallback = context
+        }
+    }
 }

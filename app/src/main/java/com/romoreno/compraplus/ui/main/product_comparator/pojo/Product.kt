@@ -1,5 +1,6 @@
 package com.romoreno.compraplus.ui.main.product_comparator.pojo
 
+import com.romoreno.compraplus.data.database.entities.ProductEntity
 import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.domain.model.ProductModel
 import java.math.RoundingMode
@@ -30,4 +31,8 @@ fun ProductModel.toProduct(): Product {
         brand,
         supermarket
     )
+}
+
+fun Product.toProductEntity(supermarketId: Int): ProductEntity {
+    return ProductEntity(name = name, supermarketId = supermarketId, brand = brand, image = image)
 }

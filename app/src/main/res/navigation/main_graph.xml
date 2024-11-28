@@ -9,7 +9,7 @@
         android:id="@+id/groceryListFragment"
         android:name="com.romoreno.compraplus.ui.main.grocery_list.GroceryListFragment"
         android:label="fragment_grocery_list"
-        tools:layout="@layout/fragment_grocery_list" >
+        tools:layout="@layout/fragment_grocery_list">
         <action
             android:id="@+id/action_groceryListFragment_to_groceryListDetailActivity"
             app:destination="@id/groceryListDetailActivity" />
@@ -18,7 +18,7 @@
         android:id="@+id/productComparatorFragment"
         android:name="com.romoreno.compraplus.ui.main.product_comparator.ProductComparatorFragment"
         android:label="fragment_product_comparator"
-        tools:layout="@layout/fragment_product_comparator" />
+        tools:layout="@layout/fragment_product_comparator"/>
     <fragment
         android:id="@+id/supermarketLocatorFragment"
         android:name="com.romoreno.compraplus.ui.main.supermarket_locator.SupermarketLocatorFragment"
@@ -28,7 +28,7 @@
         android:id="@+id/groceryListDetailActivity"
         android:name="com.romoreno.compraplus.ui.main.grocery_list_detail.GroceryListDetailActivity"
         android:label="activity_grocery_list_detail"
-        tools:layout="@layout/activity_grocery_list_detail" >
+        tools:layout="@layout/activity_grocery_list_detail">
         <argument
             android:name="idGroceryList"
             app:argType="integer" />

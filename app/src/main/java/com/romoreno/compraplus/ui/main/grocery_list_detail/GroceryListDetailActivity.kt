@@ -1,6 +1,8 @@
 package com.romoreno.compraplus.ui.main.grocery_list_detail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -17,13 +19,18 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.ActivityGroceryListDetailBinding
 import com.romoreno.compraplus.domain.model.ProductGroceryList
+import com.romoreno.compraplus.ui.main.grocery_list.OnProductSelectedCallback
+import com.romoreno.compraplus.ui.main.grocery_list.ProductAdderDialogFragment
 import com.romoreno.compraplus.ui.main.grocery_list_detail.adapter.ProductGroceryListAdapter
 import com.romoreno.compraplus.ui.main.grocery_list_detail.pojo.WhenProductGroceryListItemSelected
+import com.romoreno.compraplus.ui.main.product_comparator.ProductComparatorFragment
+import com.romoreno.compraplus.ui.main.product_comparator.ProductComparatorFragment.Companion.DIALOG_MODE
+import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class GroceryListDetailActivity : AppCompatActivity() {
+class GroceryListDetailActivity : AppCompatActivity(), OnProductSelectedCallback {
 
     private val groceryListDetailViewModel: GroceryListDetailViewModel by viewModels()
 
@@ -62,9 +69,11 @@ class GroceryListDetailActivity : AppCompatActivity() {
         //      )
         //  )
 
-        productGroceryListAdapter = ProductGroceryListAdapter(WhenProductGroceryListItemSelected(
-            {product, checked -> markAsAdquired(product, checked)},
-            {product -> showRemoveAlertDialog(product)}))
+        productGroceryListAdapter = ProductGroceryListAdapter(
+            WhenProductGroceryListItemSelected(
+                { product, checked -> markAsAdquired(product, checked) },
+                { product -> showRemoveAlertDialog(product) })
+        )
         binding.rvProductGroceryList.layoutManager = LinearLayoutManager(this)
         binding.rvProductGroceryList.adapter = productGroceryListAdapter
     }
@@ -78,8 +87,16 @@ class GroceryListDetailActivity : AppCompatActivity() {
         }
 
         binding.fabAddProduct.setOnClickListener {
-            Toast.makeText(this, "Añadir producto pulsado", Toast.LENGTH_LONG).show()
+            showProductComparatorDialogFragment()
         }
+    }
+
+    private fun showProductComparatorDialogFragment() {
+        val productComparatorDialogFragment = ProductComparatorFragment()
+        productComparatorDialogFragment.arguments = Bundle().apply {
+            putBoolean(DIALOG_MODE, true)
+        }
+        productComparatorDialogFragment.show(supportFragmentManager, "PRODUCT_ADD")
     }
 
     private fun initUIState() {
@@ -119,10 +136,6 @@ class GroceryListDetailActivity : AppCompatActivity() {
         ).show()
     }
 
-    private fun editProduct() {
-        // TODO Implementar
-    }
-
     private fun showRemoveAlertDialog(productGroceryList: ProductGroceryList) {
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.remove_product))
@@ -147,6 +160,10 @@ class GroceryListDetailActivity : AppCompatActivity() {
         groceryListDetailViewModel.markProductAsAdquired(productGroceryList, checked)
     }
 
+    override fun onProductSelected(quantity: Int, product: Product) {
+        groceryListDetailViewModel.saveProductLine(args.idGroceryList, quantity, product)
+    }
+
     private fun setViewCompat() {
         enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
@@ -154,5 +171,31 @@ class GroceryListDetailActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.grocery_list_detail_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.manualProduct -> {
+                showDialogProductAdder()
+                true
+            }
+
+            R.id.supermarketProduct -> {
+                showProductComparatorDialogFragment()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showDialogProductAdder() {
+        val productAdderDialogFragment = ProductAdderDialogFragment()
+        productAdderDialogFragment.show(supportFragmentManager, "ADD_PRODUCT_MANUALLY")
     }
 }
