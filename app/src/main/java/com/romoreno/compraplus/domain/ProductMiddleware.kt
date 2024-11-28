@@ -9,6 +9,7 @@ import com.romoreno.compraplus.ui.main.product_comparator.pojo.toProduct
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import java.text.Normalizer
 import javax.inject.Inject
 
 class ProductMiddleware @Inject constructor(private val repositories: Map<String, @JvmSuppressWildcards NetworkRepository>,
@@ -16,11 +17,18 @@ class ProductMiddleware @Inject constructor(private val repositories: Map<String
 
     suspend fun getProducts(productKeyword: String): List<Product> {
         return coroutineScope {
+
+            val normalizedKeyword = Normalizer.normalize(productKeyword, Normalizer.Form.NFD)
+                .replace("\u0301", "")
+                .replace("ñ","n")
+                .replace("ç","c")
+            val query =  Normalizer.normalize(normalizedKeyword, Normalizer.Form.NFC)
+
             val productsDeferred = mutableListOf<Deferred<List<ProductModel>>>()
 
-            for ((supermarket, repository) in repositories) {
+            for ((_, repository) in repositories) {
                 val supermakerProducts = async {
-                    runCatching { repository.getProducts(productKeyword) }
+                    runCatching { repository.getProducts(query) }
                         .getOrElse { emptyList() }
                 }
                 productsDeferred.add(supermakerProducts)
@@ -33,9 +41,9 @@ class ProductMiddleware @Inject constructor(private val repositories: Map<String
         }
     }
 
-    suspend fun insertProductLine(groceryListId: Int, quantity: Int, product: Product) {
+    suspend fun insertOrUpdateProductLine(groceryListId: Int, quantity: Int, product: Product) {
         val idProductEntity = databaseRepository.insertProductIfNotExist(product)
-        databaseRepository.insertProductLine(ProductLineEntity(groceryListId = groceryListId,
+        databaseRepository.insertProductLineOrUpdate(ProductLineEntity(groceryListId = groceryListId,
             quantity = quantity,
             productId = idProductEntity,
             adquired = false))
