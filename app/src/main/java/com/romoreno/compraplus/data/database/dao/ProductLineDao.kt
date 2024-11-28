@@ -9,7 +9,7 @@ import com.romoreno.compraplus.data.database.entities.ProductLineEntity
 interface ProductLineDao : BaseDao<ProductLineEntity> {
 
     @Query("SELECT * FROM product_line WHERE grocery_list_id = :groceryListId AND product_id = :idProduct")
-    suspend fun getProductLine(groceryListId: Int, idProduct: Int): ProductLineEntity
+    suspend fun getProductLine(groceryListId: Int, idProduct: Int): ProductLineEntity?
 
     @Query("DELETE FROM product_line WHERE grocery_list_id = :groceryListId AND product_id = :idProduct")
     suspend fun deleteProductLine(groceryListId: Int, idProduct: Int)

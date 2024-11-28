@@ -42,6 +42,10 @@ class ProductGroceryListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.cbAdquired.setOnCheckedChangeListener { _, isChecked ->
             whenProductGroceryListItemSelected.onCheckButtonSelected(product, isChecked)
         }
+        binding.productCardView.setOnLongClickListener {
+            whenProductGroceryListItemSelected.onClickListener(product)
+            true
+        }
     }
 
 }

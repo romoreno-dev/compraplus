@@ -138,7 +138,12 @@ class ProductComparatorFragment : DialogFragment() {
 
     private fun tryParseContentToInt(editText: EditText?): Int {
         try {
-            return editText?.text.toString().toInt()
+            val number = editText?.text.toString().toInt()
+            return if (number > 0) {
+                number
+            } else {
+                1
+            }
         } catch (e: NumberFormatException) {
             return 1
         }

@@ -64,7 +64,7 @@ class GroceryListDetailViewModel @Inject constructor(private val databaseReposit
         viewModelScope.launch {
             _state.value = _state.value.copy(loading = true)
             withContext(Dispatchers.IO) {
-                productMiddleware.insertProductLine(groceryListId, quantity, product)
+                productMiddleware.insertOrUpdateProductLine(groceryListId, quantity, product)
             }
             _state.value = _state.value.copy(loading = false)
         }

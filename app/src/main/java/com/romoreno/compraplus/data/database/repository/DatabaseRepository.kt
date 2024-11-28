@@ -23,6 +23,6 @@ interface DatabaseRepository {
 
     suspend fun insertUserIfNotExist(user: FirebaseUser)
     suspend fun insertProductIfNotExist(product: Product): Int
-    suspend fun insertProductLine(productLine: ProductLineEntity)
     suspend fun createGroceryList(name: String, date: Long, userFirebaseUser: FirebaseUser)
+    suspend fun insertProductLineOrUpdate(productLine: ProductLineEntity)
 }

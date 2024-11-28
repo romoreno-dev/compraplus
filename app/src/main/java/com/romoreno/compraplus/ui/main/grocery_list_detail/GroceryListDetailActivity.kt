@@ -20,7 +20,9 @@ import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.ActivityGroceryListDetailBinding
 import com.romoreno.compraplus.domain.model.ProductGroceryList
 import com.romoreno.compraplus.ui.main.grocery_list.OnProductSelectedCallback
-import com.romoreno.compraplus.ui.main.grocery_list.ProductAdderDialogFragment
+import com.romoreno.compraplus.ui.main.grocery_list_detail.ProductAdderDialogFragment.Companion.NAME
+import com.romoreno.compraplus.ui.main.grocery_list_detail.ProductAdderDialogFragment.Companion.QUANTITY
+import com.romoreno.compraplus.ui.main.grocery_list_detail.ProductAdderDialogFragment.Companion.SUPERMARKET
 import com.romoreno.compraplus.ui.main.grocery_list_detail.adapter.ProductGroceryListAdapter
 import com.romoreno.compraplus.ui.main.grocery_list_detail.pojo.WhenProductGroceryListItemSelected
 import com.romoreno.compraplus.ui.main.product_comparator.ProductComparatorFragment
@@ -71,6 +73,7 @@ class GroceryListDetailActivity : AppCompatActivity(), OnProductSelectedCallback
 
         productGroceryListAdapter = ProductGroceryListAdapter(
             WhenProductGroceryListItemSelected(
+                {product -> updateProduct(product)},
                 { product, checked -> markAsAdquired(product, checked) },
                 { product -> showRemoveAlertDialog(product) })
         )
@@ -154,6 +157,16 @@ class GroceryListDetailActivity : AppCompatActivity(), OnProductSelectedCallback
         lifecycleScope.launch {
             groceryListDetailViewModel.deleteProductInGroceryList(productGroceryList)
         }
+    }
+
+    private fun updateProduct(product: ProductGroceryList) {
+        val productAdderDialogFragment = ProductAdderDialogFragment()
+        productAdderDialogFragment.arguments = Bundle().apply {
+            putString(NAME, product.name)
+            putString(SUPERMARKET, product.supermarket?.name)
+            putString(QUANTITY, product.quantity.toString())
+        }
+        productAdderDialogFragment.show(supportFragmentManager, "MODIFY_PRODUCT_MANUALLY")
     }
 
     private fun markAsAdquired(productGroceryList: ProductGroceryList, checked: Boolean) {

@@ -70,8 +70,13 @@ class DatabaseRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun insertProductLine(productLine: ProductLineEntity) {
-        productLineDao.insert(productLine)
+    override suspend fun insertProductLineOrUpdate(productLine: ProductLineEntity) {
+        var productLineEntity = productLineDao.getProductLine(productLine.groceryListId, productLine.productId)
+        if (productLineEntity == null) {
+            productLineDao.insert(productLine)
+        } else {
+            productLineDao.update(productLine)
+        }
     }
 
     override suspend fun deleteGroceryList(groceryListId: Int) {
@@ -85,8 +90,10 @@ class DatabaseRepositoryImpl @Inject constructor(
 
     override suspend fun markProductAsAdquired(groceryListId: Int, idProduct: Int, checked: Boolean) {
         val productLine = productLineDao.getProductLine(groceryListId, idProduct)
-        productLine.adquired = checked
-        productLineDao.update(productLine)
+        productLine?.adquired = checked
+        if (productLine != null) {
+            productLineDao.update(productLine)
+        }
     }
 
 }

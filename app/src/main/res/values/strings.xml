@@ -65,4 +65,6 @@
     <string name="product">Producto</string>
     <string name="supermarket">Supermercado</string>
     <string name="new_product">Nuevo producto</string>
+    <string name="clone_product">Clonar producto</string>
+    <string name="clone">Clonar</string>
 </resources>
