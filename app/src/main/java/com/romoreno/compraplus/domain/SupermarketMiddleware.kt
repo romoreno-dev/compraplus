@@ -9,9 +9,22 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
+/**
+ * Clase para acciones de logica de negocio sobre productos
+ *
+ * @author Roberto Moreno
+ */
 class SupermarketMiddleware @Inject constructor(private val repository: PlaceRepository) {
 
-    suspend fun getNearbySupermarkets(latitude: Double, longitude: Double, radius: Int): List<SupermarketModel> {
+    /**
+     * Obtener supermercados cercanos consultando al repositorio de lugares (mediante peticiones de red)
+     * He intentado paralelizar las peticiones para agilizar la consulta
+     */
+    suspend fun getNearbySupermarkets(
+        latitude: Double,
+        longitude: Double,
+        radius: Int
+    ): List<SupermarketModel> {
 
         val location = "$latitude,$longitude"
         return coroutineScope {

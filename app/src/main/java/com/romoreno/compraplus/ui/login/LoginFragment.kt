@@ -17,6 +17,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Fragmento del formulario de login
+ *
+ * @author Roberto Moreno
+ */
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
@@ -64,7 +69,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

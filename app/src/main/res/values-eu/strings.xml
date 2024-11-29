@@ -68,4 +68,10 @@
     <string name="new_product">Produktua berria</string>
     <string name="clone_product">Produktua bikoiztu</string>
     <string name="clone">Bikoiztu</string>
+    <string name="description_compra_plus_title">Compra Plus aplikazioaren logoa. Karro bat da, pixka bat okertua, azkar aurreratzen den itxurarekin. Barruan, bidea simulatzeko lerro etengabe bat dauka, bi check berde bakoitzaren muturrean.</string>
+    <string name="description_extended_image_view_product">Produktua handituta</string>
+    <string name="description_image_view_supermarket">Supermerkatuaren logoa</string>
+    <string name="description_image_view_product">Produktua</string>
+    <string name="description_more">Aukera gehiago ikusteko menu</string>
+    <string name="description_delete">Ezabatzeko aukera</string>
 </resources>

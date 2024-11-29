@@ -6,14 +6,21 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "grocery_list",
+/**
+ * Tabla de listas de la compra
+ *
+ * @author Roberto Moreno
+ */
+@Entity(
+    tableName = "grocery_list",
     foreignKeys = [ForeignKey(
         entity = UserEntity::class,
         parentColumns = ["id"],
         childColumns = ["user_id"],
-        onDelete = ForeignKey.CASCADE)],
-    indices = [Index(value = ["user_id"])])
-
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index(value = ["user_id"])]
+)
 data class GroceryListEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,

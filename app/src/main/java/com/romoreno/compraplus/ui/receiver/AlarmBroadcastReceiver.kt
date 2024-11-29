@@ -1,4 +1,4 @@
-package com.romoreno.compraplus
+package com.romoreno.compraplus.ui.receiver
 
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -6,14 +6,21 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import com.romoreno.compraplus.R
 import com.romoreno.compraplus.ui.main.MainActivity
 
+/**
+ * Crea notificacion local que recuerda al usuario que debe realizar una compra en la hora dada
+ * que el haya programado previamente
+ *
+ * @author Roberto Moreno
+ */
 class AlarmBroadcastReceiver : BroadcastReceiver() {
     companion object {
-        val NOTIFICATION_ID = 31416
-        val CHANNEL_ID = "GROCERY_LIST_CHANNEL"
-        val NOTIFICATION_TITLE = "NOTIFICATION_TITLE"
-        val NOTIFICATION_BODY = "NOTIFICATION_BODY"
+        const val NOTIFICATION_ID = 31416
+        const val CHANNEL_ID = "GROCERY_LIST_CHANNEL"
+        const val NOTIFICATION_TITLE = "NOTIFICATION_TITLE"
+        const val NOTIFICATION_BODY = "NOTIFICATION_BODY"
     }
 
     override fun onReceive(context: Context, intent: Intent) {

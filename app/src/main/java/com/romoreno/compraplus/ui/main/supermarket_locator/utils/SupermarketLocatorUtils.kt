@@ -20,6 +20,11 @@ import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.domain.model.SupermarketModel
 import javax.inject.Inject
 
+/**
+ * Utilidades para la localizacion de supermercados
+ *
+ * @author: Roberto Moreno
+ */
 class SupermarketLocatorUtils @Inject constructor() {
 
     fun initGoogleMaps(fragment: OnMapReadyCallback, childFragmentManager: FragmentManager) {
@@ -59,6 +64,7 @@ class SupermarketLocatorUtils @Inject constructor() {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))
     }
 
+    // Como aqui siempre voy a entrar habiendo confirmado que tengo los permisos, suprimo la advertencia
     @SuppressLint("MissingPermission")
     fun startLocationUpdates(
         fusedLocationClient: FusedLocationProviderClient,

@@ -5,13 +5,15 @@ import androidx.room.Query
 import com.romoreno.compraplus.data.database.dao.base.BaseDao
 import com.romoreno.compraplus.data.database.entities.UserEntity
 
+/**
+ * DAO para la tabla de usuarios
+ *
+ * @author Roberto Moreno
+ */
 @Dao
-interface UserDao: BaseDao<UserEntity> {
+interface UserDao : BaseDao<UserEntity> {
 
     @Query("SELECT * FROM user WHERE id = :userUid")
     suspend fun getUserByUid(userUid: String): UserEntity?
-
-    @Query("SELECT * FROM user")
-    suspend fun getAllUsers(): List<UserEntity>
 
 }

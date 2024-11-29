@@ -3,7 +3,7 @@ package com.romoreno.compraplus.di.module
 import com.romoreno.compraplus.data.network.config.Google
 import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.data.network.interceptor.EroskiScrapperInterceptor
-import com.romoreno.compraplus.data.network.repository.NetworkRepository
+import com.romoreno.compraplus.data.network.repository.SupermarketRepository
 import com.romoreno.compraplus.data.network.repository.PlaceRepository
 import com.romoreno.compraplus.data.network.repository.implementation.DiaRepository
 import com.romoreno.compraplus.data.network.repository.implementation.EroskiRepository
@@ -20,11 +20,15 @@ import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoMap
 import dagger.multibindings.StringKey
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+/**
+ * Declaracion de la inyeccion de dependencias necesitada para peticiones de red
+ *
+ * @author Roberto Moreno
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
@@ -41,11 +45,13 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
-        val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        // Interceptor para imprimir en el log la request y la response
+        // (Lo comento porque solo lo necesito cuando hago debug)
+        //val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
         return OkHttpClient
             .Builder()
-            .addInterceptor(interceptor)
+            //.addInterceptor(interceptor)
             .build()
     }
 
@@ -69,23 +75,19 @@ object NetworkModule {
     // ----------------------------- SUPERMARKETS API SERVICE ------------------------------------
     // -------------------------------------------------------------------------------------------
     @Provides
-    fun provideEroskiApiService(builder: Retrofit.Builder,
-                                eroskiScrapperInterceptor: EroskiScrapperInterceptor
+    fun provideEroskiApiService(
+        builder: Retrofit.Builder,
+        eroskiScrapperInterceptor: EroskiScrapperInterceptor
     ): EroskiApiService {
 
-        //todo Quitar interceptor HTTP luego
-        val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-
-        val okHttp = OkHttpClient
+        val okHttpWithCustomInterceptor = OkHttpClient
             .Builder()
-//            .connectTimeout(150, TimeUnit.MILLISECONDS)  // Tiempo de espera de conexión
-            .addInterceptor(interceptor)
             .addInterceptor(eroskiScrapperInterceptor)
             .build()
 
         return builder
             .baseUrl(Supermarket.Eroski.BASE_URL)
-            .client(okHttp)
+            .client(okHttpWithCustomInterceptor)
             .build()
             .create(EroskiApiService::class.java)
     }
@@ -113,21 +115,21 @@ object NetworkModule {
     @Provides
     @IntoMap
     @StringKey(Supermarket.EROSKI)
-    fun provideEroskiRepository(eroskiApiService: EroskiApiService): NetworkRepository {
+    fun provideEroskiRepository(eroskiApiService: EroskiApiService): SupermarketRepository {
         return EroskiRepository(eroskiApiService)
     }
 
     @Provides
     @IntoMap
     @StringKey(Supermarket.DIA)
-    fun provideDiaRepository(diaApiService: DiaApiService): NetworkRepository {
+    fun provideDiaRepository(diaApiService: DiaApiService): SupermarketRepository {
         return DiaRepository(diaApiService)
     }
 
     @Provides
     @IntoMap
     @StringKey(Supermarket.MERCADONA)
-    fun provideMercadonaRepository(mercadonaApiService: MercadonaApiService): NetworkRepository {
+    fun provideMercadonaRepository(mercadonaApiService: MercadonaApiService): SupermarketRepository {
         return MercadonaRepository(mercadonaApiService)
     }
 

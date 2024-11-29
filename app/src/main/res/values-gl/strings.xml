@@ -68,4 +68,10 @@
     <string name="new_product">Novo produto</string>
     <string name="clone_product">Clonar produto</string>
     <string name="clone">Clonar</string>
+    <string name="description_compra_plus_title">Logo da aplicación Compra Plus. É un carro lixeiramente inclinado cun aspecto de avanzar rapidamente. No seu interior ten unha liña discontinua simulando un camiño con dous checks verdes en cada un dos extremos.</string>
+    <string name="description_extended_image_view_product">Produto ampliado</string>
+    <string name="description_image_view_supermarket">Logo do supermercado</string>
+    <string name="description_image_view_product">Produto</string>
+    <string name="description_more">Menú para ver máis opcións</string>
+    <string name="description_delete">Opción para eliminar</string>
 </resources>

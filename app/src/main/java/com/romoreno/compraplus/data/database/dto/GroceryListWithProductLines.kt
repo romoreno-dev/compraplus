@@ -7,6 +7,13 @@ import com.romoreno.compraplus.data.database.entities.ProductEntity
 import com.romoreno.compraplus.data.database.entities.ProductLineEntity
 import com.romoreno.compraplus.data.database.entities.SupermarketEntity
 
+/**
+ * Se usa esta clase como DTO para poder acceder a las relaciones entre tablas
+ * ya que Room no permite definir objetos dentro de sus entidades
+ * (listas de la compra, lineas de producto, productos y supermercados)
+ *
+ * @author Roberto Moreno
+ */
 data class GroceryListWithProductLines(
     @Embedded
     val groceryList: GroceryListEntity,

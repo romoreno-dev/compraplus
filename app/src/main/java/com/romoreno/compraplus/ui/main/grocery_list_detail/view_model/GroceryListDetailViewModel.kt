@@ -1,4 +1,4 @@
-package com.romoreno.compraplus.ui.main.grocery_list_detail
+package com.romoreno.compraplus.ui.main.grocery_list_detail.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,9 +15,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * ViewModel de la actividad dedicada a mostrar y administrar los productos contenidos en una
+ * lista de la compra
+ *
+ * @author: Roberto Moreno
+ */
 @HiltViewModel
-class GroceryListDetailViewModel @Inject constructor(private val databaseRepository: DatabaseRepository,
-    private val productMiddleware: ProductMiddleware) :
+class GroceryListDetailViewModel @Inject constructor(
+    private val databaseRepository: DatabaseRepository,
+    private val productMiddleware: ProductMiddleware
+) :
     ViewModel() {
 
     private var _state = MutableStateFlow(
@@ -34,12 +42,7 @@ class GroceryListDetailViewModel @Inject constructor(private val databaseReposit
             _state.value = _state.value.copy(loading = true)
             databaseRepository.getGroceryListWithProductsFlow(idGroceryList)
                 .collect { productsGroceryList ->
-                    if (productsGroceryList != null) {
-                        _state.value = ProductGroceryListState(productsGroceryList, false)
-                    }
-//                    } else {
-//                        _state.value = ProductGroceryListState.Error
-//                    }
+                    _state.value = ProductGroceryListState(productsGroceryList, false)
                 }
         }
     }
@@ -47,7 +50,10 @@ class GroceryListDetailViewModel @Inject constructor(private val databaseReposit
     fun markProductAsAdquired(productGroceryList: ProductGroceryList, checked: Boolean) {
         viewModelScope.launch {
             _state.value = _state.value.copy(loading = true)
-            databaseRepository.markProductAsAdquired(productGroceryList.groceryListId, productGroceryList.productId, checked)
+            databaseRepository.markProductAsAdquired(
+                productGroceryList.groceryListId,
+                productGroceryList.productId, checked
+            )
             _state.value = _state.value.copy(loading = false)
         }
     }
@@ -55,7 +61,10 @@ class GroceryListDetailViewModel @Inject constructor(private val databaseReposit
     fun deleteProductInGroceryList(productGroceryList: ProductGroceryList) {
         viewModelScope.launch {
             _state.value = _state.value.copy(loading = true)
-            databaseRepository.deleteProduct(productGroceryList.groceryListId, productGroceryList.productId)
+            databaseRepository.deleteProduct(
+                productGroceryList.groceryListId,
+                productGroceryList.productId
+            )
             _state.value = _state.value.copy(loading = false)
         }
     }

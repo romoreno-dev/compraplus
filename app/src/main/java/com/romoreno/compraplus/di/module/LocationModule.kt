@@ -13,22 +13,18 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Declaracion de la inyeccion de dependencias necesitada para la localizacion del usuario
+ *
+ * @author Roberto Moreno
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object LocationModule {
 
-        @Provides
-        @Singleton
-        fun provideFusedLocationProviderClient(@ApplicationContext context: Context): FusedLocationProviderClient {
-            return LocationServices.getFusedLocationProviderClient(context)
-        }
-
-        @Provides
-        @Singleton
-        fun providePlacesClient(@ApplicationContext context: Context): PlacesClient {
-            if (!Places.isInitialized()) {
-                Places.initialize(context, BuildConfig.MAPS_API_KEY)
-            }
-            return Places.createClient(context)
-        }
+    @Provides
+    @Singleton
+    fun provideFusedLocationProviderClient(@ApplicationContext context: Context): FusedLocationProviderClient {
+        return LocationServices.getFusedLocationProviderClient(context)
+    }
 }

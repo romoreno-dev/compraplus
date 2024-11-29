@@ -30,15 +30,19 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.google.firebase.auth.FirebaseAuth
-import com.romoreno.compraplus.AlarmBroadcastReceiver
-import com.romoreno.compraplus.AlarmBroadcastReceiver.Companion.CHANNEL_ID
-import com.romoreno.compraplus.AlarmBroadcastReceiver.Companion.NOTIFICATION_BODY
-import com.romoreno.compraplus.AlarmBroadcastReceiver.Companion.NOTIFICATION_ID
-import com.romoreno.compraplus.AlarmBroadcastReceiver.Companion.NOTIFICATION_TITLE
+import com.romoreno.compraplus.ui.receiver.AlarmBroadcastReceiver
+import com.romoreno.compraplus.ui.receiver.AlarmBroadcastReceiver.Companion.CHANNEL_ID
+import com.romoreno.compraplus.ui.receiver.AlarmBroadcastReceiver.Companion.NOTIFICATION_BODY
+import com.romoreno.compraplus.ui.receiver.AlarmBroadcastReceiver.Companion.NOTIFICATION_ID
+import com.romoreno.compraplus.ui.receiver.AlarmBroadcastReceiver.Companion.NOTIFICATION_TITLE
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentGroceryListBinding
+import com.romoreno.compraplus.ui.main.MainUtils
 import com.romoreno.compraplus.ui.main.grocery_list.adapter.GroceryListAdapter
+import com.romoreno.compraplus.ui.main.grocery_list.dialog_fragment.GroceryListCreationDialogFragment
 import com.romoreno.compraplus.ui.main.grocery_list.pojo.WhenGroceryListItemSelected
+import com.romoreno.compraplus.ui.main.grocery_list.view_model.GroceryListState
+import com.romoreno.compraplus.ui.main.grocery_list.view_model.GroceryListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -46,8 +50,21 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+/**
+ * Fragmento dedicado a mostrar el listado de listas de la compra existentes para un usuario
+ * posibilitando la creación de nuevas listas, su eliminación, el acceso a estas
+ * (yendo a GroceryListDetailActivity), compartir la lista y establecer una notificacion de
+ * recordatorio
+ *
+ * @author: Roberto Moreno
+ */
 @AndroidEntryPoint
 class GroceryListFragment : Fragment() {
+
+    companion object {
+        const val HOUR_INITIAL = 12
+        const val MINUTE_INITIAL = 0
+    }
 
     private val groceryListViewModel: GroceryListViewModel by viewModels()
 
@@ -149,8 +166,8 @@ class GroceryListFragment : Fragment() {
         val timePicker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_24H)
             .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
-            .setHour(12)
-            .setMinute(0)
+            .setHour(HOUR_INITIAL)
+            .setMinute(MINUTE_INITIAL)
             .setTitleText(getString(R.string.reminder_me_grocery_list_on, name))
             .build()
 
@@ -159,9 +176,9 @@ class GroceryListFragment : Fragment() {
             val minute = timePicker.minute
             val calendar = Calendar.getInstance()
             calendar.time = date
-            calendar.set(Calendar.HOUR_OF_DAY, hour)
-            calendar.set(Calendar.MINUTE, minute)
-            calendar.set(Calendar.SECOND, 0)
+            calendar[Calendar.HOUR_OF_DAY] = hour
+            calendar[Calendar.MINUTE] = minute
+            calendar[Calendar.SECOND] = 0
 
             scheduleNotification(name, calendar.time)
         })
@@ -184,8 +201,10 @@ class GroceryListFragment : Fragment() {
     }
 
     private fun toGroceryListDetails(idGroceryList: Int) {
-        findNavController().navigate(GroceryListFragmentDirections
-            .actionGroceryListFragmentToGroceryListDetailActivity(idGroceryList))
+        findNavController().navigate(
+            GroceryListFragmentDirections
+                .actionGroceryListFragmentToGroceryListDetailActivity(idGroceryList)
+        )
     }
 
     private fun popupMenuOnGroceryListItem(
@@ -252,7 +271,7 @@ class GroceryListFragment : Fragment() {
                     putExtra(
                         Intent.EXTRA_TEXT, message.toString()
                     )
-                    type = "text/plain"
+                    type = MainUtils.INTENT_MIMETYPE
                 }
                 val shareIntent =
                     Intent.createChooser(

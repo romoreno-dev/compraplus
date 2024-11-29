@@ -6,11 +6,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.domain.model.GroceryListModel
-import com.romoreno.compraplus.ui.main.grocery_list.pojo.WhenGroceryListItemSelected
 import com.romoreno.compraplus.ui.main.grocery_list.adapter.utils.GroceryListDiffUtil
+import com.romoreno.compraplus.ui.main.grocery_list.pojo.WhenGroceryListItemSelected
 
-class GroceryListAdapter(private val whenGroceryListItemSelected: WhenGroceryListItemSelected,
-                         private var list:List<GroceryListModel> = emptyList()) :
+/**
+ * Adapter del RecyclerView del listado de listas de la compra
+ *
+ * @author: Roberto Moreno
+ */
+class GroceryListAdapter(
+    private val whenGroceryListItemSelected: WhenGroceryListItemSelected,
+    private var list: List<GroceryListModel> = emptyList()
+) :
     RecyclerView.Adapter<GroceryListViewHolder>() {
 
     fun updateList(newList: List<GroceryListModel>) {

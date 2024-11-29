@@ -13,15 +13,21 @@ import com.romoreno.compraplus.data.database.entities.ProductLineEntity
 import com.romoreno.compraplus.data.database.entities.SupermarketEntity
 import com.romoreno.compraplus.data.database.entities.UserEntity
 
-@Database(entities = [GroceryListEntity::class, ProductEntity::class, ProductLineEntity::class,
-                     SupermarketEntity::class, UserEntity::class], version = 1, exportSchema = false
-    )
-abstract class ApplicationDatabase: RoomDatabase() {
+/**
+ * Declaracion de la base datos del dispositivo
+ *
+ * @author Roberto Moreno
+ */
+@Database(
+    entities = [GroceryListEntity::class, ProductEntity::class, ProductLineEntity::class,
+        SupermarketEntity::class, UserEntity::class], version = 1, exportSchema = false
+)
+abstract class ApplicationDatabase : RoomDatabase() {
 
-    abstract fun getGroceryListDao():GroceryListDao
-    abstract fun getProductDao():ProductDao
-    abstract fun getProductLineDao():ProductLineDao
-    abstract fun getSupermarketDao():SupermarketDao
-    abstract fun getUserDao():UserDao
+    abstract fun getGroceryListDao(): GroceryListDao
+    abstract fun getProductDao(): ProductDao
+    abstract fun getProductLineDao(): ProductLineDao
+    abstract fun getSupermarketDao(): SupermarketDao
+    abstract fun getUserDao(): UserDao
 
 }

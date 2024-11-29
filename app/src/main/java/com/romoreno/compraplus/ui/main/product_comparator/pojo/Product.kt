@@ -5,6 +5,11 @@ import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.domain.model.ProductModel
 import java.math.RoundingMode
 
+/**
+ * Producto para mostrar en la vista
+ *
+ * @author: Roberto Moreno
+ */
 data class Product(
     val name: String,
     val prices: Prices,

@@ -19,6 +19,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Actividad de Login. Aloja a LoginFragment (Login) y SignupFragment (Registro)
+ * Si el login es exitoso, dirige a MainActivity
+ *
+ * @author Roberto Moreno
+ */
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
@@ -43,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
         initUI()
 
         splashScreen.setKeepOnScreenCondition { false }
+        // Si hay usuario de firebase, lo inserto en BBDD si no existe y lo llevo a MainActivity
         if (auth.currentUser != null) {
             lifecycleScope.launch {
                 databaseRepository.insertUserIfNotExist(auth.currentUser!!)

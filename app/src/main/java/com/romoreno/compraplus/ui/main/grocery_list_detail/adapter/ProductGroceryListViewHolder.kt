@@ -6,9 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.ItemProductGroceryListBinding
 import com.romoreno.compraplus.domain.model.ProductGroceryList
-import com.romoreno.compraplus.ui.main.Utils
+import com.romoreno.compraplus.ui.main.MainUtils
 import com.romoreno.compraplus.ui.main.grocery_list_detail.pojo.WhenProductGroceryListItemSelected
 
+/**
+ * ViewHolder del RecyclerView del listado de productos incluidos en una lista de la compra
+ *
+ * @author: Roberto Moreno
+ */
 class ProductGroceryListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemProductGroceryListBinding.bind(view)
@@ -20,7 +25,7 @@ class ProductGroceryListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.tvProduct.text = product.name
         binding.tvQuantity.text = "${product.quantity}"
         binding.imageViewSupermarket
-            .setImageResource(Utils.getSupermarketImageResource(product.supermarket))
+            .setImageResource(MainUtils.getSupermarketImageResource(product.supermarket))
 
         binding.cbAdquired.setOnCheckedChangeListener(null)
         binding.cbAdquired.isChecked = product.adquired

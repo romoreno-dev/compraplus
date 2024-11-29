@@ -8,21 +8,24 @@ import com.romoreno.compraplus.data.database.dto.GroceryListWithProductLines
 import com.romoreno.compraplus.data.database.entities.GroceryListEntity
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * DAO para la tabla de listas de la compra
+ *
+ * @author Roberto Moreno
+ */
 @Dao
-interface GroceryListDao: BaseDao<GroceryListEntity> {
+interface GroceryListDao : BaseDao<GroceryListEntity> {
 
     @Query("SELECT * FROM grocery_list WHERE user_id = :userUid ORDER BY date desc")
     @Transaction
     fun getGroceryListsFromUserId(userUid: String): Flow<List<GroceryListEntity>>
 
-    @Query("SELECT * FROM grocery_list WHERE id = :id")
+    @Query("SELECT * FROM grocery_list WHERE id = :groceryListId")
     @Transaction
-    fun getGroceryListWithDetails(id: Int): Flow<GroceryListWithProductLines>
+    fun getGroceryListWithProductLines(groceryListId: Int): Flow<GroceryListWithProductLines>
 
-    @Query("DELETE FROM grocery_list WHERE id = :id")
+    @Query("DELETE FROM grocery_list WHERE id = :groceryListId")
     @Transaction
-    fun deleteGroceryListWithId(id: Int)
-
-
+    suspend fun deleteGroceryListWithId(groceryListId: Int)
 
 }

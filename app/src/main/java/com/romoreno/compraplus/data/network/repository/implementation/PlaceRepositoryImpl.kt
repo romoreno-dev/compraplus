@@ -1,12 +1,19 @@
 package com.romoreno.compraplus.data.network.repository.implementation
 
-import com.romoreno.compraplus.chore.LogUtils
 import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.data.network.pojo.response.Result
 import com.romoreno.compraplus.data.network.repository.PlaceRepository
 import com.romoreno.compraplus.data.network.service.GooglePlacesApiService
 import javax.inject.Inject
 
+/**
+ * Implementacion de repositorio de lugares para realizar las llamadas HTTP a Google Maps
+ *
+ * Se realizan filtros especificos para los resultados de algunos supermercados porque devuelve
+ * algunos lugares incorrectos
+ *
+ * @author Roberto Moreno
+ */
 class PlaceRepositoryImpl @Inject constructor(private val googlePlacesApiService: GooglePlacesApiService) :
     PlaceRepository {
 
@@ -25,14 +32,17 @@ class PlaceRepositoryImpl @Inject constructor(private val googlePlacesApiService
             .onSuccess {
                 return it.results.filter {
                     it.name.equals(query, true) ||
-                            (Supermarket.Dia.name.equals(query) &&
-                                    (it.name.contains("dia", true) || it.name.contains("día", true))) ||
-                            (Supermarket.Eroski.name.equals(query) && it.name.contains(
+                            (Supermarket.Dia.name == query &&
+                                    (it.name.contains("dia", true) || it.name.contains(
+                                        "día",
+                                        true
+                                    ))) ||
+                            (Supermarket.Eroski.name == query && it.name.contains(
                                 "Eroski City",
-                                true))
+                                true
+                            ))
                 }
             }
-            .onFailure { LogUtils.networkLog(it) }
         return emptyList()
     }
 

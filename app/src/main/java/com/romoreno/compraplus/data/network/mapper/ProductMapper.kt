@@ -7,6 +7,11 @@ import com.romoreno.compraplus.data.network.pojo.response.MercadonaProduct
 import com.romoreno.compraplus.domain.model.Prices
 import com.romoreno.compraplus.domain.model.ProductModel
 
+/**
+ * Mapper de productos a nivel de peticiones de red
+ *
+ * @author Roberto Moreno
+ */
 object ProductMapper {
 
     fun EroskiProduct.toProduct(): ProductModel {
@@ -15,42 +20,47 @@ object ProductMapper {
             unitPrice = price
         )
 
-        return ProductModel(name, prices,
+        return ProductModel(
+            name, prices,
             Supermarket.Eroski.BASE_IMAGE_URL.plus(id).plus(".jpg"),
             brand,
-            Supermarket.Eroski)
+            Supermarket.Eroski
+        )
     }
 
     fun DiaProduct.toProduct(): ProductModel {
         val prices = Prices(
             prices.price,
             prices.pricePerUnit,
-            mapMeasureUnit(prices.measureUnit)
+            normalizeMeasureUnit(prices.measureUnit)
         )
 
-        return ProductModel(displayName, prices, Supermarket.Dia.BASE_IMAGE_URL.plus(image),
-            brand, Supermarket.Dia)
+        return ProductModel(
+            displayName, prices, Supermarket.Dia.BASE_IMAGE_URL.plus(image),
+            brand, Supermarket.Dia
+        )
     }
 
     fun MercadonaProduct.toProduct(): ProductModel {
         val prices = Prices(
             priceInstructions.unitPrice,
             priceInstructions.referencePrice,
-            mapMeasureUnit( priceInstructions.referenceFormat)
+            normalizeMeasureUnit(priceInstructions.referenceFormat)
         )
 
         return ProductModel(displayName, prices, thumbnail, brand, Supermarket.Mercadona)
     }
 
-    private fun mapMeasureUnit(measureUnit: String): String {
+    private fun normalizeMeasureUnit(measureUnit: String): String {
+        var normalizedMeasureUnit = ""
         if (measureUnit.isNotBlank()) {
             if (measureUnit.contains("LITRO", true))
-                return "L"
+                normalizedMeasureUnit = "L"
             else if (measureUnit.contains("KILO", true)) {
-                return "KG"
+                normalizedMeasureUnit = "KG"
             }
         }
-        return measureUnit
+        return normalizedMeasureUnit
     }
 
 

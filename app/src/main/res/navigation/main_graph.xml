@@ -18,7 +18,7 @@
         android:id="@+id/productComparatorFragment"
         android:name="com.romoreno.compraplus.ui.main.product_comparator.ProductComparatorFragment"
         android:label="fragment_product_comparator"
-        tools:layout="@layout/fragment_product_comparator"/>
+        tools:layout="@layout/fragment_product_comparator" />
     <fragment
         android:id="@+id/supermarketLocatorFragment"
         android:name="com.romoreno.compraplus.ui.main.supermarket_locator.SupermarketLocatorFragment"

@@ -1,4 +1,5 @@
 <resources>
+
     <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
@@ -47,10 +48,12 @@
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
+
     <style name="ToolbarTitle" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
     </style>
+
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/md_theme_background</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_compraplus_splash</item>

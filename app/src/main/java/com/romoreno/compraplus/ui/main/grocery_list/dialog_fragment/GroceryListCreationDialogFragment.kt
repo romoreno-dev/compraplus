@@ -1,4 +1,4 @@
-package com.romoreno.compraplus.ui.main.grocery_list
+package com.romoreno.compraplus.ui.main.grocery_list.dialog_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,8 +21,13 @@ import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
+/**
+ * Cuadro de dialogo para posibilitar la creación de nuevas listas de la compra
+ *
+ * @author: Roberto Moreno
+ */
 @AndroidEntryPoint
-class GroceryListCreationDialogFragment: DialogFragment() {
+class GroceryListCreationDialogFragment : DialogFragment() {
 
     @Inject
     lateinit var databaseRepository: DatabaseRepository
@@ -36,8 +41,10 @@ class GroceryListCreationDialogFragment: DialogFragment() {
     private var _binding: DialogGroceryListBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = DialogGroceryListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -46,8 +53,10 @@ class GroceryListCreationDialogFragment: DialogFragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy, E",
-            Locale.getDefault())
+        val dateFormat = SimpleDateFormat(
+            "dd/MM/yyyy, E",
+            Locale.getDefault()
+        )
 
         val datePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText(getString(R.string.select_shopping_date))
@@ -70,16 +79,22 @@ class GroceryListCreationDialogFragment: DialogFragment() {
         binding.btCreateList.setOnClickListener {
 
             val completedFields =
-                utils.validateCompletedFields(requireActivity(), binding.etGroceryListName,
-                    binding.etGroceryListDate)
+                utils.validateCompletedFields(
+                    requireActivity(), binding.etGroceryListName,
+                    binding.etGroceryListDate
+                )
 
             if (completedFields) {
                 lifecycleScope.launch {
-                    val date = dateFormat.parse(binding.etGroceryListDate.editText?.text?.toString()!!)
-                    withContext(Dispatchers.IO) {databaseRepository.createGroceryList(
-                        binding.etGroceryListName.editText?.text?.toString()!!,
-                        date?.time!!,
-                        auth.currentUser!!)}
+                    val date =
+                        dateFormat.parse(binding.etGroceryListDate.editText?.text?.toString()!!)
+                    withContext(Dispatchers.IO) {
+                        databaseRepository.createGroceryList(
+                            binding.etGroceryListName.editText?.text?.toString()!!,
+                            date?.time!!,
+                            auth.currentUser!!
+                        )
+                    }
                     dismiss()
                 }
             }

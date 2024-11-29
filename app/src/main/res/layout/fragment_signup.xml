@@ -12,12 +12,13 @@
         android:layout_height="150dp"
         android:layout_marginTop="30dp"
         android:id="@+id/ivCompraPlus"
+        android:contentDescription="@string/description_compra_plus_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/linearLayout"
         app:srcCompat="@drawable/ic_compraplus_title"
-        tools:src="@drawable/ic_compraplus_title"/>
+        tools:src="@drawable/ic_compraplus_title" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayout"

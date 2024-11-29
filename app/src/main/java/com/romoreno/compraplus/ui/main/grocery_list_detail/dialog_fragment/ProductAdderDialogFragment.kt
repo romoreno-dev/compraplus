@@ -1,4 +1,4 @@
-package com.romoreno.compraplus.ui.main.grocery_list_detail
+package com.romoreno.compraplus.ui.main.grocery_list_detail.dialog_fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -12,13 +12,22 @@ import com.romoreno.compraplus.R
 import com.romoreno.compraplus.data.network.config.Supermarket
 import com.romoreno.compraplus.databinding.DialogProductAdderBinding
 import com.romoreno.compraplus.ui.login.LoginUtils
-import com.romoreno.compraplus.ui.main.grocery_list.OnProductSelectedCallback
-import com.romoreno.compraplus.ui.main.product_comparator.ProductComparatorFragment.Companion.DIALOG_MODE
+import com.romoreno.compraplus.ui.main.MainUtils
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Prices
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+/**
+ * Cuadro de diñalogo para añadir productos de forma manual por el usuario (nombre y supermercado
+ * elegidos por él)
+ * Después, le pasa el valor a GroceryListDetailActivity en forma de callBack gracias a
+ * OnProductSelectedCallback
+ * Como funcionalidad adicional también recibe valores por parámetro para que el usuario pueda
+ * clonar el producto en la lista de la compra cambiando algún pequeño valor
+ *
+ * @author: Roberto Moreno
+ */
 @AndroidEntryPoint
 class ProductAdderDialogFragment : DialogFragment() {
 
@@ -31,9 +40,11 @@ class ProductAdderDialogFragment : DialogFragment() {
     private val binding get() = _binding!!
 
     companion object {
-        val NAME = "NAME"
-        val SUPERMARKET = "SUPERMARKET"
-        val QUANTITY = "QUANTITY"
+        const val NAME = "NAME"
+        const val SUPERMARKET = "SUPERMARKET"
+        const val QUANTITY = "QUANTITY"
+        const val DIALOG_PRODUCT_ADD_MANUALLY = "ADD_PRODUCT_MANUALLY"
+        const val DIALOG_PRODUCT_MODIFY = "MODIFY_PRODUCT_MANUALLY"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,7 +81,7 @@ class ProductAdderDialogFragment : DialogFragment() {
 
                     onProductSelectedCallback
                         ?.onProductSelected(
-                            tryParseContentToInt(binding.etQuantity.editText),
+                            MainUtils.tryParseContentToInt(binding.etQuantity.editText),
                             product
                         )
                     dismiss()
@@ -114,19 +125,6 @@ class ProductAdderDialogFragment : DialogFragment() {
         super.onAttach(context)
         if (context is OnProductSelectedCallback) {
             onProductSelectedCallback = context
-        }
-    }
-
-    private fun tryParseContentToInt(editText: EditText?): Int {
-        try {
-            val number = editText?.text.toString().toInt()
-            return if (number > 0) {
-                number
-            } else {
-                1
-            }
-        } catch (e: NumberFormatException) {
-            return 1
         }
     }
 

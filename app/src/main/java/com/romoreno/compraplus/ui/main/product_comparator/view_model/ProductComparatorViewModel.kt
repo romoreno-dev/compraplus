@@ -1,4 +1,4 @@
-package com.romoreno.compraplus.ui.main.product_comparator
+package com.romoreno.compraplus.ui.main.product_comparator.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +11,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * ViewModel del comparador de precios de productos
+ *
+ * @author: Roberto Moreno
+ */
 @HiltViewModel
 class ProductComparatorViewModel @Inject constructor(private val productMiddleware: ProductMiddleware) :
     ViewModel() {
@@ -27,7 +32,11 @@ class ProductComparatorViewModel @Inject constructor(private val productMiddlewa
 
     fun searchProduct(productKeyword: String, withSwipe: Boolean) {
         viewModelScope.launch {
-            _state.value = if (withSwipe) { ProductComparatorState.Swipping } else  { ProductComparatorState.Loading }
+            _state.value = if (withSwipe) {
+                ProductComparatorState.Swipping
+            } else {
+                ProductComparatorState.Loading
+            }
             val products =
                 withContext(Dispatchers.IO) { productMiddleware.getProducts(productKeyword) }
             _state.value = ProductComparatorState.Success(products)

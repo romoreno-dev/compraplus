@@ -3,7 +3,12 @@ package com.romoreno.compraplus.domain.model
 import com.romoreno.compraplus.data.network.config.Supermarket
 import java.math.BigDecimal
 
-data class ProductModel (
+/**
+ * Modelo para logica de negocio de productos
+ *
+ * @author Roberto Moreno
+ */
+data class ProductModel(
     val name: String,
     val prices: Prices,
     val image: String,
@@ -11,7 +16,7 @@ data class ProductModel (
     val supermarket: Supermarket
 )
 
-data class Prices (
+data class Prices(
     val price: BigDecimal,
     val unitPrice: BigDecimal,
     val measureUnit: String = ""

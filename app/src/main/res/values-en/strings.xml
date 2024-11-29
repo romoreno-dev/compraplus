@@ -13,7 +13,7 @@
     <string name="location_could_be_obtained">Could not obtain the current location</string>
     <string name="product_to_search">Product to search</string>
     <string name="search_error_information_message">An error occurred during the search</string>
-    <string name="share_message">Hey! At *%4$s*, *%1$s* is available for *%2$s* (%3$s)!!!!!\n\nHere's the link to the photo so you can see it: %5$s</string>
+<!--    <string name="share_message">Hey! At *%4$s*, *%1$s* is available for *%2$s* (%3$s)!!!!!\n\nHere's the link to the photo so you can see it: %5$s</string>-->
     <string name="share_title">Share %1$s</string>
     <string name="new_list">New list</string>
     <string name="about">About</string>
@@ -68,4 +68,10 @@
     <string name="new_product">New product</string>
     <string name="clone_product">Clone product</string>
     <string name="clone">Clone</string>
+<!--    <string name="description_compra_plus_title">Compra Plus app logo. It's a slightly tilted shopping cart that looks like it's moving fast. Inside, it has a dashed line simulating a path with two green check marks at each end.</string>-->
+    <string name="description_extended_image_view_product">Enlarged product</string>
+    <string name="description_image_view_supermarket">Supermarket logo</string>
+    <string name="description_image_view_product">Product</string>
+    <string name="description_more">Menu to see more options</string>
+    <string name="description_delete">Option to delete</string>
 </resources>

@@ -3,7 +3,12 @@ package com.romoreno.compraplus.ui.main.grocery_list_detail.adapter.utils
 import androidx.recyclerview.widget.DiffUtil
 import com.romoreno.compraplus.domain.model.ProductGroceryList
 
-class ProductGroceryListDiffUtil (
+/**
+ * DiffUtil para optimizar del listado de productos incluidos en una lista de la compra
+ *
+ * @author: Roberto Moreno
+ */
+class ProductGroceryListDiffUtil(
     private val oldList: List<ProductGroceryList>,
     private val newList: List<ProductGroceryList>
 ) : DiffUtil.Callback() {

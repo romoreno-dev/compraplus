@@ -10,20 +10,34 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.romoreno.compraplus.R
 import javax.inject.Inject
 
+/**
+ * Utilidades del modulo de login
+ *
+ * @author Roberto Moreno
+ */
 class LoginUtils @Inject constructor() {
 
-    fun catchFirebaseException(fragmentActivity: FragmentActivity, exception : Exception?): String {
+    companion object {
+        const val MULTIPLE_INDEX_CHARACTERS_THAT_ARE_VISIBLE = 3
+    }
+
+    fun catchFirebaseException(fragmentActivity: FragmentActivity, exception: Exception?): String {
         return when (exception) {
             is FirebaseAuthEmailException -> fragmentActivity.getString(R.string.auth_email_exception)
             is FirebaseAuthWeakPasswordException -> fragmentActivity.getString(R.string.auth_weak_password_exception)
-            is FirebaseAuthInvalidCredentialsException -> fragmentActivity.getString(R.string.auth_invalid_credentials_exception)
+            is FirebaseAuthInvalidCredentialsException -> fragmentActivity
+                .getString(R.string.auth_invalid_credentials_exception)
+
             is FirebaseAuthInvalidUserException -> fragmentActivity.getString(R.string.auth_invalid_user_exception)
             is FirebaseAuthUserCollisionException -> fragmentActivity.getString(R.string.auth_user_collision_exception)
             else -> fragmentActivity.getString(R.string.auth_exception)
         }
     }
 
-    fun validateCompletedFields(fragmentActivity: FragmentActivity, vararg fields: TextInputLayout): Boolean {
+    fun validateCompletedFields(
+        fragmentActivity: FragmentActivity,
+        vararg fields: TextInputLayout
+    ): Boolean {
         var completed = true
         for (field in fields) {
             val text = field.editText?.text?.toString()
@@ -37,8 +51,10 @@ class LoginUtils @Inject constructor() {
         return completed
     }
 
-    fun validateEqualsPassword(firstPassword: TextInputLayout,
-                               secondPassword: TextInputLayout): Boolean {
+    fun validateEqualsPassword(
+        firstPassword: TextInputLayout,
+        secondPassword: TextInputLayout
+    ): Boolean {
         firstPassword.error = null
         secondPassword.error = null
         return firstPassword.editText?.text?.toString()
@@ -50,7 +66,7 @@ class LoginUtils @Inject constructor() {
         var ofuscatedEmail = ""
         for (i in email.indices) {
             if (!passedArroba && email[i] != '@') {
-                if (i % 3 == 0) {
+                if (i % MULTIPLE_INDEX_CHARACTERS_THAT_ARE_VISIBLE == 0) {
                     ofuscatedEmail += email[i]
                 } else {
                     ofuscatedEmail += "*"

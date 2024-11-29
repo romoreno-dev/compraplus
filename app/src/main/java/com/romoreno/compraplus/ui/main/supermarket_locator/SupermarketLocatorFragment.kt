@@ -30,15 +30,20 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentSupermarketLocatorBinding
 import com.romoreno.compraplus.ui.main.supermarket_locator.utils.SupermarketLocatorUtils
+import com.romoreno.compraplus.ui.main.supermarket_locator.view_model.SupermarketLocatorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Fragmento para la localizacion de supermercados
+ *
+ * @author: Roberto Moreno
+ */
 @AndroidEntryPoint
 class SupermarketLocatorFragment : Fragment(), OnMapReadyCallback {
-
     private val supermarketLocatorViewModel: SupermarketLocatorViewModel by viewModels()
 
     private lateinit var map: GoogleMap

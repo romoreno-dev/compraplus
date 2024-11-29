@@ -2,16 +2,18 @@ package com.romoreno.compraplus.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import androidx.room.Transaction
 import com.romoreno.compraplus.data.database.dao.base.BaseDao
-import com.romoreno.compraplus.data.database.entities.GroceryListEntity
 import com.romoreno.compraplus.data.database.entities.SupermarketEntity
-import kotlinx.coroutines.flow.Flow
 
+/**
+ * DAO para la tabla de supermercados
+ *
+ * @author Roberto Moreno
+ */
 @Dao
-interface SupermarketDao: BaseDao<SupermarketEntity> {
+interface SupermarketDao : BaseDao<SupermarketEntity> {
 
-    @Query("SELECT s.id FROM supermarket s WHERE name = :name")
-    fun getIdFromName(name: String): Int
+    @Query("SELECT s.id FROM supermarket s WHERE name = :supermarketName")
+    suspend fun getIdSupermarketFromName(supermarketName: String): Int
 
 }
