@@ -32,7 +32,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-    private const val COMPRA_PLUS_DATABASE = "compra_plus_database"
+    private const val COMPRA_PLUS_DATABASE = "compra_plus_db"
 
     // ----------------------------- DATABASE ------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
@@ -52,12 +52,12 @@ object DatabaseModule {
             }).build()
 
     private fun populateDatabase(db: SupportSQLiteDatabase) {
-        val insertSupermarketsScript = """
-            INSERT INTO supermarket (id, name) VALUES (1, '${Supermarket.DIA}');
-            INSERT INTO supermarket (id, name) VALUES (2, '${Supermarket.EROSKI}');
-            INSERT INTO supermarket (id, name) VALUES (3, '${Supermarket.MERCADONA}');
-        """.trimIndent()
-        db.execSQL(insertSupermarketsScript)
+        val insertDia = "INSERT INTO supermarket (id, name) VALUES (1, '${Supermarket.DIA}')"
+        val insertEroski = "INSERT INTO supermarket (id, name) VALUES (2, '${Supermarket.EROSKI}')"
+        val insertMercadona = "INSERT INTO supermarket (id, name) VALUES (3, '${Supermarket.MERCADONA}')"
+        db.execSQL(insertDia)
+        db.execSQL(insertEroski)
+        db.execSQL(insertMercadona)
     }
 
     // ----------------------------- DAO -----------------------------------------------------------
