@@ -14,7 +14,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class GroceryListViewModel @Inject constructor(private val databaseRepository: DatabaseRepository): ViewModel() {
+class GroceryListViewModel @Inject constructor(private val databaseRepository: DatabaseRepository) :
+    ViewModel() {
 
     private var _state = MutableStateFlow<GroceryListState>(GroceryListState.Success(emptyList()))
     val state: StateFlow<GroceryListState> = _state
@@ -23,17 +24,13 @@ class GroceryListViewModel @Inject constructor(private val databaseRepository: D
         viewModelScope.launch {
             _state.value = GroceryListState.Loading
             databaseRepository.getGroceryListsFromUser(user).collect { groceryLists ->
-                if (groceryLists != null) {
-                    _state.value = GroceryListState.Success(groceryLists)
-                } else {
-                    _state.value = GroceryListState.Error
-                }
+                _state.value = GroceryListState.Success(groceryLists)
             }
         }
     }
 
     suspend fun getGroceryListsWithProducts(idGroceryList: Int): GroceryListProductsModel? {
-            return databaseRepository.getGroceryListWithProducts(idGroceryList)
+        return databaseRepository.getGroceryListWithProducts(idGroceryList)
     }
 
     suspend fun removeGroceryList(idGroceryList: Int) {
