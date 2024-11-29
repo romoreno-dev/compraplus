@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentProductComparatorBinding
 import com.romoreno.compraplus.ui.main.MainUtils
+import com.romoreno.compraplus.ui.main.MainUtils.haveInternetConnection
 import com.romoreno.compraplus.ui.main.grocery_list_detail.dialog_fragment.OnProductSelectedCallback
 import com.romoreno.compraplus.ui.main.product_comparator.adapter.ProductComparatorAdapter
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
@@ -112,10 +113,15 @@ class ProductComparatorFragment : DialogFragment() {
         )
 
         binding.swipeRefresh.setOnRefreshListener {
-            productComparatorViewModel.searchProduct(
-                binding.searchViewProduct.query.toString(),
-                true
-            )
+            if (requireContext().haveInternetConnection()) {
+                productComparatorViewModel.searchProduct(
+                    binding.searchViewProduct.query.toString(),
+                    true
+                )
+            } else {
+                productComparatorViewModel.toSuccessState()
+                Toast.makeText(requireContext(), R.string.network_exception, Toast.LENGTH_SHORT).show()
+            }
         }
 
         if (isDialogMode) {
@@ -183,7 +189,11 @@ class ProductComparatorFragment : DialogFragment() {
         binding.searchViewProduct.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrBlank()) {
-                    productComparatorViewModel.searchProduct(query)
+                    if (requireContext().haveInternetConnection()) {
+                        productComparatorViewModel.searchProduct(query)
+                    } else {
+                        Toast.makeText(requireContext(), R.string.network_exception, Toast.LENGTH_SHORT).show()
+                    }
                 }
                 return false
             }

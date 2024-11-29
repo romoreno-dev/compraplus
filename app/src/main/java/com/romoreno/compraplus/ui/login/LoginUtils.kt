@@ -2,6 +2,7 @@ package com.romoreno.compraplus.ui.login
 
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthEmailException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -30,6 +31,7 @@ class LoginUtils @Inject constructor() {
 
             is FirebaseAuthInvalidUserException -> fragmentActivity.getString(R.string.auth_invalid_user_exception)
             is FirebaseAuthUserCollisionException -> fragmentActivity.getString(R.string.auth_user_collision_exception)
+            is FirebaseNetworkException -> fragmentActivity.getString(R.string.network_exception)
             else -> fragmentActivity.getString(R.string.auth_exception)
         }
     }
