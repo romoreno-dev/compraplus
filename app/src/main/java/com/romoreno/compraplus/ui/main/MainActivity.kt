@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeDarkMode() {
         val wantsDarkMode =
-            !(AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES)
+            !(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
         setDarkMode(wantsDarkMode)
         CoroutineScope(Dispatchers.IO).launch {
             datastorePreferences.setNightModePreference(wantsDarkMode, auth.currentUser!!.uid)
