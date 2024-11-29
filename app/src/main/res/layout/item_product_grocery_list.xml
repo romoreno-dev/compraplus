@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toStartOf="@id/tvQuantity"
             app:layout_constraintStart_toEndOf="@id/imageViewSupermarket"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Café con leche descafeinado light sin lactosa Hacendado" />
+            tools:text="Café con leche descafeinado light sin lactosa Hacendado de los que a mi me gustan mucho" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvQuantity"
@@ -45,13 +45,13 @@
             android:layout_height="wrap_content"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvProduct"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/imageViewDelete"
-            tools:text="3" />
+            tools:text="300" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewDelete"

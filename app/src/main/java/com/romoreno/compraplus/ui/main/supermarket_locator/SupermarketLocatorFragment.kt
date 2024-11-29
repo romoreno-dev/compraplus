@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentSupermarketLocatorBinding
+import com.romoreno.compraplus.ui.main.MainUtils.haveInternetConnection
 import com.romoreno.compraplus.ui.main.supermarket_locator.utils.SupermarketLocatorUtils
 import com.romoreno.compraplus.ui.main.supermarket_locator.view_model.SupermarketLocatorViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -195,11 +196,21 @@ class SupermarketLocatorFragment : Fragment(), OnMapReadyCallback {
                     // Cuando se cambia muy rapido de fragmento, esta corrutina se inicia
                     // despues y revienta. Compruebo que el fragmento siga ahi
                     if (isAdded) {
-                        val supermarkets = supermarketLocatorViewModel
-                            .getNearbySupermarkets(location.latitude, location.longitude)
-                        withContext(Dispatchers.Main) {
-                            supermarkets.forEach {
-                                utils.addMarkerToMap(map, it, utils.getBitmap(it))
+                        if (requireContext().haveInternetConnection()) {
+                            val supermarkets = supermarketLocatorViewModel
+                                .getNearbySupermarkets(location.latitude, location.longitude)
+                            withContext(Dispatchers.Main) {
+                                supermarkets.forEach {
+                                    utils.addMarkerToMap(map, it, utils.getBitmap(it))
+                                }
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    R.string.network_exception,
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     }

@@ -51,6 +51,7 @@ class ProductAdderDialogFragment : DialogFragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
+        binding.etQuantity.editText?.setText("1")
         arguments?.let {
             binding.etProductName.editText?.setText(it.getString(NAME, ""))
             binding.etQuantity.editText?.setText(it.getString(QUANTITY, "1"))

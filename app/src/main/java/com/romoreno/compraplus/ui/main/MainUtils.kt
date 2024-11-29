@@ -1,5 +1,8 @@
 package com.romoreno.compraplus.ui.main
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.widget.EditText
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.data.network.config.Supermarket
@@ -32,6 +35,13 @@ object MainUtils {
         } catch (e: NumberFormatException) {
             return 1
         }
+    }
+
+    fun Context.haveInternetConnection(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
     }
 
 }

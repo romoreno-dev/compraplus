@@ -39,6 +39,7 @@
     <string name="auth_user_collision_exception">Usuario ya existente</string>
     <string name="auth_weak_password_exception">Debe elegir una contraseña fuerte</string>
     <string name="auth_exception">Se ha producido un error</string>
+    <string name="network_exception">No se ha detectado conexión a Internet</string>
     <string name="auth_must_verify_email">Debes verificar tu correo electrónico para poder acceder a CompraPlus</string>
     <string name="share_grocery_list">Compartir lista</string>
     <string name="remove_grocery_list">Eliminar lista</string>
@@ -68,4 +69,10 @@
     <string name="new_product">Nuevo producto</string>
     <string name="clone_product">Clonar producto</string>
     <string name="clone">Clonar</string>
+    <string name="description_compra_plus_title">Logo de la aplicación Compra Plus. Es un carrito ligeramente inclinado con aspecto de avanzar rápidamente. En su interior tiene una línea discontinua simulando un camino con dos checks en color verde a cada uno de los extremos</string>
+    <string name="description_extended_image_view_product">Producto ampliada</string>
+    <string name="description_image_view_supermarket">Logo del supermercado</string>
+    <string name="description_image_view_product">Producto</string>
+    <string name="description_more">Menú para ver más opciones</string>
+    <string name="description_delete">Opción para eliminar</string>
 </resources>
