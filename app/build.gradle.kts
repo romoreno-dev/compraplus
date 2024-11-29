@@ -1,3 +1,6 @@
+val VERSION: String = "1.0.0"
+val STATE_VERSION: String = "-RC2"
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,7 +21,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0.0-RC1"
+        versionName = "${VERSION}${STATE_VERSION}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,7 +38,7 @@ android {
         }
         getByName("debug") {
             isDebuggable = true
-            resValue("string", "compraplus_name", "CompraPlus [SNAPSHOT]")
+            resValue("string", "compraplus_name", "CompraPlus${STATE_VERSION}")
         }
     }
     compileOptions {
