@@ -39,6 +39,7 @@
     <string name="auth_user_collision_exception">Erabiltzailea dagoeneko existitzen da</string>
     <string name="auth_weak_password_exception">Pasahitz sendo bat aukeratu behar duzu</string>
     <string name="auth_exception">Errore bat gertatu da</string>
+    <string name="network_exception">Ez da Interneteko konexiorik detektatu</string>
     <string name="auth_must_verify_email">Zure posta elektronikoa egiaztatu behar duzu CompraPlus-era sartzeko</string>
     <string name="share_grocery_list">Zerrenda partekatu</string>
     <string name="remove_grocery_list">Zerrenda ezabatu</string>
