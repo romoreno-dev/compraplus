@@ -1,4 +1,4 @@
-package com.romoreno.compraplus.ui.main.grocery_list
+package com.romoreno.compraplus.ui.main.grocery_list.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +13,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * ViewModel del fragmento dedicado a mostrar el listado de listas de la compra
+ *
+ * @author: Roberto Moreno
+ */
 @HiltViewModel
 class GroceryListViewModel @Inject constructor(private val databaseRepository: DatabaseRepository) :
     ViewModel() {

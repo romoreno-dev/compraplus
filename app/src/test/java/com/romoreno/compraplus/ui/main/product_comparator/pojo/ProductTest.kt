@@ -13,7 +13,8 @@ class ProductTest {
         //Given
         val productModel = ProductMotherObject.anyProductModel(
             price = BigDecimal(2.000),
-            unitPrice = BigDecimal(0.7), measureUnit = "L")
+            unitPrice = BigDecimal(0.7), measureUnit = "L"
+        )
 
         //When
         val product = productModel.toProduct()

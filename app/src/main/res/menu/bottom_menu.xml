@@ -3,13 +3,13 @@
     <item
         android:id="@+id/groceryListFragment"
         android:title="@string/grocery_list_menu"
-        android:icon="@drawable/ic_shopping_cart"/>
+        android:icon="@drawable/ic_shopping_cart" />
     <item
         android:id="@+id/productComparatorFragment"
         android:title="@string/product_comparator_menu"
-        android:icon="@drawable/ic_shopping_mode"/>
+        android:icon="@drawable/ic_shopping_mode" />
     <item
         android:id="@+id/supermarketLocatorFragment"
         android:title="@string/supermarket_locator_menu"
-        android:icon="@drawable/ic_location_on"/>
+        android:icon="@drawable/ic_location_on" />
 </menu>

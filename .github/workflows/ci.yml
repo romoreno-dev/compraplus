@@ -2,33 +2,39 @@ name: CompraPlus CI Pipeline
 
 on:
   push:
-    branches: [ "master", "release", "code_quality"]
+    branches: [ "master", "release"]
   pull_request:
-    branches: [ "master", "release", "code_quality"]
+    branches: [ "master", "release"]
 
 jobs:
-  build:
+  compra-plus-ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Ejecutar Checkout de GitHub Actions
         uses: actions/checkout@v3
 
-      - name: Setup JDK 17
+      - name: Instalar Java (JDK 17)
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
 
-      - name: Setup Gradle
+      - name: Instalar Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Build CompraPlus Android application
+      - name: Obtener google-services.json
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          echo "$GOOGLE_SERVICES_JSON" | base64 --decode > ./app/google-services.json
+
+      - name: Generar build de CompraPlus
         run: ./gradlew assemble
 
-      - name: Run Unit Tests
+      - name: Ejecutar test unitarios
         run: ./gradlew testDebugUnitTest
 
-      - name: Print Unit Test Report
+      - name: Imprimir informe de test unitarios
         uses: asadmansr/android-test-report-action@v1.2.0
         if: ${{ always() }}

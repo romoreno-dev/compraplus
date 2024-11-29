@@ -2,6 +2,11 @@ package com.romoreno.compraplus.data.network.pojo.response
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Response de la API de Google Places
+ *
+ * @author Roberto Moreno
+ */
 data class GooglePlacesResponse(
     @SerializedName("results") val results: List<Result>
 )

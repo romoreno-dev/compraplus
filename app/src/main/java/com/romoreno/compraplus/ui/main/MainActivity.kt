@@ -21,6 +21,7 @@ import com.romoreno.compraplus.BuildConfig
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.ActivityMainBinding
 import com.romoreno.compraplus.ui.login.LoginActivity
+import com.romoreno.compraplus.ui.preferences.DatastorePreferences
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,14 +43,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
 
     companion object {
-        val URL_GITHUB = "https://github.com/romoreno-dev"
+        const val URL_GITHUB = "https://github.com/romoreno-dev"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
 
-        val darkMode = runBlocking { datastorePreferences.getNightModePreference(auth.currentUser!!.uid) }
+        val darkMode =
+            runBlocking { datastorePreferences.getNightModePreference(auth.currentUser!!.uid) }
         setDarkMode(darkMode)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -158,7 +160,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeDarkMode() {
         val wantsDarkMode =
-            !(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            !(AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES)
         setDarkMode(wantsDarkMode)
         CoroutineScope(Dispatchers.IO).launch {
             datastorePreferences.setNightModePreference(wantsDarkMode, auth.currentUser!!.uid)

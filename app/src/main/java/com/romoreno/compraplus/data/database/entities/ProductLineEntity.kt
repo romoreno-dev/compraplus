@@ -5,6 +5,11 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 
+/**
+ * Tabla de líneas de productos dentro de las listas de la compra
+ *
+ * @author Roberto Moreno
+ */
 @Entity(
     tableName = "product_line",
     primaryKeys = ["grocery_list_id", "product_id"],
@@ -20,7 +25,8 @@ import androidx.room.Index
             childColumns = ["product_id"],
             onDelete = ForeignKey.CASCADE
         )],
-    indices = [Index(value = ["product_id"])])
+    indices = [Index(value = ["product_id"])]
+)
 data class ProductLineEntity(
     @ColumnInfo(name = "grocery_list_id") val groceryListId: Int,
     @ColumnInfo(name = "product_id") val productId: Int,

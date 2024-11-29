@@ -7,6 +7,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Declaracion de la inyeccion de dependencias necesitada por Firebase
+ *
+ * @author Roberto Moreno
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object FirebaseModule {

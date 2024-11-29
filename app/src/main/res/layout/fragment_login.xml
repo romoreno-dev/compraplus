@@ -11,12 +11,13 @@
         android:layout_width="220dp"
         android:layout_height="220dp"
         android:layout_marginTop="20dp"
+        android:contentDescription="@string/description_compra_plus_title"
         app:layout_constraintBottom_toTopOf="@id/linearLayoutLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_compraplus_title"
-        tools:src="@drawable/ic_compraplus_title"/>
+        tools:src="@drawable/ic_compraplus_title" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutLogin"
@@ -37,7 +38,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            tools:text="Este es un mensaje de prueba por eso es tan largo y voy a seguir escribiendo"/>
+            tools:text="Este es un mensaje de prueba por eso es tan largo y voy a seguir escribiendo" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etEmail"
@@ -55,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLength="40"
-                android:capitalize="none"/>
+                android:capitalize="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,31 +107,3 @@
         app:layout_constraintTop_toBottomOf="@id/btLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--    <com.google.android.material.textfield.TextInputEditText-->
-    <!--        android:id="@+id/etEmail"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        android:layout_marginStart="32dp"-->
-    <!--        android:layout_marginEnd="32dp"-->
-    <!--        android:hint="@string/email"-->
-    <!--        android:drawableStart="@drawable/dia"-->
-    <!--        android:drawablePadding="16dp"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
-
-    <!--    <com.google.android.material.textfield.TextInputEditText-->
-    <!--        android:id="@+id/etPassword"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        android:layout_marginStart="32dp"-->
-    <!--        android:layout_marginEnd="32dp"-->
-    <!--        android:layout_marginTop="32dp"-->
-    <!--        android:hint="@string/password"-->
-    <!--        android:drawableStart="@drawable/dia"-->
-    <!--        android:drawablePadding="16dp"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/etEmail"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"/>-->

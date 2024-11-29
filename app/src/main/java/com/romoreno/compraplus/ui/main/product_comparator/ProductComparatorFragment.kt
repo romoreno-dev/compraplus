@@ -22,16 +22,28 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.FragmentProductComparatorBinding
-import com.romoreno.compraplus.ui.main.grocery_list.OnProductSelectedCallback
+import com.romoreno.compraplus.ui.main.MainUtils
+import com.romoreno.compraplus.ui.main.grocery_list_detail.dialog_fragment.OnProductSelectedCallback
 import com.romoreno.compraplus.ui.main.product_comparator.adapter.ProductComparatorAdapter
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.WhenProductItemSelected
+import com.romoreno.compraplus.ui.main.product_comparator.view_model.ProductComparatorState
+import com.romoreno.compraplus.ui.main.product_comparator.view_model.ProductComparatorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+/**
+ * Fragmento del comparador de precios de productos
+ * Este fragmento hereda de DialogFragment porque puede iniciarse de dos formas diferentes:
+ * - Como un fragmento mas en el que el usuario puede comparar el precio de los productos
+ * - Como un cuadro de dialogo (valor isDialogMode = true) para poder elegir el producto del
+ *   supermercado para incluirlo en la lista de la compra.
+ *   Gracias a la callback OnProductSelectedCallback este valor es devuelto a la GroceryListDetailActivity
+ *
+ * @author: Roberto Moreno
+ */
 @AndroidEntryPoint
 class ProductComparatorFragment : DialogFragment() {
-
     private val productComparatorViewModel: ProductComparatorViewModel by viewModels()
 
     private lateinit var productComparatorAdapter: ProductComparatorAdapter
@@ -43,7 +55,10 @@ class ProductComparatorFragment : DialogFragment() {
     private val binding get() = _binding!!
 
     companion object {
-        val DIALOG_MODE = "DIALOG_MODE"
+        const val DIALOG_MODE = "DIALOG_MODE"
+        const val PIXELS_DIALOG_MODE_REDUCTION_PERCENTAGE = 0.75
+        const val DIALOG_MODE_PADDING = 24
+        const val DIALOG_PRODUCT_ADD = "ADD_PRODUCT"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,11 +80,17 @@ class ProductComparatorFragment : DialogFragment() {
                     )
                 )
                 setLayout(
-                    (resources.displayMetrics.widthPixels * 0.75).toInt(),
-                    (resources.displayMetrics.heightPixels * 0.75).toInt()
+                    (resources.displayMetrics.widthPixels * PIXELS_DIALOG_MODE_REDUCTION_PERCENTAGE).toInt(),
+                    (resources.displayMetrics.heightPixels * PIXELS_DIALOG_MODE_REDUCTION_PERCENTAGE).toInt()
                 )
             }
-            dialog?.window?.decorView?.setPadding(24, 24, 24, 24)
+            dialog?.window?.decorView
+                ?.setPadding(
+                    DIALOG_MODE_PADDING,
+                    DIALOG_MODE_PADDING,
+                    DIALOG_MODE_PADDING,
+                    DIALOG_MODE_PADDING
+                )
 
             binding.etQuantity.apply {
                 visibility = View.VISIBLE
@@ -132,21 +153,8 @@ class ProductComparatorFragment : DialogFragment() {
 
     private fun addProductToGroceryList(product: Product) {
         onProductSelectedCallback
-            ?.onProductSelected(tryParseContentToInt(binding.etQuantity.editText), product)
+            ?.onProductSelected(MainUtils.tryParseContentToInt(binding.etQuantity.editText), product)
         dismiss()
-    }
-
-    private fun tryParseContentToInt(editText: EditText?): Int {
-        try {
-            val number = editText?.text.toString().toInt()
-            return if (number > 0) {
-                number
-            } else {
-                1
-            }
-        } catch (e: NumberFormatException) {
-            return 1
-        }
     }
 
     private fun shareProduct(product: Product) {
@@ -162,7 +170,7 @@ class ProductComparatorFragment : DialogFragment() {
                     product.image
                 )
             )
-            type = "text/plain"
+            type = MainUtils.INTENT_MIMETYPE
         }
 
         val shareIntent =

@@ -8,10 +8,9 @@ import com.romoreno.compraplus.data.database.dao.SupermarketDao
 import com.romoreno.compraplus.data.database.dao.UserDao
 import com.romoreno.compraplus.data.database.entities.GroceryListEntity
 import com.romoreno.compraplus.data.database.entities.ProductLineEntity
-import com.romoreno.compraplus.data.database.mapper.ProductMapper.toUser
+import com.romoreno.compraplus.data.database.mapper.UserMapper.toUser
 import com.romoreno.compraplus.domain.model.GroceryListModel
 import com.romoreno.compraplus.domain.model.GroceryListProductsModel
-import com.romoreno.compraplus.domain.model.ProductModel
 import com.romoreno.compraplus.domain.model.toGroceryListModel
 import com.romoreno.compraplus.domain.model.toGroceryListProductsModel
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
@@ -21,6 +20,11 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+/**
+ * Repositorio de la base de datos
+ *
+ * @author Roberto Moreno
+ */
 class DatabaseRepositoryImpl @Inject constructor(
     private val groceryListDao: GroceryListDao,
     private val productDao: ProductDao,
@@ -30,13 +34,6 @@ class DatabaseRepositoryImpl @Inject constructor(
 ) :
     DatabaseRepository {
 
-    // todo Entran y salen de aqui OBJETOS DE NEGOCIO (¡¡NO ENTIDADES!!)
-    override suspend fun insertUserIfNotExist(user: FirebaseUser) {
-        if (userDao.getUserByUid(user.uid) == null) {
-            userDao.insert(user.toUser())
-        }
-    }
-
     override fun getGroceryListsFromUser(firebaseUser: FirebaseUser?): Flow<List<GroceryListModel>> {
         return groceryListDao.getGroceryListsFromUserId(firebaseUser?.uid!!)
             .map { list ->
@@ -45,33 +42,60 @@ class DatabaseRepositoryImpl @Inject constructor(
     }
 
     override fun getGroceryListWithProductsFlow(groceryListId: Int): Flow<GroceryListProductsModel> {
-        return groceryListDao.getGroceryListWithDetails(groceryListId)
+        return groceryListDao.getGroceryListWithProductLines(groceryListId)
             .map { it.toGroceryListProductsModel() }
     }
 
     override suspend fun getGroceryListWithProducts(groceryListId: Int): GroceryListProductsModel? {
-        return groceryListDao.getGroceryListWithDetails(groceryListId)
+        return groceryListDao.getGroceryListWithProductLines(groceryListId)
             .firstOrNull()?.toGroceryListProductsModel()
     }
 
-    override suspend fun createGroceryList(name: String, date: Long, userFirebaseUser: FirebaseUser) {
-        val groceryListEntity = GroceryListEntity(name = name, date = date,
-            userId = userFirebaseUser.uid)
+    override suspend fun createGroceryList(
+        name: String,
+        date: Long,
+        userFirebaseUser: FirebaseUser
+    ) {
+        val groceryListEntity = GroceryListEntity(
+            name = name, date = date,
+            userId = userFirebaseUser.uid
+        )
         groceryListDao.insert(groceryListEntity)
+    }
+
+    override suspend fun deleteGroceryList(groceryListId: Int) {
+        return groceryListDao.deleteGroceryListWithId(groceryListId)
+    }
+
+    override suspend fun markProductAsAdquired(
+        groceryListId: Int,
+        idProduct: Int,
+        checked: Boolean
+    ) {
+        val productLine = productLineDao.getProductLine(groceryListId, idProduct)
+        productLine?.adquired = checked
+        if (productLine != null) {
+            productLineDao.update(productLine)
+        }
     }
 
     override suspend fun insertProductIfNotExist(product: Product): Int {
         var productEntity = productDao.getProduct(product.name, product.supermarket.name)
-        if (productEntity == null) {
-            val supermarketId = supermarketDao.getIdFromName(product.supermarket.name)
-            return productDao.insert(product.toProductEntity(supermarketId)).toInt()
+        return if (productEntity == null) {
+            val supermarketId = supermarketDao.getIdSupermarketFromName(product.supermarket.name)
+            productDao.insert(product.toProductEntity(supermarketId)).toInt()
         } else {
-            return productEntity.id
+            productEntity.id
         }
     }
 
+    override suspend fun deleteProduct(groceryListId: Int, idProduct: Int) {
+        return productLineDao.deleteProductLine(groceryListId, idProduct)
+    }
+
     override suspend fun insertProductLineOrUpdate(productLine: ProductLineEntity) {
-        var productLineEntity = productLineDao.getProductLine(productLine.groceryListId, productLine.productId)
+        var productLineEntity =
+            productLineDao.getProductLine(productLine.groceryListId, productLine.productId)
         if (productLineEntity == null) {
             productLineDao.insert(productLine)
         } else {
@@ -79,20 +103,9 @@ class DatabaseRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteGroceryList(groceryListId: Int) {
-
-        return groceryListDao.deleteGroceryListWithId(groceryListId)
-    }
-
-    override suspend fun deleteProduct(groceryListId: Int, idProduct: Int) {
-        return productLineDao.deleteProductLine(groceryListId, idProduct)
-    }
-
-    override suspend fun markProductAsAdquired(groceryListId: Int, idProduct: Int, checked: Boolean) {
-        val productLine = productLineDao.getProductLine(groceryListId, idProduct)
-        productLine?.adquired = checked
-        if (productLine != null) {
-            productLineDao.update(productLine)
+    override suspend fun insertUserIfNotExist(user: FirebaseUser) {
+        if (userDao.getUserByUid(user.uid) == null) {
+            userDao.insert(user.toUser())
         }
     }
 

@@ -2,5 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/md_theme_secondaryContainer" /> <!-- Color de fondo blanco, puedes cambiarlo -->
     <corners android:radius="16dp" /> <!-- Ajusta el radio para los bordes redondeados -->
-    <stroke android:color="@color/md_theme_secondaryContainer" android:width="2dp" /> <!-- Opcional: color y grosor del borde -->
+    <stroke
+        android:color="@color/md_theme_secondaryContainer"
+        android:width="2dp" /> <!-- Opcional: color y grosor del borde -->
 </shape>

@@ -15,12 +15,13 @@
         android:layout_height="match_parent"
         android:layout_margin="12dp">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewSupermarket"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:padding="10dp"
+            android:contentDescription="@string/description_image_view_supermarket"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,12 +53,13 @@
             app:layout_constraintEnd_toStartOf="@id/imageViewDelete"
             tools:text="3" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewDelete"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:padding="15dp"
+            android:contentDescription="@string/description_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvQuantity"
             app:layout_constraintTop_toTopOf="parent"
@@ -73,7 +75,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:checked="true"/>
+            android:checked="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

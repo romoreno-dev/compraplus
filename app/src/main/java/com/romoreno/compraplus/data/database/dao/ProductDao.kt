@@ -5,11 +5,13 @@ import androidx.room.Query
 import com.romoreno.compraplus.data.database.dao.base.BaseDao
 import com.romoreno.compraplus.data.database.entities.ProductEntity
 
+/**
+ * DAO para la tabla de productos
+ *
+ * @author Roberto Moreno
+ */
 @Dao
 interface ProductDao : BaseDao<ProductEntity> {
-
-    @Query("SELECT * FROM product WHERE name LIKE '%' || :keywordProduct || '%'")
-    suspend fun getProducts(keywordProduct: String): List<ProductEntity>
 
     @Query(
         """

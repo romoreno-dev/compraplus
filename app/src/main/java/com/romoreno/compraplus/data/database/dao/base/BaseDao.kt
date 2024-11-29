@@ -5,13 +5,15 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Update
 
+/**
+ * Clase base para los DAO (Nos permitirá definir un CRUD básico)
+ *
+ * @author Roberto Moreno
+ */
 interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: T): Long
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(list: List<T>)
 
     @Update
     suspend fun update(entity: T)

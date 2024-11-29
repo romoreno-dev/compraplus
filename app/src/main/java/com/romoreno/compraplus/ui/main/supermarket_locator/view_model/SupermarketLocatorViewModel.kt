@@ -1,4 +1,4 @@
-package com.romoreno.compraplus.ui.main.supermarket_locator
+package com.romoreno.compraplus.ui.main.supermarket_locator.view_model
 
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
@@ -7,6 +7,11 @@ import com.romoreno.compraplus.domain.model.SupermarketModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+/**
+ * ViewModel para la localizacion de supermercados
+ *
+ * @author: Roberto Moreno
+ */
 @HiltViewModel
 class SupermarketLocatorViewModel @Inject constructor(private val supermarketMiddleware: SupermarketMiddleware) :
     ViewModel() {

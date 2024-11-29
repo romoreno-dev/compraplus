@@ -3,7 +3,6 @@ package com.romoreno.compraplus.ui.main.grocery_list_detail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,21 +18,30 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.romoreno.compraplus.R
 import com.romoreno.compraplus.databinding.ActivityGroceryListDetailBinding
 import com.romoreno.compraplus.domain.model.ProductGroceryList
-import com.romoreno.compraplus.ui.main.grocery_list.OnProductSelectedCallback
-import com.romoreno.compraplus.ui.main.grocery_list_detail.ProductAdderDialogFragment.Companion.NAME
-import com.romoreno.compraplus.ui.main.grocery_list_detail.ProductAdderDialogFragment.Companion.QUANTITY
-import com.romoreno.compraplus.ui.main.grocery_list_detail.ProductAdderDialogFragment.Companion.SUPERMARKET
+import com.romoreno.compraplus.ui.main.grocery_list_detail.dialog_fragment.OnProductSelectedCallback
+import com.romoreno.compraplus.ui.main.grocery_list_detail.dialog_fragment.ProductAdderDialogFragment.Companion.NAME
+import com.romoreno.compraplus.ui.main.grocery_list_detail.dialog_fragment.ProductAdderDialogFragment.Companion.QUANTITY
+import com.romoreno.compraplus.ui.main.grocery_list_detail.dialog_fragment.ProductAdderDialogFragment.Companion.SUPERMARKET
 import com.romoreno.compraplus.ui.main.grocery_list_detail.adapter.ProductGroceryListAdapter
+import com.romoreno.compraplus.ui.main.grocery_list_detail.dialog_fragment.ProductAdderDialogFragment
 import com.romoreno.compraplus.ui.main.grocery_list_detail.pojo.WhenProductGroceryListItemSelected
+import com.romoreno.compraplus.ui.main.grocery_list_detail.view_model.GroceryListDetailViewModel
+import com.romoreno.compraplus.ui.main.grocery_list_detail.view_model.ProductGroceryListState
 import com.romoreno.compraplus.ui.main.product_comparator.ProductComparatorFragment
 import com.romoreno.compraplus.ui.main.product_comparator.ProductComparatorFragment.Companion.DIALOG_MODE
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+/**
+ * Actividad dedicada a mostrar los productos contenidos en una lista de la compra
+ * Posibilita el añadir nuevos productos (de la API del supermercado o escritos por el usuario),
+ * clonar nuevos productos a partir de alguno ya existente en la lista o eliminarlos
+ *
+ * @author: Roberto Moreno
+ */
 @AndroidEntryPoint
 class GroceryListDetailActivity : AppCompatActivity(), OnProductSelectedCallback {
-
     private val groceryListDetailViewModel: GroceryListDetailViewModel by viewModels()
 
     private val args: GroceryListDetailActivityArgs by navArgs()
@@ -52,28 +60,16 @@ class GroceryListDetailActivity : AppCompatActivity(), OnProductSelectedCallback
     }
 
     private fun initUI() {
-//        initToolbar()
         initList()
         initListeners()
         initUIState()
     }
 
-//    private fun initToolbar() {
-//        setSupportActionBar(binding.topDetailsGroceryListBar)
-//    }
-
     private fun initList() {
-        //  registerForContextMenu(binding.rvProducts)
-        // groceryListAdapter = GroceryListAdapter(
-        //     WhenGroceryListItemSelected(
-        //         { id -> toGroceryListDetails(id) },
-        //          { id, name, date, view -> popupMenuOnGroceryListItem(id, name, date, view) }
-        //      )
-        //  )
 
         productGroceryListAdapter = ProductGroceryListAdapter(
             WhenProductGroceryListItemSelected(
-                {product -> updateProduct(product)},
+                { product -> updateProduct(product) },
                 { product, checked -> markAsAdquired(product, checked) },
                 { product -> showRemoveAlertDialog(product) })
         )
@@ -99,7 +95,7 @@ class GroceryListDetailActivity : AppCompatActivity(), OnProductSelectedCallback
         productComparatorDialogFragment.arguments = Bundle().apply {
             putBoolean(DIALOG_MODE, true)
         }
-        productComparatorDialogFragment.show(supportFragmentManager, "PRODUCT_ADD")
+        productComparatorDialogFragment.show(supportFragmentManager, ProductComparatorFragment.DIALOG_PRODUCT_ADD)
     }
 
     private fun initUIState() {
@@ -131,14 +127,6 @@ class GroceryListDetailActivity : AppCompatActivity(), OnProductSelectedCallback
         }
     }
 
-    private fun errorState() {
-        Toast.makeText(
-            this,
-            getString(R.string.search_error_information_message),
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
     private fun showRemoveAlertDialog(productGroceryList: ProductGroceryList) {
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.remove_product))
@@ -166,7 +154,7 @@ class GroceryListDetailActivity : AppCompatActivity(), OnProductSelectedCallback
             putString(SUPERMARKET, product.supermarket?.name)
             putString(QUANTITY, product.quantity.toString())
         }
-        productAdderDialogFragment.show(supportFragmentManager, "MODIFY_PRODUCT_MANUALLY")
+        productAdderDialogFragment.show(supportFragmentManager, ProductAdderDialogFragment.DIALOG_PRODUCT_MODIFY)
     }
 
     private fun markAsAdquired(productGroceryList: ProductGroceryList, checked: Boolean) {
@@ -209,6 +197,6 @@ class GroceryListDetailActivity : AppCompatActivity(), OnProductSelectedCallback
 
     private fun showDialogProductAdder() {
         val productAdderDialogFragment = ProductAdderDialogFragment()
-        productAdderDialogFragment.show(supportFragmentManager, "ADD_PRODUCT_MANUALLY")
+        productAdderDialogFragment.show(supportFragmentManager, ProductAdderDialogFragment.DIALOG_PRODUCT_ADD_MANUALLY)
     }
 }

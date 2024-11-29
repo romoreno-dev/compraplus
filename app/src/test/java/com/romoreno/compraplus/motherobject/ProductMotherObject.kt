@@ -21,17 +21,21 @@ object ProductMotherObject {
         unitPrice: BigDecimal = BigDecimal("0.35"),
         measureUnit: String = "L",
         image: String = "https://example.com/leche.jpg",
-        brand: String = "Hacendado",
-        supermarket: Supermarket = Supermarket.Mercadona) : ProductModel {
-        val prices = com.romoreno.compraplus.domain.model.Prices(price, unitPrice,measureUnit)
-        return ProductModel(name, prices, image,
-            brand, Supermarket.Mercadona)
+        brand: String = "Hacendado"
+    ): ProductModel {
+        val prices = com.romoreno.compraplus.domain.model.Prices(price, unitPrice, measureUnit)
+        return ProductModel(
+            name, prices, image,
+            brand, Supermarket.Mercadona
+        )
     }
 
-    fun anyProduct() : Product {
+    fun anyProduct(): Product {
         val pricesExpected = Prices("2.00 €", "0.70 €/L")
-        return Product("Leche", pricesExpected, "http://www.example.com",
-            "HACENDADO", Supermarket.Mercadona)
+        return Product(
+            "Leche", pricesExpected, "http://www.example.com",
+            "HACENDADO", Supermarket.Mercadona
+        )
     }
 
 }

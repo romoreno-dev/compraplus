@@ -3,6 +3,8 @@ package com.romoreno.compraplus.ui.main.product_comparator
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.romoreno.compraplus.domain.ProductMiddleware
 import com.romoreno.compraplus.motherobject.ProductMotherObject.productsList
+import com.romoreno.compraplus.ui.main.product_comparator.view_model.ProductComparatorState
+import com.romoreno.compraplus.ui.main.product_comparator.view_model.ProductComparatorViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
@@ -64,3 +66,4 @@ class ProductComparatorViewModelTest {
         assertTrue((state as ProductComparatorState.Success).products == mockProductList)
     }
 }
+
