@@ -52,7 +52,7 @@ object ProductMapper {
     }
 
     private fun normalizeMeasureUnit(measureUnit: String): String {
-        var normalizedMeasureUnit = ""
+        var normalizedMeasureUnit = measureUnit
         if (measureUnit.isNotBlank()) {
             if (measureUnit.contains("LITRO", true))
                 normalizedMeasureUnit = "L"

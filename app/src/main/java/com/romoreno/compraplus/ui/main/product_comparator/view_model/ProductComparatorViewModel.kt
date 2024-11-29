@@ -43,4 +43,10 @@ class ProductComparatorViewModel @Inject constructor(private val productMiddlewa
         }
     }
 
+    fun toSuccessState() {
+        viewModelScope.launch {
+            _state.value = ProductComparatorState.Success(emptyList())
+        }
+    }
+
 }
