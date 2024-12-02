@@ -189,7 +189,7 @@ class GroceryListFragment : Fragment() {
     private fun showRemoveAlertDialog(groceryListId: Int) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.remove_grocery_list))
-            .setMessage(getString(R.string.remove_confirmation_product_message))
+            .setMessage(getString(R.string.remove_confirmation_grocery_list_message))
             .setPositiveButton(getString(R.string.delete)) { _, _ ->
                 deleteGroceryList(groceryListId)
             }

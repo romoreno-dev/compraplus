@@ -3,6 +3,7 @@ package com.romoreno.compraplus.ui.main.product_comparator
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.romoreno.compraplus.domain.ProductMiddleware
 import com.romoreno.compraplus.motherobject.ProductMotherObject.productsList
+import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
 import com.romoreno.compraplus.ui.main.product_comparator.view_model.ProductComparatorState
 import com.romoreno.compraplus.ui.main.product_comparator.view_model.ProductComparatorViewModel
 import io.mockk.MockKAnnotations
@@ -64,6 +65,36 @@ class ProductComparatorViewModelTest {
         // Then
         assertTrue(state is ProductComparatorState.Success)
         assertTrue((state as ProductComparatorState.Success).products == mockProductList)
+    }
+
+    @Test
+    fun `searchProduct with swipe should emit Success with products when find results`() = runTest {
+        // Given
+        val mockProductList = productsList
+        val keyword = "keyword"
+        coEvery { productMiddleware.getProducts(keyword) } returns mockProductList
+
+        // When
+        viewModel.searchProduct(keyword, true)
+        sleep(100)
+        val state = viewModel.state.value
+
+        // Then
+        assertTrue(state is ProductComparatorState.Success)
+        assertTrue((state as ProductComparatorState.Success).products == mockProductList)
+    }
+
+    @Test
+    fun `successState should set value as Success`() = runTest {
+        // When
+        viewModel.toSuccessState()
+        sleep(100)
+        val state = viewModel.state.value
+
+        // Then
+        assertTrue(state is ProductComparatorState.Success)
+        assertTrue((state as ProductComparatorState.Success).products == emptyList<Product>())
+
     }
 }
 
