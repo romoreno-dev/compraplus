@@ -1,5 +1,5 @@
 val VERSION: String = "1.0.0"
-val STATE_VERSION: String = "-RC2"
+val STATE_VERSION: String = "-RC3"
 
 plugins {
     alias(libs.plugins.android.application)
