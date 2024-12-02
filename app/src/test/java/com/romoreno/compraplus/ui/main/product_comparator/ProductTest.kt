@@ -1,6 +1,7 @@
-package com.romoreno.compraplus.ui.main.product_comparator.pojo
+package com.romoreno.compraplus.ui.main.product_comparator
 
 import com.romoreno.compraplus.motherobject.ProductMotherObject
+import com.romoreno.compraplus.ui.main.product_comparator.pojo.toProduct
 import io.kotlintest.shouldBe
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
