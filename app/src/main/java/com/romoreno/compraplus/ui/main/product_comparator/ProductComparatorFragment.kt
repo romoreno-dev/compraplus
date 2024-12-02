@@ -212,7 +212,7 @@ class ProductComparatorFragment : DialogFragment() {
                         is ProductComparatorState.Success -> successState(it)
                         ProductComparatorState.Loading -> loadingState()
                         ProductComparatorState.Swipping -> swipeState()
-                        ProductComparatorState.Error -> errorState()
+                        // ProductComparatorState.Error -> errorState()
                     }
                 }
             }
