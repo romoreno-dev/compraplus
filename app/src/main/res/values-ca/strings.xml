@@ -37,7 +37,7 @@
     <string name="auth_invalid_credentials_exception">Credencials no valides</string>
     <string name="auth_invalid_user_exception">L\'usuari no existeix o esta deshabilitat</string>
     <string name="auth_user_collision_exception">Usuari ja existent</string>
-    <string name="auth_weak_password_exception">Has d\'escollir una contrasenya forta</string>
+    <string name="auth_weak_password_exception">Has d\'escollir una contrasenya forta (6 caracters)</string>
     <string name="auth_exception">S\'ha produit un error</string>
     <string name="network_exception">No s\'ha detectat connexio a Internet</string>
     <string name="auth_must_verify_email">Has de verificar el teu correu electronic per poder accedir a CompraPlus</string>
