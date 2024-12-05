@@ -20,6 +20,7 @@ class LoginUtils @Inject constructor() {
 
     companion object {
         const val MULTIPLE_INDEX_CHARACTERS_THAT_ARE_VISIBLE = 3
+        const val PASSWORD_DOES_NOT_MEET_REQUIREMENTS = "PASSWORD_DOES_NOT_MEET_REQUIREMENTS"
     }
 
     fun catchFirebaseException(fragmentActivity: FragmentActivity, exception: Exception?): String {
@@ -32,7 +33,13 @@ class LoginUtils @Inject constructor() {
             is FirebaseAuthInvalidUserException -> fragmentActivity.getString(R.string.auth_invalid_user_exception)
             is FirebaseAuthUserCollisionException -> fragmentActivity.getString(R.string.auth_user_collision_exception)
             is FirebaseNetworkException -> fragmentActivity.getString(R.string.network_exception)
-            else -> fragmentActivity.getString(R.string.auth_exception)
+            else -> {
+                if (exception?.message?.contains(PASSWORD_DOES_NOT_MEET_REQUIREMENTS) == true) {
+                    fragmentActivity.getString(R.string.auth_weak_password_exception)
+                } else {
+                    fragmentActivity.getString(R.string.auth_exception)
+                }
+            }
         }
     }
 
