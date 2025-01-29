@@ -2,7 +2,7 @@ package com.romoreno.compraplus.ui.main.product_comparator.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.romoreno.compraplus.domain.ProductMiddleware
+import com.romoreno.compraplus.domain.ProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import javax.inject.Inject
  * @author: Roberto Moreno
  */
 @HiltViewModel
-class ProductComparatorViewModel @Inject constructor(private val productMiddleware: ProductMiddleware) :
+class ProductComparatorViewModel @Inject constructor(private val productUseCase: ProductUseCase) :
     ViewModel() {
 
     private var _state = MutableStateFlow<ProductComparatorState>(
@@ -38,7 +38,7 @@ class ProductComparatorViewModel @Inject constructor(private val productMiddlewa
                 ProductComparatorState.Loading
             }
             val products =
-                withContext(Dispatchers.IO) { productMiddleware.getProducts(productKeyword) }
+                withContext(Dispatchers.IO) { productUseCase.getProducts(productKeyword) }
             _state.value = ProductComparatorState.Success(products)
         }
     }

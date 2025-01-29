@@ -3,7 +3,7 @@ package com.romoreno.compraplus.ui.main.grocery_list_detail.view_model
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.romoreno.compraplus.data.database.repository.DatabaseRepository
-import com.romoreno.compraplus.domain.ProductMiddleware
+import com.romoreno.compraplus.domain.ProductUseCase
 import com.romoreno.compraplus.domain.model.GroceryListProductsModel
 import com.romoreno.compraplus.domain.model.ProductGroceryList
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GroceryListDetailViewModel @Inject constructor(
     private val databaseRepository: DatabaseRepository,
-    private val productMiddleware: ProductMiddleware
+    private val productUseCase: ProductUseCase
 ) :
     ViewModel() {
 
@@ -73,7 +73,7 @@ class GroceryListDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = _state.value.copy(loading = true)
             withContext(Dispatchers.IO) {
-                productMiddleware.insertOrUpdateProductLine(groceryListId, quantity, product)
+                productUseCase.insertOrUpdateProductLine(groceryListId, quantity, product)
             }
             _state.value = _state.value.copy(loading = false)
         }

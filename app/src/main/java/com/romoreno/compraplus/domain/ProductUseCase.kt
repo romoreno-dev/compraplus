@@ -17,7 +17,7 @@ import javax.inject.Inject
  *
  * @author Roberto Moreno
  */
-class ProductMiddleware @Inject constructor(
+class ProductUseCase @Inject constructor(
     private val repositories: Map<String,
             @JvmSuppressWildcards SupermarketRepository>,
     private val databaseRepository: DatabaseRepository

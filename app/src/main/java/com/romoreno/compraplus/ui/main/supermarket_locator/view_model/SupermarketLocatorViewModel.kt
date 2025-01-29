@@ -2,7 +2,7 @@ package com.romoreno.compraplus.ui.main.supermarket_locator.view_model
 
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
-import com.romoreno.compraplus.domain.SupermarketMiddleware
+import com.romoreno.compraplus.domain.SupermarketUseCase
 import com.romoreno.compraplus.domain.model.SupermarketModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import javax.inject.Inject
  * @author: Roberto Moreno
  */
 @HiltViewModel
-class SupermarketLocatorViewModel @Inject constructor(private val supermarketMiddleware: SupermarketMiddleware) :
+class SupermarketLocatorViewModel @Inject constructor(private val supermarketUseCase: SupermarketUseCase) :
     ViewModel() {
 
     companion object {
@@ -29,7 +29,7 @@ class SupermarketLocatorViewModel @Inject constructor(private val supermarketMid
     }
 
     suspend fun getNearbySupermarkets(latitude: Double, longitude: Double): List<SupermarketModel> {
-        return supermarketMiddleware.getNearbySupermarkets(latitude, longitude, RADIUS)
+        return supermarketUseCase.getNearbySupermarkets(latitude, longitude, RADIUS)
     }
 
 }
