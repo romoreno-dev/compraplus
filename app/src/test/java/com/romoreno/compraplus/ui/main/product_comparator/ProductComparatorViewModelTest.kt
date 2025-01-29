@@ -1,7 +1,7 @@
 package com.romoreno.compraplus.ui.main.product_comparator
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.romoreno.compraplus.domain.ProductMiddleware
+import com.romoreno.compraplus.domain.ProductUseCase
 import com.romoreno.compraplus.motherobject.ProductMotherObject.productsList
 import com.romoreno.compraplus.ui.main.product_comparator.pojo.Product
 import com.romoreno.compraplus.ui.main.product_comparator.view_model.ProductComparatorState
@@ -24,7 +24,7 @@ import java.lang.Thread.sleep
 class ProductComparatorViewModelTest {
 
     @RelaxedMockK
-    private lateinit var productMiddleware: ProductMiddleware
+    private lateinit var productUseCase: ProductUseCase
 
     private lateinit var viewModel: ProductComparatorViewModel
 
@@ -38,7 +38,7 @@ class ProductComparatorViewModelTest {
     fun setUp() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(testDispatcher)
-        viewModel = ProductComparatorViewModel(productMiddleware)
+        viewModel = ProductComparatorViewModel(productUseCase)
     }
 
     @Test
@@ -55,7 +55,7 @@ class ProductComparatorViewModelTest {
         // Given
         val mockProductList = productsList
         val keyword = "keyword"
-        coEvery { productMiddleware.getProducts(keyword) } returns mockProductList
+        coEvery { productUseCase.getProducts(keyword) } returns mockProductList
 
         // When
         viewModel.searchProduct(keyword)
@@ -72,7 +72,7 @@ class ProductComparatorViewModelTest {
         // Given
         val mockProductList = productsList
         val keyword = "keyword"
-        coEvery { productMiddleware.getProducts(keyword) } returns mockProductList
+        coEvery { productUseCase.getProducts(keyword) } returns mockProductList
 
         // When
         viewModel.searchProduct(keyword, true)
