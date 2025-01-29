@@ -14,7 +14,7 @@ import javax.inject.Inject
  *
  * @author Roberto Moreno
  */
-class SupermarketMiddleware @Inject constructor(private val repository: PlaceRepository) {
+class SupermarketUseCase @Inject constructor(private val repository: PlaceRepository) {
 
     /**
      * Obtener supermercados cercanos consultando al repositorio de lugares (mediante peticiones de red)
